@@ -12,7 +12,7 @@ return array(
     'name'    => 'Blog',
     'version' => '0.9-alpha',
 	'href' => 'admin/noviusos_blog/list',
-	'icon64'  => 'static/modules/noviusos_blog/img/64/blog.png',
+	'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
     'provider' => array(
         'name' => 'Novius OS',
     ),
@@ -20,8 +20,8 @@ return array(
         'blog' => array(
             'name'    => 'Blog',
             'url' => 'admin/noviusos_blog/list',
-            'iconUrl' => 'static/modules/noviusos_blog/img/32/blog.png',
-            'icon64'  => 'static/modules/noviusos_blog/img/64/blog.png',
+            'iconUrl' => 'static/apps/noviusos_blog/img/32/blog.png',
+            'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
         ),
     ),
     'wysiwyg_enhancers' => array(
@@ -31,7 +31,7 @@ return array(
             'rewrite_prefix' => 'blog',
             'desc'  => '',
             'target' => 'noviusos_blog/front',
-            'iconUrl' => 'static/modules/noviusos_blog/img/16/blog.png',
+            'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
             'previewUrl' => 'admin/noviusos_blog/preview',
 	        'dialog' => array(
 		        'contentUrl' => 'admin/noviusos_blog/popup',

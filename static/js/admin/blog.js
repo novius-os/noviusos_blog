@@ -14,7 +14,7 @@ define([
         return {
             tab : {
                 label : appDesk.i18n('Blog'),
-                iconUrl : 'static/modules/noviusos_blog/img/32/blog.png'
+                iconUrl : 'static/apps/noviusos_blog/img/32/blog.png'
             },
             actions : {
                 update : {

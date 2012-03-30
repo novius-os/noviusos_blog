@@ -14,7 +14,7 @@
         $(function () {
             $.nos.tabs.update({
                 label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
-                iconUrl : 'static/modules/noviusos_blog/img/16/blog.png'
+                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png'
             });
         });
     });

@@ -22,7 +22,7 @@ return array(
 	'views' => array(
 		'default' => array(
 			'name' => __('Default view'),
-			'json' => array('static/modules/noviusos_blog/js/admin/blog.js'),
+			'json' => array('static/apps/noviusos_blog/js/admin/blog.js'),
 		),
 	),
 	'i18n' => array(

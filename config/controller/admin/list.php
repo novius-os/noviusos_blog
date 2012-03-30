@@ -2,7 +2,7 @@
 return array(
     'assets' => array(
         'paths' => array(
-            'static/modules/noviusos_blog/'
+            'static/apps/noviusos_blog/'
         ),
         'css'   => array(
             'admin.css'
