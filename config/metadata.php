@@ -24,7 +24,7 @@ return array(
             'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
         ),
     ),
-    'wysiwyg_enhancers' => array(
+    'enhancers' => array(
         'noviusos_blog' => array(
             'title' => 'Blog',
             'id'    => 'noviusos_blog',
