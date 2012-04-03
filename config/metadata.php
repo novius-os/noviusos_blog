@@ -30,7 +30,7 @@ return array(
             'id'    => 'noviusos_blog',
             'rewrite_prefix' => 'blog',
             'desc'  => '',
-            'target' => 'noviusos_blog/front',
+            'enhancer' => 'noviusos_blog/front',
             'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
             'previewUrl' => 'admin/noviusos_blog/preview',
 	        'dialog' => array(
