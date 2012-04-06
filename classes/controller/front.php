@@ -43,45 +43,45 @@ class Controller_Front extends Controller {
     public static $blog_url = '';
 
     public function action_main($args = array()) {
-
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));
 
         $this->merge_config('config');
 
-        $rewrites =& $this->rewrites;
+	    $this->enhancerUrlPath = \URI::base().\Nos::main_controller()->enhancerUrlPath;
 
-        if (!empty($rewrites) && is_array($rewrites)) {
+	    $url = $args['url'];
 
-            if ($rewrites[1] == 'c' && is_numeric($rewrites[2])) {
+        if (!empty($url)) {
+	        $this->enhancerUrl_segments = explode('/', $url);
 
-                $this->cache_cleanup = "blog/category/{$rewrites[2]}";
-                empty($rewrites[3]) && $rewrites[3] = 1;
-                $this->init_pagination($rewrites[3]);
-                return $this->display_list_category($args);
+	        if (empty($segments[1])) {
+		        $this->cache_cleanup = "blog/post/{$segments[0]}";
+		        return $this->display_item($args);
+	        } else if ($segments[0] === 'page') {
+		        $this->cache_cleanup = "blog/list";
+		        $this->init_pagination(empty($segments[1]) ? 1 : $segments[1]);
+		        return $this->display_list_main($args);
+	        } else if ($segments[0] === 'category') {
+		        $this->cache_cleanup = "blog/category/{$segments[1]}";
+		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
+		        return $this->display_list_category($args);
+	        } else if ($segments[0] === 'author') {
+		        $this->cache_cleanup = "blog/author/{$segments[1]}";
+		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
+		        return $this->display_list_author($args);
+	        } else if ($segments[0] === 'tag') {
+		        $this->cache_cleanup = "blog/tag/{$segments[1]}";
+		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
+		        return $this->display_list_tag($args);
+	        }
 
-            } else if ($rewrites[1] == 'u' && is_numeric($rewrites[2])) {
-
-                $this->cache_cleanup = "blog/author/{$rewrites[2]}";
-                $this->init_pagination(!empty($rewrites[3]) ? $rewrites[3] : 1);
-                return $this->display_list_author($args);
-
-            } else if ($rewrites[0] == 'tag') {
-
-                $this->cache_cleanup = "blog/tag/{$rewrites[1]}";
-                $this->init_pagination(!empty($rewrites[2]) ? $rewrites[2] : 1);
-                return $this->display_list_tag($args);
-
-            } else if (is_numeric($rewrites[1])) {
-
-                $this->cache_cleanup = "blog/post/{$rewrites[1]}";
-                return $this->display_item($args);
-            }
+	        throw new \Nos\NotFoundException();
         }
 
         $this->cache_cleanup = "blog/list";
-        $this->init_pagination(!empty($rewrites[0]) ? $rewrites[0] : 1);
+        $this->init_pagination(1);
         return $this->display_list_main($args);
     }
 
@@ -107,16 +107,16 @@ class Controller_Front extends Controller {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return $class::rewrite_url($self->rewrite_url);
+                    return substr($this->enhancerUrlPath, 0, -1).'.html';
                 }
-                return $class::rewrite_url($self->rewrite_url, 'blog', $page);
+                return $self->enhancerUrlPath.'page/'.$page;
             }),
         ), false);
     }
 
     public function display_list_category($params) {
 
-        list(,,$cat_id, $page) = $this->rewrites;
+        list(,,$cat_id, $page) = $this->enhancerUrl_segments;
 
         $this->category = Model_Category::find($cat_id);
         $list = $this->_display_list('category');
@@ -126,7 +126,7 @@ class Controller_Front extends Controller {
         $url   = $this->url;
 
         $link_to_category = function($category, $page = 1) use($class, $url) {
-            return $class::rewrite_url_category($category, $page, $url);
+            return $class::url_category($category, $page, $url);
         };
         $link_pagination = function($page) use ($link_to_category, $self) {
             return $link_to_category($self->category, $page);
@@ -143,7 +143,7 @@ class Controller_Front extends Controller {
 
     public function display_list_tag($params) {
 
-        list(, $tag) = $this->rewrites;
+        list(, $tag) = $this->enhancerUrl_segments;
         $this->tag = strtolower($tag);
 
 
@@ -152,7 +152,7 @@ class Controller_Front extends Controller {
         $url   = $this->url;
 
         $link_to_tag = function($tag, $page = 1) use($class, $url) {
-            return $class::rewrite_url_tag($tag, $page, $url);
+            return $class::url_tag($tag, $page, $url);
         };
         $link_pagination = function($page) use ($link_to_tag, $self) {
             return $link_to_tag($self->tag, $page);
@@ -171,7 +171,7 @@ class Controller_Front extends Controller {
 
     public function display_list_author($user_id) {
 
-        list(,,$user_id, $page) = $this->rewrites;
+        list(,,$user_id, $page) = $this->enhancerUrl_segments;
 
         $this->author = \Nos\Model_User_User::find($user_id);
         $list = $this->_display_list('author');
@@ -181,7 +181,7 @@ class Controller_Front extends Controller {
         $url   = $this->url;
 
         $link_to_author = function($author, $page = 1) use($self, $url) {
-            return $self::rewrite_url_author($author, '', $page, $url);
+            return $self::url_author($author, $page, $url);
         };
         $link_pagination = function($page) use ($link_to_author, $self) {
             return $link_to_author($self->author, $page);
@@ -337,7 +337,7 @@ class Controller_Front extends Controller {
      */
     public function display_item($args) {
 
-        list(, $item_id) = $this->rewrites;
+        list(, $item_id) = $this->enhancerUrl_segments;
 
         $this->trigger('display_item');
         $this->merge_config('display_item');
@@ -363,17 +363,17 @@ class Controller_Front extends Controller {
         $data['created_at'] = strtotime($item['blog_created_at']);
 
         // Additional data calculated per-item
-        $data['link_to_author'] = self::rewrite_url_author($item->author, $item->blog_author, $this->url);
-        $data['link_to_item']   = self::rewrite_url_item($item, $this->url);
+        $data['link_to_author'] = $item->author ? self::url_author($item->author, 1, $this->url) : '';
+        $data['link_to_item']   = self::url_item($item, $this->enhancerUrlPath);
         $data['link_on_title']  = $this->config['link_on_title'] ? $data['link_to_item'] : false;
 
         $self = get_called_class();
         $url  = $this->url;
         $data['link_to_category'] = function($category, $page = 1) use($self, $url) {
-            return $self::rewrite_url_category($category, $page, $url);
+            return $self::url_category($category, $page, $url);
         };
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
-            return $self::rewrite_url_tag($tag, $page, $url);
+            return $self::url_tag($tag, $page, $url);
         };
 
         // Renders all the fields
@@ -514,7 +514,7 @@ class Controller_Front extends Controller {
                 }
             }
 ?>
-    <a class="tag <?= $prefixeclass.$poids ?>" href="<?= self::rewrite_url_tag($tag->tag, 1, static::$blog_url) ?>"><?= $tag->tag ?></a>
+    <a class="tag <?= $prefixeclass.$poids ?>" href="<?= self::url_tag($tag->tag, 1, static::$blog_url) ?>"><?= $tag->tag ?></a>
 <?php
         }
     }
@@ -575,7 +575,7 @@ class Controller_Front extends Controller {
             $nbss = count($nbss);
 
 ?>
-      <li><a href="<?= self::rewrite_url_category($categorie, static::$blog_url) ?>"><?= $categorie->blgc_title ?></a>
+      <li><a href="<?= self::url_category($categorie, static::$blog_url) ?>"><?= $categorie->blgc_title ?></a>
 <?          if ($nbss) { ?>
         <ul>
 <?              self::SousMenuCategorie($categorie->blgc_id); ?>
@@ -633,35 +633,23 @@ class Controller_Front extends Controller {
 <?
     }
 
-    static function rewrite_url_item($item, $url = null) {
+    static function url_item($item, $url = null) {
 
-        return self::rewrite_url($url, 'blog', $item->blog_title, $item->blog_id);
+        return $url.urlencode($item->blog_title);
     }
 
-    static function rewrite_url_category($category, $page = 1, $url = null) {
+    static function url_category($category, $page = 1, $url = null) {
 
-        $args = array($url, 'blog', $category->blgc_title, 'c', $category->blgc_id);
-        if ($page > 1) {
-            $args[] = $page;
-        }
-        return call_user_func_array('static::rewrite_url', $args);
+	    return $url.'category/'.urlencode($category->blgc_title).($page > 1 ? '/'.$page : '');
     }
 
-    static function rewrite_url_author($author, $fallback, $page, $url = null) {
+    static function url_author($author, $page, $url = null) {
 
-        $args = array($url, 'blog', $author->fullname() ?: $fallback, 'u', $author->user_id);
-        if ($page > 1) {
-            $args[] = $page;
-        }
-        return call_user_func_array('static::rewrite_url', $args);
+        return $url.'author/'.urlencode($author->fullname()).($page > 1 ? '/'.$page : '');
     }
 
-    static function rewrite_url_tag($tag, $page, $url = null) {
+    static function url_tag($tag, $page, $url = null) {
 
-        $args = array($url, 'blog', 'tag', $tag);
-        if ($page > 1) {
-            $args[] = $page;
-        }
-        return call_user_func_array('static::rewrite_url', $args);
+	    return $url.'tag/'.urlencode($tag).($page > 1 ? '/'.$page : '');
     }
 }

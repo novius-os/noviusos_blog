@@ -30,7 +30,8 @@ return array(
             'id'    => 'noviusos_blog',
             'rewrite_prefix' => 'blog',
             'desc'  => '',
-            'enhancer' => 'noviusos_blog/front',
+	        //'enhancer' => 'noviusos_blog/front',
+            'urlEnhancer' => 'noviusos_blog/front',
             'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
             'previewUrl' => 'admin/noviusos_blog/preview',
 	        'dialog' => array(
@@ -39,18 +40,6 @@ return array(
 		        'height' => 180,
 		        'ajax' => true,
 	        ),
-        ),
-    ),
-    'templates' => array(
-        'blog' => array(
-            'file' => 'blog',
-            'title' => 'Main template',
-            'cols' => 3,
-            'rows' => 1,
-            'layout' => array(
-                'content' => '0,0,2,1',
-                'right' => '2,0,1,1',
-            ),
         ),
     ),
 );
