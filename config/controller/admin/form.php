@@ -29,28 +29,39 @@ return array(
                     'type' => 'text',
                 ),
             ),
-            'author->user_fullname' => array(
+            'blog_virtual_name' => array(
+                'label' => 'URL: ',
+                'form' => array(
+                    'type' => 'text',
+                    'size' => 20,
+                ),
+                'validation' => array(
+                    'required',
+                    'min_length' => array(2),
+                ),
+            ),
+            'author->user_name' => array(
                 'label' => 'Author: ',
                 'widget' => 'text',
                 'editable' => false,
             ),
             'wysiwygs->content->wysiwyg_text' => array(
                 'label' => 'Contenu',
-                'widget' => 'wysiwyg',
+                'widget' => 'wysiwyg', //wysiwyg
                 'form' => array(
                     'style' => 'width: 100%; height: 500px;',
                     ),
             ),
             'medias->thumbnail->medil_media_id' => array(
                 'label' => '',
-                'widget' => 'media',
+                'widget' => 'media', //media
                 'form' => array(
                     'title' => 'Thumbnail',
                 ),
             ),
             'blog_created_at' => array(
                 'label' => 'Created at:',
-                'widget' => 'date_picker',
+                'widget' => 'date_picker', //date_picker
             ),
             'blog_read' => array(
                 'label' => 'Read',

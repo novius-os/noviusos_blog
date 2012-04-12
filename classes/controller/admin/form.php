@@ -14,15 +14,84 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
 
 
     public function action_edit($id = false) {
+        $new_lang = \Input::get('new_lang', 0) == 1;
+
+        $date = new \Date();
+        $date = $date->format('%Y-%m-%d');
+
+
         if ($id === false) {
-            $object = null;
+            $object = Model_Blog::forge();
+            $object->author = \Session::user();
+            $object->blog_lang = 'fr_FR'; // default selected language...
+            $object->blog_created_at = $date;
         } else {
             $object = Model_Blog::find($id);
         }
-        return \View::forge($this->config['views']['edit'], array(
-            'object'   => $object,
-            'fieldset' => static::fieldset($this->config['fields']($object), $object)->set_config('field_template', '<tr><th>{label}{required}</th><td class="{error_class}">{field} {error_msg}</td></tr>'),
-        ), false);
+
+
+
+        if ($new_lang) {
+            $create_from_id = \Input::get('create_from_id', 0);
+            if (empty($create_from_id)) {
+                $object                 = Model_Blog::forge();
+                $object->blog_lang_common_id = \Input::get('common_id');
+            } else {
+                $object_from = Model_Blog::find($create_from_id);
+                $object      = clone $object_from;
+            }
+            $object->blog_lang = \Input::get('lang');
+            $object->author = \Session::user();
+            $object->blog_created_at = $date;
+        }
+
+
+        $fields = $this->config['fields']($object);
+
+        if ($new_lang || \Input::post('blog_lang', false) != false) {
+            $fields = \Arr::merge($fields, array(
+                'blog_title' => array(
+                    'validation' => array(
+                        'required',
+                        'min_length' => array(6),
+                    ),
+                ),
+                'blog_lang' => array(
+                    'form' => array(
+                        'type' => 'hidden',
+                        'value' => \Input::get('lang'),
+                    ),
+                ),
+                'blog_lang_common_id' => array(
+                    'form' => array(
+                        'type' => 'hidden',
+                        'value' => $object->blog_lang_common_id,
+                    ),
+                ),
+                'save' => array(
+                    'form' => array(
+                        'value' => __('Add'),
+                    ),
+                ),
+            ));
+        }
+
+
+
+        $fieldset = static::fieldset($fields, $object)->set_config('field_template', '<tr><th>{label}{required}</th><td class="{error_class}">{field} {error_msg}</td></tr>');
+
+        if ($new_lang) {
+            return \View::forge('noviusos_blog::form/post_edit', array(
+                'item'     => $object,
+                'fieldset' => $fieldset,
+                'lang'     => $object->blog_lang
+            ), false);
+        } else {
+            return \View::forge($this->config['views']['edit'], array(
+                'object'   => $object,
+                'fieldset' => $fieldset,
+            ), false);
+        }
     }
 
     public static function fieldset($fields, $object) {

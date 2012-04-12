@@ -9,8 +9,8 @@
  */
 ?>
 <div class="billet">
-      <?= $title ?>
-      <?= $date ?> • <?= $author ?>
+      <h1><?= $title ?></h1>
+      <div class="date"><?= $date ?></div>
       <br class="clearfloat"/>
 
       <div class="resume" style="text-align:justify"><?= $summary ?></div>
@@ -19,7 +19,11 @@
 
       <div class="categories"><?= $categories ?></div>
       <div class="tags"><?= $tags ?></div>
-      <div class="nb_commentaire"><?= $stats ?></div>
+      <div class="comments" id="comments">
+          <?= $stats ?>
+          <?= render('front/comments_list', array('item' => $item), true) ?>
+          <?= render('front/comment_form', array('item' => $item), true) ?>
+      </div>
 
       <?= $comments ?>
 </div>

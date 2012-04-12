@@ -29,44 +29,19 @@
 }
 </style>
 
-<div class="page">
 <?php
-$fieldset->form()->set_config('field_template',  "\t\t<tr><th class=\"{error_class}\">{label}{required}</th><td class=\"{error_class}\">{field} {error_msg}</td></tr>\n");
-
-foreach ($fieldset->field() as $field) {
-	if ($field->type == 'checkbox') {
-		$field->set_template('{field} {label}');
-	}
-}
-
-$fieldset->field('blog_read')->set_template('{label} {field} times');
-$fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
-?>
-
-<?= $fieldset->open('admin/noviusos_blog/form/edit'.(isset($object) ? '/'.$object->blog_id : '')); ?>
-<?= View::forge('form/layout_standard', array(
-	'fieldset' => $fieldset,
-	'medias' => array('medias->thumbnail->medil_media_id'),
-	'title' => 'blog_title',
-	'id' => 'blog_id',
-
-	'published' => 'blog_publication_start',
-	'save' => 'save',
-
-	'subtitle' => array(),
-
-	'content' => \View::forge('form/expander', array(
-		'title'   => 'Content',
-		'nomargin' => true,
-		'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
-	), false),
-
-	'menu' => array(
-		// user_fullname is not a real field in the database
-		'Meta' => array('author->user_fullname', 'blog_author', 'blog_created_at', 'blog_read'),
-		'Categories' => array(),
-		'Tags' => array(),
-	),
-), false); ?>
-<?= $fieldset->close(); ?>
-</div>
+    echo View::forge('nos::layouts/languages',
+        array(
+            'item' => $object,
+            'views' => array(
+                'blank' => array(
+                    'location' => 'noviusos_blog::form/post_edit_blank',
+                    'params'   => array()
+                ),
+                'view' => array(
+                    'location' => 'noviusos_blog::form/post_edit',
+                    'params'   => array('fieldset' => $fieldset)
+                ),
+            ),
+        )
+        , false);

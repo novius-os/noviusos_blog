@@ -40,12 +40,16 @@ class Controller_Front extends Controller {
      */
     public $tag;
 
+    public $page_from = false;
+
     public static $blog_url = '';
 
     public function action_main($args = array()) {
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));
+
+        $this->page_from = $args['config']->page;
 
         $this->merge_config('config');
 
@@ -55,6 +59,8 @@ class Controller_Front extends Controller {
 
         if (!empty($url)) {
 	        $this->enhancerUrl_segments = explode('/', $url);
+            $segments = $this->enhancerUrl_segments;
+
 
 	        if (empty($segments[1])) {
 		        $this->cache_cleanup = "blog/post/{$segments[0]}";
@@ -92,15 +98,12 @@ class Controller_Front extends Controller {
 
     public function display_list_main($params) {
 
-
-        //$this->merge_config('config');
         $list = $this->_display_list('list_main');
 
         \Nos::main_controller()->page_title = 'Novius Labs';
 
         $self   = $this;
         $class = get_class($this);
-
 
         // Add surrounding stuff
         return View::forge($this->config['list_view'], array(
@@ -216,7 +219,7 @@ class Controller_Front extends Controller {
         $query = Model_Blog::query()
                 ->related('author');
 
-		$query->where(array('blog_lang', 'fr'));
+		$query->where(array('blog_lang', $this->page_from->page_lang));
 
         if (!empty($this->category)) {
             $query->related('categories');
@@ -229,8 +232,6 @@ class Controller_Front extends Controller {
             $query->related('tags');
             $query->where(array('tags.tag_label', $this->tag));
         }
-
-
 
         $this->pagination->set_config(array(
             'total_items'    => $query->count(),
@@ -276,16 +277,6 @@ class Controller_Front extends Controller {
                     ->execute()->as_array();
             $comments_count = \Arr::assoc_to_keyval($comments_count, 'comm_parent_id', 'count_result');
 
-            /* Should look like this with the Orm, but that doesn't work...
-            $t = \Nos\Model_Comment::query()
-                    ->select(\Db::expr('COUNT(comm_id)', 'count_result'), 'comm_parent_id')
-                    ->where(array(
-                        array('comm_type', '=', 'blog'),
-                        array('comm_parent_id', 'in', $ids),
-                    ))
-                    //->group_by('comm_parent_id')
-                    ->get();
-            //*/
         }
 
         // Loop meta-data
@@ -337,13 +328,31 @@ class Controller_Front extends Controller {
      */
     public function display_item($args) {
 
-        list(, $item_id) = $this->enhancerUrl_segments;
+        list($item_virtual_name) = $this->enhancerUrl_segments;
 
         $this->trigger('display_item');
         $this->merge_config('display_item');
 
-        $post = Model_Blog::find($item_id);
+        $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name))));
+
+
+        $this->_add_comment($post);
+
         echo $this->_display_item($post);
+    }
+
+    protected function _add_comment($post) {
+        if (\Input::post('todo') == 'add_comment') {
+            $comm = new Model_Comment();
+            $comm->comm_type = 'blog';
+            $comm->comm_email = \Input::post('comm_email');
+            $comm->comm_author = \Input::post('comm_author');
+            $comm->comm_content = \Input::post('comm_content');
+            $date = new \Fuel\Core\Date();
+            $comm->comm_created_at = \Date::forge()->format('mysql');
+            $comm->post = $post;
+            $comm->save();
+        }
     }
 
     /**
@@ -634,22 +643,30 @@ class Controller_Front extends Controller {
     }
 
     static function url_item($item, $url = null) {
-
-        return $url.urlencode($item->blog_title);
+        if (is_null($url)) {
+            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+        }
+        return $url.urlencode($item->blog_virtual_name).'.html';
     }
 
     static function url_category($category, $page = 1, $url = null) {
-
-	    return $url.'category/'.urlencode($category->blgc_title).($page > 1 ? '/'.$page : '');
+        if (is_null($url)) {
+            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+        }
+	    return $url.'category/'.urlencode($category->blgc_title).($page > 1 ? '/'.$page : '').'.html';
     }
 
     static function url_author($author, $page, $url = null) {
-
-        return $url.'author/'.urlencode($author->fullname()).($page > 1 ? '/'.$page : '');
+        if (is_null($url)) {
+            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+        }
+        return $url.'author/'.urlencode($author->fullname()).($page > 1 ? '/'.$page : '').'.html';
     }
 
     static function url_tag($tag, $page, $url = null) {
-
-	    return $url.'tag/'.urlencode($tag).($page > 1 ? '/'.$page : '');
+        if (is_null($url)) {
+            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+        }
+	    return $url.'tag/'.urlencode($tag).($page > 1 ? '/'.$page : '').'.html';
     }
 }

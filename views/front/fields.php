@@ -13,7 +13,8 @@ if (!empty($display['title'])) {
     if (!empty($link_title)) {
         $title = '<a href="'.$link_on_title.'">'.$title.'</a>';
     }
-    echo '<'.$title_tag.' class="billet_titre">'.$title.'</'.$title_tag.'>';
+    //echo '<'.$title_tag.' class="billet_titre">'.$title.'</'.$title_tag.'>';
+    echo $title;
 }
 
 if (!empty($display['author'])) {
@@ -31,6 +32,7 @@ if (!empty($display['date']) && !empty($created_at)) {
     }
     $styles = !empty($color) ? 'style="color:'.$color.';"' : '';
     echo '<span class="date" '.$styles.'>'.$date.'</span>';
+    //echo $date;
 }
 
 if (!empty($display['summary']) && !empty($item->blog_summary)) {
@@ -71,8 +73,8 @@ if (!empty($display['categories']) && !empty($item->categories)) {
 
 if (!empty($display['stats'])) {
     if (empty($comments_count)) {
-        echo '<a href="'.$link_to_item.'#commentaires">Aucun commentaire</a>';
+        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">Aucun commentaire</div>';
     } else {
-        echo '<a href="'.$link_to_item.'#commentaires">'.$comments_count.' commentaire'.($comments_count > 1 ? 's' : '').'</a>';
+        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.$comments_count.' commentaire'.($comments_count > 1 ? 's' : '').'</div>';
     }
 }

@@ -26,9 +26,9 @@ class Model_Blog extends \Nos\Orm\Model {
         ),
     );
 
-	protected static $_behaviors = array(
+	protected static $_behaviours = array(
 		'Nos\Orm_Behaviour_Translatable' => array(
-			'events' => array('before_insert', 'after_insert', 'before_save'),
+			'events' => array('before_insert', 'after_insert', 'before_save', 'after_delete', 'before_change_parent', 'after_change_parent'),
 			'lang_property'      => 'blog_lang',
 			'common_id_property' => 'blog_lang_common_id',
 			'single_id_property' => 'blog_lang_single_id',
@@ -70,6 +70,16 @@ class Model_Blog extends \Nos\Orm\Model {
         ),
     );
 
+    protected static $_has_many = array(
+        'comments' => array(
+            'key_from' => 'blog_id',
+            'model_to' => 'Nos\Blog\Model_Comment',
+            'key_to' => 'comm_parent_id',
+            'cascade_save' => false,
+            'cascade_delete' => true,
+        ),
+    );
+
 
     function updateCategoriesById($ids) {
         $deleteIds = array();
@@ -87,8 +97,8 @@ class Model_Blog extends \Nos\Orm\Model {
         }
     }
 
-    public function toto() {
-        return 'first toto';
+    public function get_possible_lang() {
+        return array_keys(\Config::get('locales'));
     }
 }
 
