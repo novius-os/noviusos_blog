@@ -24,7 +24,10 @@ define([
                             label   : appDesk.i18n('Edit')._()
                         });
                     },
-                    label : appDesk.i18n('Edit')
+                    label : appDesk.i18n('Edit'),
+                    name : 'edit',
+                    primary : true,
+                    icon : 'pencil'
                 },
                 'delete' : {
                     action : function(item) {
@@ -44,7 +47,19 @@ define([
                             }
                         });
                     },
-                    label : appDesk.i18n('Delete')
+                    label : appDesk.i18n('Delete'),
+                    name : 'delete',
+                    primary : true,
+                    icon : 'trash'
+                },
+                'visualise' : { // ne fonctionne pas
+                    label : 'Visualise',
+                    name : 'visualise',
+                    primary : true,
+                    iconClasses : 'nos-icon16 nos-icon16-eye',
+                    action : function(item) {
+                        window.open(item.visualise);
+                    }
                 }
             },
             appdesk : {
@@ -91,6 +106,37 @@ define([
                     }
                 },
                 inspectors : {
+                    authors : {
+                        widget_id : 'noviusos_blog_authors',
+                        label : appDesk.i18n('Authors'),
+                        url : 'admin/noviusos_blog/inspector/author/list',
+                        grid : {
+                            columns : {
+                                title : {
+                                    headerText : appDesk.i18n('Author'),
+                                    dataKey : 'title'
+                                },
+                                actions : {
+                                    showOnlyArrow : true,
+                                    actions : [
+                                        {
+                                            action : function(item) {
+                                                $.nos.tabs.add({
+                                                    iframe : true,
+                                                    url     : "admin/noviusos_blog/form?id=" + item.id,
+                                                    label   : "Update"
+                                                });
+                                            },
+                                            label : appDesk.i18n('Update')
+                                        }
+                                    ]
+                                }
+                            },
+                            urlJson : 'admin/noviusos_blog/inspector/author/json'
+                        },
+                        inputName : 'blog_author_id[]',
+                        vertical : true
+                    },
                     categories : {
                         widget_id : 'noviusos_blog_categories',
                         label : appDesk.i18n('Categories'),
@@ -192,36 +238,6 @@ define([
                             }
                         },
                         inputName : 'tag_id[]'
-                    },
-                    authors : {
-                        widget_id : 'noviusos_blog_authors',
-                        label : appDesk.i18n('Authors'),
-                        url : 'admin/noviusos_blog/inspector/author/list',
-                        grid : {
-                            columns : {
-                                title : {
-                                    headerText : appDesk.i18n('Author'),
-                                    dataKey : 'title'
-                                },
-                                actions : {
-                                    showOnlyArrow : true,
-                                    actions : [
-                                        {
-                                            action : function(item) {
-                                                $.nos.tabs.add({
-                                                    iframe : true,
-                                                    url     : "admin/noviusos_blog/form?id=" + item.id,
-                                                    label   : "Update"
-                                                });
-                                            },
-                                            label : appDesk.i18n('Update')
-                                        }
-                                    ]
-                                }
-                            },
-                            urlJson : 'admin/noviusos_blog/inspector/author/json'
-                        },
-                        inputName : 'blog_author_id[]'
                     },
                     publishDate : {
                         widget_id : 'noviusos_blog_publishDate',

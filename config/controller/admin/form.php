@@ -70,11 +70,50 @@ return array(
                     'size' => '4',
                 ),
             ),
+            'blog_tags' => array(
+                'label' => 'Tags',
+                'populate' => function($object) {
+                    $tags = Arr::assoc_to_keyval($object->tags, 'id', 'tag_label');
+                    return implode(', ', array_values($tags));
+                },
+                'before_save' => function($object, $data) {
+                    $tags_from = str_replace(' ', ',', $data['blog_tags']);
+                    $tags_from = explode(',', $tags_from);
+                    $tags = array();
+                    foreach ($tags_from as $tag) {
+                        if (!empty($tag)) {
+                            $tags[$tag] = $tag;
+                        }
+                    }
+                    $tags_objs = \Nos\Blog\Model_Tag::find('all', array('where' => array(array('tag_label', 'IN', array_keys($tags)))));
+
+                    $object->tags = array();
+
+                    foreach ($tags_objs as $obj) {
+                        unset($tags[$obj->tag_label]);
+                        $object->tags[] = $obj;
+                    }
+
+                    foreach ($tags as $tag) {
+                        $tag_obj = new \Nos\Blog\Model_Tag(array('tag_label' => $tag));
+                        //$tag_obj->save();
+                        $object->tags[] = $tag_obj;
+                    }
+
+                    //$object->tags[] = new Model_Tag(array('blgt_tag_id' => ))
+                },
+                'form' => array(
+                    'type' => 'text',
+                ),
+            ),
             'save' => array(
                 'label' => '',
                 'form' => array(
                     'type' => 'submit',
+                    'tag' => 'button',
                     'value' => 'Save',
+                    'class' => 'primary',
+                    'data-icon' => 'check',
                 ),
             ),
         );

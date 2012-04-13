@@ -10,6 +10,8 @@ foreach ($fieldset->field() as $field) {
 
 $fieldset->field('blog_read')->set_template('{label} {field} times');
 $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
+$fieldset->field('blog_tags')->set_template('{field}');
+$fieldset->field('blog_virtual_name')->set_template('{label} {field} .html');
 //\Debug::dump($fieldset->field('wysiwygs->content'));
 //echo $fieldset->field('wysiwygs->content')->forge();
 ?>
@@ -39,7 +41,7 @@ $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
         'Meta' => array('author->user_name', 'blog_author', 'blog_created_at', 'blog_read'),
         __('URL (post address)') => array('blog_virtual_name'),
         'Categories' => array(),
-        'Tags' => array(),
+        'Tags' => array('blog_tags'),
     ),
 ), false); ?>
 <?= $fieldset->close(); ?>

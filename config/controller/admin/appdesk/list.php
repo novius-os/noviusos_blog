@@ -78,6 +78,9 @@ return array(
 			},
 
 		),
+        'visualise' => function($object) {
+            return 'test'; // ne fonctionne pas ?
+        },
 	),
 	'inputs' => array(
 		'blgc_id' => function($value, $query) {
