@@ -110,9 +110,9 @@ class Controller_Front extends Controller {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return substr($this->enhancerUrlPath, 0, -1).'.html';
+                    return substr($self->enhancerUrlPath, 0, -1).'.html';
                 }
-                return $self->enhancerUrlPath.'page/'.$page;
+                return $self->enhancerUrlPath.'page/'.$page.'.html';
             }),
         ), false);
     }
@@ -209,7 +209,6 @@ class Controller_Front extends Controller {
         // Allow events for each or all context
         $this->trigger('display_list');
         $this->trigger("display_{$context}");
-
 
 
         $this->config = \Arr::merge($this->config, $this->default_config['display_list'], $this->default_config["display_{$context}"]);
@@ -393,6 +392,7 @@ class Controller_Front extends Controller {
             $data['item']    = $item;
             $view = static::get_view($view);
             $view->set($data);
+            $view->set('item', $item, false);
             $fields[$field] = $view;
         }
         $view = static::get_view($this->config['item_view']);
