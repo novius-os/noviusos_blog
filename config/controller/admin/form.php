@@ -70,6 +70,26 @@ return array(
                     'size' => '4',
                 ),
             ),
+	        'blog_categories' => array(
+		        'label' => '',
+		        'widget' => 'Nos\Blog\Widget_Categories',
+		        'widget_options' => array(
+			        'width' => '100%',
+			        'height' => '250px',
+		        ),
+		        'populate' => function($object) {
+			        $categories = Arr::assoc_to_keyval($object->categories, 'blgc_id', 'blgc_id');
+			        return array_values($categories);
+		        },
+		        'before_save' => function($object, $data) {
+			        $categories_id = is_array($data['blog_categories']) ? $data['blog_categories'] : array();
+			        $object->categories = array();
+			        if (!count($categories_id)) {
+				        return;
+			        }
+			        $object->categories = \Nos\Blog\Model_Category::find('all', array('where' => array(array('blgc_id', 'IN', $categories_id))));
+		        },
+	        ),
             'blog_tags' => array(
                 'label' => 'Tags',
                 'populate' => function($object) {
@@ -85,22 +105,20 @@ return array(
                             $tags[$tag] = $tag;
                         }
                     }
-                    $tags_objs = \Nos\Blog\Model_Tag::find('all', array('where' => array(array('tag_label', 'IN', array_keys($tags)))));
+	                $object->tags = array();
+	                if (!count($tags)) {
+		                return;
+	                }
 
-                    $object->tags = array();
+	                $object->tags = \Nos\Blog\Model_Tag::find('all', array('where' => array(array('tag_label', 'IN', array_keys($tags)))));
 
-                    foreach ($tags_objs as $obj) {
+                    foreach ($object->tags as $obj) {
                         unset($tags[$obj->tag_label]);
-                        $object->tags[] = $obj;
                     }
-
                     foreach ($tags as $tag) {
                         $tag_obj = new \Nos\Blog\Model_Tag(array('tag_label' => $tag));
-                        //$tag_obj->save();
                         $object->tags[] = $tag_obj;
                     }
-
-                    //$object->tags[] = new Model_Tag(array('blgt_tag_id' => ))
                 },
                 'form' => array(
                     'type' => 'text',
