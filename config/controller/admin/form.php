@@ -7,7 +7,7 @@ return array(
         return array (
             'blog_id' => array (
                 'label' => 'Id: ',
-                'widget' => 'text',
+                'widget' => 'Nos\Widget_Text',
                 'editable' => false,
             ),
             'blog_publication_start' => array (
@@ -42,26 +42,26 @@ return array(
             ),
             'author->user_name' => array(
                 'label' => 'Author: ',
-                'widget' => 'text',
+                'widget' => 'Nos\Widget_Text',
                 'editable' => false,
             ),
             'wysiwygs->content->wysiwyg_text' => array(
                 'label' => 'Contenu',
-                'widget' => 'wysiwyg', //wysiwyg
+                'widget' => 'Nos\Widget_Wysiwyg', //wysiwyg
                 'form' => array(
                     'style' => 'width: 100%; height: 500px;',
                     ),
             ),
             'medias->thumbnail->medil_media_id' => array(
                 'label' => '',
-                'widget' => 'media', //media
+                'widget' => 'Nos\Widget_Media', //media
                 'form' => array(
                     'title' => 'Thumbnail',
                 ),
             ),
             'blog_created_at' => array(
                 'label' => 'Created at:',
-                'widget' => 'date_picker', //date_picker
+                'widget' => 'Nos\Widget_Date_Picker', //date_picker
             ),
             'blog_read' => array(
                 'label' => 'Read',
