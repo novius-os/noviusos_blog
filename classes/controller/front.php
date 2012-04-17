@@ -56,6 +56,9 @@ class Controller_Front extends Controller {
 	    $this->enhancerUrlPath = \URI::base().\Nos::main_controller()->enhancerUrlPath;
 
 	    $url = $args['url'];
+        $this->config['item_per_page'] = $args['config']->item_per_page;
+
+        \Nos\I18n::load('noviusos_blog::comments', 'comments');
 
         if (!empty($url)) {
 	        $this->enhancerUrl_segments = explode('/', $url);
