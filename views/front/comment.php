@@ -1,6 +1,6 @@
 <li class="comment" id="comment<?= $comment->comm_id ?>">
     <div class="comment_infos">
-        <span class="comment_author"><a href="mailto:<?= $comment->comm_email ?>" class="mailto">Commentaire par <?= $comment->comm_author ?></a></span>
+        <span class="comment_author">Commentaire par <?= $comment->comm_author ?></span>
         <span class="comment_date"><?= $comment->comm_created_at ?></span>
         <br class="clearfloat">
     </div>
