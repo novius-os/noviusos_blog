@@ -78,9 +78,10 @@ return array(
 			},
 
 		),
+        /*
         'visualise' => function($object) {
-            return 'test'; // ne fonctionne pas ?
-        },
+            return \Nos\Blog\Controller_Front::url_item($object); // ne fonctionne pas ?
+        },*/
 	),
 	'inputs' => array(
 		'blgc_id' => function($value, $query) {

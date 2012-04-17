@@ -19,6 +19,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label} {field} .html');
 <?= $fieldset->open('admin/noviusos_blog/form/edit'.(isset($item) ? '/'.$item->blog_id : '')); ?>
 <?= View::forge('form/layout_standard', array(
     'fieldset' => $fieldset,
+    'object' => $item,
     'medias' => array('medias->thumbnail->medil_media_id'),
     'title' => 'blog_title',
     'id' => 'blog_id',

@@ -219,6 +219,8 @@ class Controller_Front extends Controller {
         $query = Model_Blog::query()
                 ->related('author');
 
+        $query->where(array('blog_published', true));
+
 		$query->where(array('blog_lang', $this->page_from->page_lang));
 
         if (!empty($this->category)) {
@@ -333,7 +335,7 @@ class Controller_Front extends Controller {
         $this->trigger('display_item');
         $this->merge_config('display_item');
 
-        $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name))));
+        $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name), array('blog_published', '=', true))));
 
 
         $this->_add_comment($post);
@@ -641,6 +643,8 @@ class Controller_Front extends Controller {
 </ul>
 <?
     }
+
+
 
     static function url_item($item, $url = null) {
         if (is_null($url)) {
