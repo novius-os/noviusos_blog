@@ -22,7 +22,7 @@ if (!empty($display['author'])) {
     if (!empty($link_to_author)) {
         $author = '<a href="'.$link_to_author.'">'.$author.'</a>';
     }
-    echo 'Posté par : '.$author;
+    echo Nos\I18n::gget('comments', 'Posté par : ').$author;
 }
 
 if (!empty($display['date']) && !empty($created_at)) {
@@ -73,7 +73,7 @@ if (!empty($display['categories']) && !empty($item->categories)) {
 
 if (!empty($display['stats'])) {
     if (empty($comments_count)) {
-        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">Aucun commentaire</div>';
+        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.Nos\I18n::gget('comments', 'Aucun commentaire').'</div>';
     } else {
         echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.$comments_count.' commentaire'.($comments_count > 1 ? 's' : '').'</div>';
     }
