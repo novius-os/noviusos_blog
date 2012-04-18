@@ -22,7 +22,7 @@ if (!empty($display['author'])) {
     if (!empty($link_to_author)) {
         $author = '<a href="'.$link_to_author.'">'.$author.'</a>';
     }
-    echo Nos\I18n::gget('comments', 'Posted by: ').$author;
+    echo __('Posted: ').$author;
 }
 
 if (!empty($display['date']) && !empty($created_at)) {
@@ -48,7 +48,7 @@ if (!empty($display['wysiwyg']) && !empty($item->wysiwygs)) {
 }
 
 if (!empty($display['tags'])) {
-    echo '<span style="padding-right:5px;" class="tags_titre">Tags :</span>';
+    echo '<span style="padding-right:5px;" class="tags_titre">'.__('Tags: ').'</span>';
 
     $tags = array();
     foreach ($item->tags as $tag) {
