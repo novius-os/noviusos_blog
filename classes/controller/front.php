@@ -52,6 +52,8 @@ class Controller_Front extends Controller {
 
         $this->page_from = \Nos::main_page();
 
+        setlocale(LC_ALL, $this->page_from->get_lang());
+
         \Nos\I18n::setLocale($this->page_from->get_lang());
 
         $this->merge_config('config');
