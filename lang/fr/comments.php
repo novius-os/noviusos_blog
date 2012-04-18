@@ -1,6 +1,6 @@
 <?php
 return array(
-    'Posted: '                  => 'Posté par : ',
+    'Posted: '                  => 'Posté le : ',
     ':comments comments'        => ':comments commentaires',
     '1 comment'                 => '1 commentaire',
     'Comment by :author'        => 'Commentaire de :author',
