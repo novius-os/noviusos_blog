@@ -20,7 +20,13 @@
       <div class="categories"><?= $categories ?></div>
       <div class="tags"><?= $tags ?></div>
       <div class="comments" id="comments">
-          <?= $stats ?>
+<?php
+          if (count($item->comments) == 0) {
+              echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.__('No comments').'</div>';
+          } else {
+              echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.(count($item->comments) > 1 ? Str::tr(__(':comments comments'), array('comments' => count($item->comments))) : __('1 comment')).'</div>';
+          }
+?>
           <?= render('front/comments_list', array('item' => $item), true) ?>
           <?= render('front/comment_form', array('item' => $item), true) ?>
       </div>
