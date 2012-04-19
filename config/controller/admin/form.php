@@ -33,7 +33,6 @@ return array(
                 'label' => 'URL: ',
                 'form' => array(
                     'type' => 'text',
-                    'size' => 20,
                 ),
                 'validation' => array(
                     'required',
