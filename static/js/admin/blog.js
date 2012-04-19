@@ -19,7 +19,7 @@ define([
             actions : {
                 update : {
                     action : function(item) {
-                        $.nos.tabs.add({
+                        $.nos.tabs.open({
                             url     : "admin/noviusos_blog/form/edit/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
@@ -153,7 +153,7 @@ define([
                                     actions : [
                                         {
                                             action : function(item) {
-                                                $.nos.tabs.add({
+                                                $.nos.tabs.open({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Update')._()
@@ -205,7 +205,7 @@ define([
                                     actions : [
                                         {
                                             action : function(item) {
-                                                $.nos.tabs.add({
+                                                $.nos.tabs.open({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Edit')
