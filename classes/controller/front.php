@@ -44,12 +44,17 @@ class Controller_Front extends Controller {
 
     public static $blog_url = '';
 
+
     public function action_main($args = array()) {
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));
 
-        $this->page_from = $args['config']->page;
+        $this->page_from = \Nos::main_page();
+
+        setlocale(LC_ALL, $this->page_from->get_lang());
+
+        \Nos\I18n::setLocale($this->page_from->get_lang());
 
         $this->merge_config('config');
 
@@ -339,7 +344,9 @@ class Controller_Front extends Controller {
 
         $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name), array('blog_published', '=', true))));
 
-
+        if (!$post) {
+            throw new \Nos\NotFoundException();
+        }
         $this->_add_comment($post);
 
         echo $this->_display_item($post);
