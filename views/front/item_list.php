@@ -21,7 +21,7 @@
       <?= $title ?>
       <br />
       <div class="resume" style="text-align:justify"><?= $summary ?></div>
-      <a href="<?= $link_to_item ?>" class="read_more">Lire la suite</a>
+      <a href="<?= $link_to_item ?>" class="read_more"><?= __('Read more') ?></a>
       <br />
       <div style="clear:left;"></div>
     </div>

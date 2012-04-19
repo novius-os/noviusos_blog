@@ -22,7 +22,7 @@ if (!empty($display['author'])) {
     if (!empty($link_to_author)) {
         $author = '<a href="'.$link_to_author.'">'.$author.'</a>';
     }
-    echo Nos\I18n::gget('comments', 'Posté par : ').$author;
+    echo __('Posted: ').$author;
 }
 
 if (!empty($display['date']) && !empty($created_at)) {
@@ -48,7 +48,7 @@ if (!empty($display['wysiwyg']) && !empty($item->wysiwygs)) {
 }
 
 if (!empty($display['tags'])) {
-    echo '<span style="padding-right:5px;" class="tags_titre">Tags :</span>';
+    echo '<span style="padding-right:5px;" class="tags_titre">'.__('Tags: ').'</span>';
 
     $tags = array();
     foreach ($item->tags as $tag) {
@@ -71,10 +71,12 @@ if (!empty($display['categories']) && !empty($item->categories)) {
     }, array_keys($categories), array_values($categories)));
 }
 
+/*
 if (!empty($display['stats'])) {
     if (empty($comments_count)) {
-        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.Nos\I18n::gget('comments', 'Aucun commentaire').'</div>';
+        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.__('No comments').'</div>';
     } else {
-        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.$comments_count.' commentaire'.($comments_count > 1 ? 's' : '').'</div>';
+        echo '<div class="comments_number" href="'.$link_to_item.'#commentaires">'.($comments_count > 1 ? Str::tr(__(':comments comments'), array('comments' => $comments_count)) : __('1 comment')).'</div>';
     }
 }
+*/

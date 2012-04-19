@@ -34,6 +34,9 @@ class Model_Blog extends \Nos\Orm\Model {
 			'single_id_property' => 'blog_lang_single_id',
             'invariant_fields'   => array(),
 		),
+        'Nos\Orm_Behaviour_Publishable' => array(
+            'publication_bool_property' => 'blog_published',
+        ),
 	);
 
     /*

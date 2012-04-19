@@ -51,8 +51,9 @@ define([
                     name : 'delete',
                     primary : true,
                     icon : 'trash'
-                },
-                'visualise' : { // ne fonctionne pas
+                }
+                /*
+                'visualise' : {
                     label : 'Visualise',
                     name : 'visualise',
                     primary : true,
@@ -61,6 +62,7 @@ define([
                         window.open(item.visualise);
                     }
                 }
+                */
             },
             appdesk : {
                 adds : {
@@ -101,7 +103,7 @@ define([
                             showFilter : false
                         },
                         actions : {
-                            actions : ['update', 'delete']
+                            actions : ['update', 'delete'/*, 'visualise'*/]
                         }
                     }
                 },
