@@ -344,7 +344,9 @@ class Controller_Front extends Controller {
 
         $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name), array('blog_published', '=', true))));
 
-
+        if (!$post) {
+            throw new \Nos\NotFoundException();
+        }
         $this->_add_comment($post);
 
         echo $this->_display_item($post);
