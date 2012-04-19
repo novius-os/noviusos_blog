@@ -1,8 +1,5 @@
-<div>
-	<h2>HTML preview from the blog module</h2>
-	<ul>
-		<li>This could be the title of the first article...</li>
-		<li>... from the second one</li>
-		<li>and so on...</li>
-	</ul>
+<div style="overflow: hidden">
+    <img style="display: block; float: left; width: 64px; height: 64px;" src="static/apps/noviusos_blog/img/64/blog.png" />
+    <h1 style="margin-left: 80px;"><?= _('Blog') ?></h1>
+</table>
 </div>
