@@ -61,9 +61,7 @@ require([
 					});
 					return false;
 				})
-				.end();
-
-			$.nos.ui.form(div);
+				.nos().form();
 		});
 	});
 </script>

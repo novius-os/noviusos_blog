@@ -61,18 +61,17 @@
 <script type="text/javascript">
     require(['jquery-nos'], function ($) {
         $(function () {
-            $.nos.ui.form('#<?= $uniqid ?>');
-            var $container = $('#<?= $uniqid ?>');
-
-            $container.find('form').submit(function(e) {
-                e.preventDefault();
-                var $form = $(this);
-                $container.load($form.get(0).action, $form.serialize(), function() {
-                    $container.removeClass('blank_slate');
-                    //var $wijtabs = $container.closest(':wijmo-wijtabs');
-                    $container.closest('.ui-tabs-panel').trigger('blank_slate');
-                })
-            });
+            var $container = $('#<?= $uniqid ?>')
+	                .nos().form()
+		            .find('form').submit(function(e) {
+		                e.preventDefault();
+		                var $form = $(this);
+		                $container.load($form.get(0).action, $form.serialize(), function() {
+		                    $container.removeClass('blank_slate');
+		                    //var $wijtabs = $container.closest(':wijmo-wijtabs');
+		                    $container.closest('.ui-tabs-panel').trigger('blank_slate');
+		                })
+		            });
         });
     });
 </script>
