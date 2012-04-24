@@ -59,13 +59,12 @@
 </div>
 
 <script type="text/javascript">
-    require(['jquery-nos'], function ($) {
-        $(function () {
-            var $container = $('#<?= $uniqid ?>')
-	                .nos().form()
-		            .find('form').submit(function(e) {
+    require(['jquery-nos'], function ($nos) {
+        $nos(function () {
+            var $container = $nos('#<?= $uniqid ?>').form(),
+	            $form = $container.find('form')
+		            .submit(function(e) {
 		                e.preventDefault();
-		                var $form = $(this);
 		                $container.load($form.get(0).action, $form.serialize(), function() {
 		                    $container.removeClass('blank_slate');
 		                    //var $wijtabs = $container.closest(':wijmo-wijtabs');
