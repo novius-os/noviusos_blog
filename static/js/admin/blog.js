@@ -18,8 +18,8 @@ define([
             },
             actions : {
                 update : {
-                    action : function(item) {
-                        $nos.nos.tabs.open({
+                    action : function(item, ui) {
+                        $nos(ui).tab({
                             url     : "admin/noviusos_blog/form/edit/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
@@ -30,14 +30,14 @@ define([
                     icon : 'pencil'
                 },
                 'delete' : {
-                    action : function(item) {
-                        $nos.nos.ajax.request({
+                    action : function(item, ui) {
+                        $nos(ui).xhr({
                             url: "admin/noviusos_blog/list/delete/" + item.id,
                             data: {},
                             success: function(response) {
                                 if (response.success) {
                                     $nos.notify("Suppression réalisée !");
-                                    $nos.nos.dispatchEvent({
+                                    $nos.dispatchEvent({
                                         event : 'reload',
                                         target : 'noviusos_blog'
                                     })
@@ -68,8 +68,8 @@ define([
                 adds : {
                     post : {
                         label : appDesk.i18n('Add a post'),
-                        action : function() {
-                            $nos.nos.tabs.add({
+                        action : function(ui) {
+                            $nos(ui).tab('add', {
                                 url     : 'admin/noviusos_blog/form/edit',
                                 label   : appDesk.i18n('Edit')._()
                             });
@@ -122,8 +122,8 @@ define([
                                     showOnlyArrow : true,
                                     actions : [
                                         {
-                                            action : function(item) {
-                                                $nos.nos.tabs.add({
+                                            action : function(item, ui) {
+                                                $nos(ui).tab({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : "Update"
@@ -154,8 +154,8 @@ define([
                                     showOnlyArrow : true,
                                     actions : [
                                         {
-                                            action : function(item) {
-                                                $nos.nos.tabs.open({
+                                            action : function(item, ui) {
+                                                $nos(ui).tab({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Update')._()
@@ -164,14 +164,14 @@ define([
                                             label : appDesk.i18n('Update')
                                         },
                                         {
-                                            action : function(item) {
-                                                $nos.nos.ajax.request({
+                                            action : function(item, ui) {
+                                                $nos(ui).xhr({
                                                     url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
                                                             $nos.notify("Suppression réalisée !");
-                                                            $nos.nos.dispatchEvent({
+                                                            $nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
@@ -206,8 +206,8 @@ define([
                                     showOnlyArrow : true,
                                     actions : [
                                         {
-                                            action : function(item) {
-                                                $nos.nos.tabs.open({
+                                            action : function(item, ui) {
+                                                $nos(ui).tab({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Edit')
@@ -216,14 +216,14 @@ define([
                                             label : appDesk.i18n('Edit')
                                         },
                                         {
-                                            action : function(item) {
-                                                $nos.nos.ajax.request({
+                                            action : function(item, ui) {
+                                                $nos(ui).xhr({
                                                     url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
                                                             $nos.notify("Suppression réalisée !");
-                                                            $nos.nos.dispatchEvent({
+                                                            $nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
