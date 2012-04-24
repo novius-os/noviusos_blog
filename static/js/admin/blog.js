@@ -9,7 +9,7 @@
 
 define([
     'jquery-nos'
-], function($) {
+], function($nos) {
     return function(appDesk) {
         return {
             tab : {
@@ -19,7 +19,7 @@ define([
             actions : {
                 update : {
                     action : function(item) {
-                        $.nos.tabs.open({
+                        $nos.nos.tabs.open({
                             url     : "admin/noviusos_blog/form/edit/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
@@ -31,18 +31,18 @@ define([
                 },
                 'delete' : {
                     action : function(item) {
-                        $.nos.ajax.request({
+                        $nos.nos.ajax.request({
                             url: "admin/noviusos_blog/list/delete/" + item.id,
                             data: {},
                             success: function(response) {
                                 if (response.success) {
-                                    $.nos.notify("Suppression réalisée !");
-                                    $.nos.dispatchEvent({
+                                    $nos.notify("Suppression réalisée !");
+                                    $nos.nos.dispatchEvent({
                                         event : 'reload',
                                         target : 'noviusos_blog'
                                     })
                                 } else {
-                                    $.nos.notify("Erreur lors de la suppression !", "error");
+                                    $nos.notify("Erreur lors de la suppression !", "error");
                                 }
                             }
                         });
@@ -70,7 +70,7 @@ define([
                     post : {
                         label : appDesk.i18n('Add a post'),
                         action : function() {
-                            $.nos.tabs.add({
+                            $nos.nos.tabs.add({
                                 url     : 'admin/noviusos_blog/form/edit',
                                 label   : appDesk.i18n('Edit')._()
                             });
@@ -128,7 +128,7 @@ define([
                                     actions : [
                                         {
                                             action : function(item) {
-                                                $.nos.tabs.add({
+                                                $nos.nos.tabs.add({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : "Update"
@@ -160,7 +160,7 @@ define([
                                     actions : [
                                         {
                                             action : function(item) {
-                                                $.nos.tabs.open({
+                                                $nos.nos.tabs.open({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Update')._()
@@ -170,18 +170,18 @@ define([
                                         },
                                         {
                                             action : function(item) {
-                                                $.nos.ajax.request({
+                                                $nos.nos.ajax.request({
                                                     url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
-                                                            $.nos.notify("Successfully deleted!");
-                                                            $.nos.dispatchEvent({
+                                                            $nos.notify("Successfully deleted!");
+                                                            $nos.nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
                                                         } else {
-                                                            $.nos.notify("Error when deleting!", "error");
+                                                            $nos.notify("Error when deleting!", "error");
                                                         }
                                                     }
                                                 });
@@ -212,7 +212,7 @@ define([
                                     actions : [
                                         {
                                             action : function(item) {
-                                                $.nos.tabs.open({
+                                                $nos.nos.tabs.open({
                                                     iframe : true,
                                                     url     : "admin/noviusos_blog/form?id=" + item.id,
                                                     label   : appDesk.i18n('Edit')
@@ -222,18 +222,18 @@ define([
                                         },
                                         {
                                             action : function(item) {
-                                                $.nos.ajax.request({
+                                                $nos.nos.ajax.request({
                                                     url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
-                                                            $.nos.notify("Successfully deleted!");
-                                                            $.nos.dispatchEvent({
+                                                            $nos.notify("Successfully deleted!");
+                                                            $nos.nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
                                                         } else {
-                                                            $.nos.notify("Error when deleting.", "error");
+                                                            $nos.notify("Error when deleting.", "error");
                                                         }
                                                     }
                                                 });

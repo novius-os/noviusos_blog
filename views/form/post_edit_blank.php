@@ -60,7 +60,7 @@
 
 <script type="text/javascript">
     require(['jquery-nos'], function ($nos) {
-        $(function () {
+        $nos(function () {
             var $container = $nos('#<?= $uniqid ?>').form();
             $container.find('form').submit(function(e) {
                 e.preventDefault();

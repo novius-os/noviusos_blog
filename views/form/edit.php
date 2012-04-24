@@ -10,9 +10,9 @@
 
 ?>
 <script type="text/javascript">
-    require(['jquery-nos-ostabs'], function ($) {
-        $(function () {
-            $.nos.tabs.update({
+    require(['jquery-nos-ostabs'], function ($nos) {
+        $nos(function () {
+            $nos.nos.tabs.update({
                 label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
                 iconUrl : 'static/apps/noviusos_blog/img/16/blog.png'
             });
