@@ -23,6 +23,13 @@ return array(
                     'type' => 'text',
                 ),
             ),
+            'blog_summary' => array (
+                'label' => 'Summary: ',
+                'form' => array(
+                    'type' => 'textarea',
+                    'rows' => '6',
+                ),
+            ),
             'blog_author' => array(
                 'label' => 'Alias: ',
                 'form' => array(

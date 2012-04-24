@@ -15,6 +15,7 @@ return array(
 	'query' => array(
 		'model' => 'Nos\Blog\Model_Blog',
 		'related' => array('author'),
+        'order_by' => array('blog_created_at' => 'ASC'),
 		'limit' => 20,
 	),
 	'search_text' => 'blog_title',
