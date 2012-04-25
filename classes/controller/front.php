@@ -342,9 +342,17 @@ class Controller_Front extends Controller {
         $this->trigger('display_item');
         $this->merge_config('display_item');
 
-        $post = Model_Blog::find('first', array('where' => array(array('blog_virtual_name', '=', $item_virtual_name), array('blog_published', '=', true))));
+        $where = array(
+            array('blog_virtual_name', '=', $item_virtual_name),
+        );
 
-        if (!$post) {
+        if (!\Nos::main_controller()->is_preview) {
+            $where[] = array('blog_published', '=', true);
+        }
+
+        $post = Model_Blog::find('first', array('where' => $where));
+
+        if (empty($post)) {
             throw new \Nos\NotFoundException();
         }
         $this->_add_comment($post);

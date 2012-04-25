@@ -32,8 +32,12 @@ $fieldset->field('blog_virtual_name')->set_template('{label} {field} .html');
 
     'subtitle' => array(),
 
-    'content' => \View::forge('form/expander', array(
-        'title'   => 'Content',
+    'content' => View::forge('form/expander', array(
+        'title'   => __('Summary'),
+        'nomargin' => true,
+        'content' => $fieldset->field('blog_summary')->set_template('{field}'),
+    ), false).View::forge('form/expander', array(
+        'title'   => __('Content'),
         'nomargin' => true,
         'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
     ), false),

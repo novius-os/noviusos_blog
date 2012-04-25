@@ -64,6 +64,7 @@ define([
                 }
                 */
             },
+            reload : 'noviusos_blog',
             appdesk : {
                 adds : {
                     post : {
@@ -86,8 +87,7 @@ define([
                     columns : {
                         title : {
                             headerText : appDesk.i18n('Title'),
-                            dataKey : 'title',
-                            sortDirection : 'ascending'
+                            dataKey : 'title'
                         },
                         lang : {
                             lang : true
@@ -96,11 +96,16 @@ define([
                             headerText : appDesk.i18n('Author'),
                             dataKey : 'author'
                         },
-                        data : {
+                        date : {
                             headerText : appDesk.i18n('Date'),
                             dataKey : 'date',
                             dataFormatString  : 'MM/dd/yyyy HH:mm:ss',
-                            showFilter : false
+                            showFilter : false,
+                            sortDirection : 'descending'
+                        },
+                        published : {
+                            headerText : appDesk.i18n('Status'),
+                            dataKey : 'publication_status'
                         },
                         actions : {
                             actions : ['update', 'delete'/*, 'visualise'*/]
@@ -170,13 +175,13 @@ define([
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
-                                                            $nos.notify("Suppression réalisée !");
+                                                            $nos.notify("Successfully deleted!");
                                                             $nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
                                                         } else {
-                                                            $nos.notify("Erreur lors de la suppression !", "error");
+                                                            $nos.notify("Error when deleting!", "error");
                                                         }
                                                     }
                                                 });
@@ -222,13 +227,13 @@ define([
                                                     data: {},
                                                     success: function(response) {
                                                         if (response.success) {
-                                                            $nos.notify("Suppression réalisée !");
+                                                            $nos.notify("Successfully deleted!");
                                                             $nos.dispatchEvent({
                                                                 event : 'reload',
                                                                 target : 'noviusos_blog'
                                                             })
                                                         } else {
-                                                            $nos.notify("Erreur lors de la suppression !", "error");
+                                                            $nos.notify("Error when deleting.", "error");
                                                         }
                                                     }
                                                 });

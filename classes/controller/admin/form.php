@@ -77,7 +77,6 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
         }
 
 
-
         $fieldset = static::fieldset($fields, $object)->set_config('field_template', '<tr><th>{label}{required}</th><td class="{error_class}">{field} {error_msg}</td></tr>');
 
         if ($new_lang) {
@@ -96,6 +95,7 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
 
     public static function fieldset($fields, $object) {
 
+        $is_new = false;
         $fieldset = \Fieldset::build_from_config($fields, $object, array(
             'save' => function($data) use ($object, $fields) {
                 //print_r($object);
@@ -104,7 +104,22 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
                     $categories = array();
                 }
                 $object->updateCategoriesById($categories);
-
+            },
+            'before_save' => function($object, $data) use(&$is_new) {
+                $is_new = $object->is_new();
+            },
+            'success' => function($object, $data) use (&$is_new) {
+                $return = array(
+                    'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
+                    'dispatchEvent' => array(
+                        'event' => 'reload',
+                        'target' => 'noviusos_blog',
+                    ),
+                );
+                if ($is_new) {
+                    $return['replaceTab'] = 'admin/noviusos_blog/form/edit/'.$object->blog_id;
+                }
+                return $return;
             }
         ));
 
