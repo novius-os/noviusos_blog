@@ -73,6 +73,20 @@ class Controller_Front extends Controller {
 	        if (empty($segments[1])) {
 		        $this->cache_cleanup = "blog/post/{$segments[0]}";
 		        return $this->display_item($args);
+            } else if ($segments[0] == 'stats') {
+
+                $post = $this->_get_post(array(array('blog_id', $segments[1])));
+                if (!empty($post)) {
+                    $stats = \Session::get('noviusos_blog_stats', array());
+                    if (!in_array($post->blog_id, $stats)) {
+                        $post->blog_read++;
+                        $post->save();
+                        $stats[] = $post->blog_id;
+                        \Session::set('noviusos_blog_stats', $stats);
+                    }
+                }
+                \Nos\Tools_File::send(DOCROOT.'static/apps/noviusos_blog/img/transparent.gif');
+
 	        } else if ($segments[0] === 'page') {
 		        $this->cache_cleanup = "blog/list";
 		        $this->init_pagination(empty($segments[1]) ? 1 : $segments[1]);
@@ -339,25 +353,29 @@ class Controller_Front extends Controller {
 
         list($item_virtual_name) = $this->enhancerUrl_segments;
 
-        $this->trigger('display_item');
-        $this->merge_config('display_item');
-
-        $where = array(
-            array('blog_virtual_name', '=', $item_virtual_name),
-        );
-
-        if (!\Nos::main_controller()->is_preview) {
-            $where[] = array('blog_published', '=', true);
-        }
-
-        $post = Model_Blog::find('first', array('where' => $where));
+        $post = $this->_get_post($item_virtual_name);
 
         if (empty($post)) {
             throw new \Nos\NotFoundException();
         }
         $this->_add_comment($post);
 
+        $this->trigger('display_item');
+        $this->merge_config('display_item');
+
         echo $this->_display_item($post);
+    }
+
+    protected function _get_post($where = array()) {
+        // First argument is a string => it's the virtual name
+        if (!is_array($where)) {
+            $where = array(array('blog_virtual_name', '=', $where));
+        }
+
+        if (!\Nos::main_controller()->is_preview) {
+            $where[] = array('blog_published', '=', true);
+        }
+        return Model_Blog::find('first', array('where' => $where));
     }
 
     protected function _add_comment($post) {
@@ -394,6 +412,7 @@ class Controller_Front extends Controller {
         $data['link_to_author'] = $item->author ? self::url_author($item->author, 1, $this->url) : '';
         $data['link_to_item']   = self::url_item($item, $this->enhancerUrlPath);
         $data['link_on_title']  = $this->config['link_on_title'] ? $data['link_to_item'] : false;
+        $data['link_to_stats']  = self::url_stats($item, $this->enhancerUrlPath);
 
         $self = get_called_class();
         $url  = $this->url;
@@ -669,6 +688,13 @@ class Controller_Front extends Controller {
             $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
         }
         return $url.urlencode($item->blog_virtual_name).'.html';
+    }
+
+    protected static function url_stats($item, $url = null) {
+        if (is_null($url)) {
+            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+        }
+        return $url.'stats/'.urlencode($item->blog_id).'.html';
     }
 
     static function url_category($category, $page = 1, $url = null) {

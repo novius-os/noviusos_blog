@@ -1,7 +1,7 @@
 <?php
 /**
  * NOVIUS OS - Web OS for digital communication
- * 
+ *
  * @copyright  2011 Novius
  * @license    GNU Affero General Public License v3 or (at your option) any later version
  *             http://www.gnu.org/licenses/agpl-3.0.html
@@ -16,6 +16,7 @@
       <div class="resume" style="text-align:justify"><?= $summary ?></div>
       <div class="post"><?= $wysiwyg ?></div>
       <div style="clear:both;"></div>
+      <img src="<?= $link_to_stats ?>" title="" alt="" />
 
       <div class="categories"><?= $categories ?></div>
       <div class="tags"><?= $tags ?></div>
