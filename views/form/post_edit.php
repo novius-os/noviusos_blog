@@ -8,6 +8,7 @@ foreach ($fieldset->field() as $field) {
     }
 }
 
+$fieldset->field('blog_summary')->set_template('<td class="row-field">{field}</td>');
 $fieldset->field('author->user_fullname')->set_template('<p>{label} {field}</p>');
 $fieldset->field('blog_read')->set_template('{label} {field} times');
 $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
@@ -31,16 +32,15 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
     'published' => 'blog_publication_start',
     'save' => 'save',
 
-    'subtitle' => array(),
+    'subtitle' => array('blog_summary'),
 
     'content' => View::forge('form/expander', array(
-        'title'   => __('Summary'),
-        'nomargin' => true,
-        'content' => $fieldset->field('blog_summary')->set_template('{field}'),
-    ), false).View::forge('form/expander', array(
         'title'   => __('Content'),
         'nomargin' => true,
         'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
+        'options' => array(
+            'allowExpand' => false,
+        ),
     ), false),
 
     'menu' => array(

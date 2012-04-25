@@ -28,7 +28,7 @@ return array(
                 ),
             ),
             'blog_summary' => array (
-                'label' => __('Summary: '),
+                'label' => __('Summary'),
                 'form' => array(
                     'type' => 'textarea',
                     'rows' => '6',
