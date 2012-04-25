@@ -53,7 +53,7 @@ class Widget_Categories extends \Fieldset_Field {
         return $this->template((string) \Request::forge('noviusos_blog/admin/inspector/category/list')->execute(array('inspector/modeltree_checkbox', array(
 	        'params' => array(
 		        'treeUrl' => 'admin/noviusos_blog/inspector/category/json',
-		        'widget_id' => 'noviusos_blog_categories',
+		        'reloadEvent' => 'noviusos_blog_categories',
 	            'input_name' => $this->get_name(),
 	            'selected' => $selected,
 		        'columns' => array(

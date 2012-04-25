@@ -109,7 +109,7 @@ define([
                 },
                 inspectors : {
                     authors : {
-                        widget_id : 'noviusos_blog_authors',
+                        reloadEvent : 'nos_user_user',
                         label : appDesk.i18n('Authors'),
                         url : 'admin/noviusos_blog/inspector/author/list',
                         grid : {
@@ -140,7 +140,7 @@ define([
                         vertical : true
                     },
                     categories : {
-                        widget_id : 'noviusos_blog_categories',
+                        reloadEvent : 'noviusos_blog_categories',
                         label : appDesk.i18n('Categories'),
                         vertical : true,
                         url : 'admin/noviusos_blog/inspector/category/list',
@@ -191,7 +191,7 @@ define([
                         inputName : 'blgc_id[]'
                     },
                     tags : {
-                        widget_id : 'noviusos_blog_tags',
+                        reloadEvent : 'noviusos_blog_tags',
                         hide : true,
                         label : appDesk.i18n('Tags'),
                         url : 'admin/noviusos_blog/inspector/tag/list',
@@ -242,7 +242,6 @@ define([
                         inputName : 'tag_id[]'
                     },
                     publishDate : {
-                        widget_id : 'noviusos_blog_publishDate',
                         vertical : true,
                         label : appDesk.i18n('Publish date'),
                         url : 'admin/noviusos_blog/inspector/date/list',
