@@ -32,18 +32,17 @@
 </style>
 
 <?php
-    echo View::forge('nos::layouts/languages',
-        array(
-            'item' => $object,
-            'views' => array(
-                'blank' => array(
-                    'location' => 'noviusos_blog::form/post_edit_blank',
-                    'params'   => array()
-                ),
-                'view' => array(
-                    'location' => 'noviusos_blog::form/post_edit',
-                    'params'   => array('fieldset' => $fieldset)
-                ),
-            ),
-        )
-        , false);
+
+echo View::forge('nos::layouts/languages', array(
+    'item' => $object,
+    'views' => array(
+        'blank' => array(
+            'location' => 'noviusos_blog::form/post_edit_blank',
+            'params'   => array()
+        ),
+        'view' => array(
+            'location' => 'noviusos_blog::form/post_edit',
+            'params'   => array('fieldset' => $fieldset)
+        ),
+    ),
+) , false);
