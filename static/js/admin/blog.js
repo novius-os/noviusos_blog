@@ -37,10 +37,7 @@ define([
                             success: function(response) {
                                 if (response.success) {
                                     $nos.notify("Suppression réalisée !");
-                                    $nos.dispatchEvent({
-                                        event : 'reload',
-                                        target : 'noviusos_blog'
-                                    })
+                                    $nos.dispatchEvent('reload.noviusos_blog');
                                 } else {
                                     $nos.notify("Erreur lors de la suppression !", "error");
                                 }
@@ -62,7 +59,7 @@ define([
                     }
                 }
             },
-            reload : 'noviusos_blog',
+            reloadEvent : 'noviusos_blog',
             appdesk : {
                 adds : {
                     post : {
@@ -174,10 +171,7 @@ define([
                                                     success: function(response) {
                                                         if (response.success) {
                                                             $nos.notify("Successfully deleted!");
-                                                            $nos.dispatchEvent({
-                                                                event : 'reload',
-                                                                target : 'noviusos_blog'
-                                                            })
+                                                            $nos.dispatchEvent('reload.noviusos_blog');
                                                         } else {
                                                             $nos.notify("Error when deleting!", "error");
                                                         }
@@ -226,10 +220,7 @@ define([
                                                     success: function(response) {
                                                         if (response.success) {
                                                             $nos.notify("Successfully deleted!");
-                                                            $nos.dispatchEvent({
-                                                                event : 'reload',
-                                                                target : 'noviusos_blog'
-                                                            })
+                                                            $nos.dispatchEvent('reload.noviusos_blog');
                                                         } else {
                                                             $nos.notify("Error when deleting.", "error");
                                                         }
