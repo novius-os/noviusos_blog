@@ -6,38 +6,19 @@ return array(
     'fields' => function() {
         return array (
             'blog_id' => array (
-                'label' => 'Id: ',
+                'label' => __('Id: '),
                 'widget' => 'Nos\Widget_Text',
                 'editable' => false,
             ),
             'blog_publication_start' => array (
-                'label' => 'Published',
+                'label' => __('Published'),
                 'form' => array(
                     'type' => 'checkbox',
                     'value' => isset($object) && $object->blog_publication_start ? $object->blog_publication_start : \Date::forge(strtotime('now'))->format('mysql'),
                 ),
             ),
             'blog_title' => array (
-                'label' => 'Title: ',
-                'form' => array(
-                    'type' => 'text',
-                ),
-            ),
-            'blog_summary' => array (
-                'label' => 'Summary: ',
-                'form' => array(
-                    'type' => 'textarea',
-                    'rows' => '6',
-                ),
-            ),
-            'blog_author' => array(
-                'label' => 'Alias: ',
-                'form' => array(
-                    'type' => 'text',
-                ),
-            ),
-            'blog_virtual_name' => array(
-                'label' => 'URL: ',
+                'label' => __('Title'),
                 'form' => array(
                     'type' => 'text',
                 ),
@@ -46,13 +27,36 @@ return array(
                     'min_length' => array(2),
                 ),
             ),
-            'author->user_name' => array(
-                'label' => 'Author: ',
+            'blog_summary' => array (
+                'label' => __('Summary'),
+                'form' => array(
+                    'type' => 'textarea',
+                    'rows' => '6',
+                ),
+            ),
+            'blog_author' => array(
+                'label' => __('Alias: '),
+                'form' => array(
+                    'type' => 'text',
+                ),
+            ),
+            'blog_virtual_name' => array(
+                'label' => __('URL: '),
+                'form' => array(
+                    'type' => 'text',
+                ),
+                'validation' => array(
+                    'required',
+                    'min_length' => array(2),
+                ),
+            ),
+            'author->user_fullname' => array(
+                'label' => __('Author: '),
                 'widget' => 'Nos\Widget_Text',
                 'editable' => false,
             ),
             'wysiwygs->content->wysiwyg_text' => array(
-                'label' => 'Contenu',
+                'label' => __('Content'),
                 'widget' => 'Nos\Widget_Wysiwyg', //wysiwyg
                 'form' => array(
                     'style' => 'width: 100%; height: 500px;',
@@ -66,11 +70,11 @@ return array(
                 ),
             ),
             'blog_created_at' => array(
-                'label' => 'Created at:',
+                'label' => __('Created at:'),
                 'widget' => 'Nos\Widget_Date_Picker', //date_picker
             ),
             'blog_read' => array(
-                'label' => 'Read',
+                'label' => __('Read'),
                 'form' => array(
                     'type' => 'text',
                     'size' => '4',
@@ -97,7 +101,7 @@ return array(
 		        },
 	        ),
             'blog_tags' => array(
-                'label' => 'Tags',
+                'label' => __('Tags'),
                 'populate' => function($object) {
                     $tags = Arr::assoc_to_keyval($object->tags, 'id', 'tag_label');
                     return implode(', ', array_values($tags));
@@ -135,7 +139,7 @@ return array(
                 'form' => array(
                     'type' => 'submit',
                     'tag' => 'button',
-                    'value' => 'Save',
+                    'value' => __('Save'),
                     'class' => 'primary',
                     'data-icon' => 'check',
                 ),

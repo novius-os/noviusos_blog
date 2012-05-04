@@ -30,7 +30,6 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
         }
 
 
-
         if ($new_lang) {
             $create_from_id = \Input::get('create_from_id', 0);
             if (empty($create_from_id)) {
@@ -47,15 +46,10 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
 
 
         $fields = $this->config['fields']($object);
+        \Arr::set($fields, 'author->user_fullname.form.value', $object->author->fullname());
 
         if ($new_lang || \Input::post('blog_lang', false) != false) {
             $fields = \Arr::merge($fields, array(
-                'blog_title' => array(
-                    'validation' => array(
-                        'required',
-                        'min_length' => array(6),
-                    ),
-                ),
                 'blog_lang' => array(
                     'form' => array(
                         'type' => 'hidden',
