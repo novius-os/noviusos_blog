@@ -79,10 +79,21 @@ return array(
 			},
 
 		),
-        /*
-        'visualise' => function($object) {
-            return \Nos\Blog\Controller_Front::url_item($object); // ne fonctionne pas ?
-        },*/
+		'url' => array(
+			'value' => function($object) {
+				return $object->first_url();
+			},
+		),
+		'actions' => array(
+			'visualise' => function($object) {
+				$url = $object->first_url();
+				return !empty($url);
+			}
+		),
+		/*
+			  'visualise' => function($object) {
+				  return \Nos\Blog\Controller_Front::url_item($object); // ne fonctionne pas ?
+			  },*/
 	),
 	'inputs' => array(
 		'blgc_id' => function($value, $query) {

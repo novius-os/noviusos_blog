@@ -51,18 +51,16 @@ define([
                     name : 'delete',
                     primary : true,
                     icon : 'trash'
-                }
-                /*
+                },
                 'visualise' : {
                     label : 'Visualise',
                     name : 'visualise',
                     primary : true,
                     iconClasses : 'nos-icon16 nos-icon16-eye',
                     action : function(item) {
-                        window.open(item.visualise);
+                        window.open(item.url + '?_preview=1');
                     }
                 }
-                */
             },
             reload : 'noviusos_blog',
             appdesk : {
@@ -108,7 +106,7 @@ define([
                             dataKey : 'publication_status'
                         },
                         actions : {
-                            actions : ['update', 'delete'/*, 'visualise'*/]
+                            actions : ['update', 'delete', 'visualise']
                         }
                     }
                 },
