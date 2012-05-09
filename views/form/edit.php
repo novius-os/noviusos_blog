@@ -14,10 +14,19 @@
     require(['jquery-nos-ostabs'], function ($nos) {
         $nos(function () {
 	        $nos('#<?= $uniqid ?>').tab('update', {
-	                label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
-	                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png'
-	            })
-	            .remove();
+                label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
+                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
+		        actions : [
+			        {
+				        label : <?= json_encode(_('Visualise')) ?>,
+				        click : function() {
+					        window.open(<?= json_encode($object->first_url()) ?>);
+				        },
+				        iconClasses : 'nos-icon16 nos-icon16-eye'
+			        }
+		        ]
+	        })
+	        .remove();
         });
     });
 </script>
