@@ -14,7 +14,7 @@
     require(['jquery-nos-ostabs'], function ($nos) {
         $nos(function () {
 	        $nos('#<?= $uniqid ?>').tab('update', {
-	                label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
+	                label : <?= \Format::forge()->to_json(isset($blog) ? $blog->blog_title : 'Add a blog post') ?>,
 	                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png'
 	            })
 	            .remove();
@@ -22,27 +22,11 @@
     });
 </script>
 
-
-<style type="text/css">
-/* ? */
-/* @todo check this */
-.ui-accordion-content-active {
-	overflow: visible !important;
-}
-</style>
-
 <?php
 
-echo View::forge('nos::layouts/languages', array(
-    'item' => $object,
-    'views' => array(
-        'blank' => array(
-            'location' => 'noviusos_blog::form/post_edit_blank',
-            'params'   => array()
-        ),
-        'view' => array(
-            'location' => 'noviusos_blog::form/post_edit',
-            'params'   => array('fieldset' => $fieldset)
-        ),
-    ),
+echo View::forge('nos::form/layout_languages', array(
+    'item' => $blog,
+    'selected_lang' => $blog === null ? null : $blog->get_lang(),
+    'url_blank_slate' => 'admin/noviusos_blog/form/blank_slate',
+    'url_form' => 'admin/noviusos_blog/form/form',
 ) , false);

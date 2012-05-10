@@ -19,7 +19,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 //echo $fieldset->field('wysiwygs->content')->forge();
 ?>
 
-<?= $fieldset->open('admin/noviusos_blog/form/edit'.(isset($item) ? '/'.$item->blog_id : '')); ?>
+<?= $fieldset->open('admin/noviusos_blog/form/form'.($item->is_new() ? '' : '/'.$item->blog_id)); ?>
 <?= View::forge('form/layout_standard', array(
     'fieldset' => $fieldset,
     'object' => $item,
@@ -29,7 +29,6 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
     'medias' => array(),
     'large' => true,
 
-    'published' => 'blog_publication_start',
     'save' => 'save',
 
     'subtitle' => array('blog_summary'),

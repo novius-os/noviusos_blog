@@ -20,7 +20,7 @@ define([
                 update : {
                     action : function(item, ui) {
                         $nos(ui).tab({
-                            url     : "admin/noviusos_blog/form/edit/" + item.id,
+                            url     : "admin/noviusos_blog/form/crud/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
                     },
@@ -71,7 +71,7 @@ define([
                         label : appDesk.i18n('Add a post'),
                         action : function(ui) {
                             $nos(ui).tab('add', {
-                                url     : 'admin/noviusos_blog/form/edit',
+                                url     : 'admin/noviusos_blog/form/crud',
                                 label   : appDesk.i18n('Edit')._()
                             });
                         }
