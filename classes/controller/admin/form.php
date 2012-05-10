@@ -114,10 +114,7 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
             'success' => function($object, $data) use (&$is_new) {
                 $return = array(
                     'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
-                    'dispatchEvent' => array(
-                        'event' => 'reload',
-                        'target' => 'noviusos_blog',
-                    ),
+                    'dispatchEvent' => 'reload.noviusos_blog',
                 );
                 if ($is_new) {
                     $return['replaceTab'] = 'admin/noviusos_blog/form/edit/'.$object->blog_id;

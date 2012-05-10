@@ -37,6 +37,7 @@ class Model_Blog extends \Nos\Orm\Model {
         'Nos\Orm_Behaviour_Publishable' => array(
             'publication_bool_property' => 'blog_published',
         ),
+		'Nos\Orm_Behaviour_Url' => array(),
 	);
 
     /*

@@ -28,7 +28,6 @@ return array(
         'noviusos_blog' => array(
             'title' => 'Blog',
             'id'    => 'noviusos_blog',
-            'rewrite_prefix' => 'blog',
             'desc'  => '',
 	        //'enhancer' => 'noviusos_blog/front',
             'urlEnhancer' => 'noviusos_blog/front',
@@ -40,6 +39,10 @@ return array(
 		        'height' => 180,
 		        'ajax' => true,
 	        ),
+	        'models_url_enhanced' => array(
+		        'Nos\Blog\Model_Blog',
+	        ),
+	        'get_url_model' => array('Nos\Blog\Controller_Front', 'get_url_model'),
         ),
     ),
 );

@@ -409,18 +409,18 @@ class Controller_Front extends Controller {
         $data['created_at'] = strtotime($item['blog_created_at']);
 
         // Additional data calculated per-item
-        $data['link_to_author'] = $item->author ? self::url_author($item->author, 1, $this->url) : '';
-        $data['link_to_item']   = self::url_item($item, $this->enhancerUrlPath);
+        $data['link_to_author'] = $item->author ? self::get_url_model($item->author) : '';
+        $data['link_to_item']   = self::get_url_model($item);
         $data['link_on_title']  = $this->config['link_on_title'] ? $data['link_to_item'] : false;
         $data['link_to_stats']  = self::url_stats($item, $this->enhancerUrlPath);
 
         $self = get_called_class();
         $url  = $this->url;
         $data['link_to_category'] = function($category, $page = 1) use($self, $url) {
-            return $self::url_category($category, $page, $url);
+            return $self::get_url_model($category, array('page' => $page, 'urlPath' => $url));
         };
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
-            return $self::url_tag($tag, $page, $url);
+            return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
         };
 
         // Renders all the fields
@@ -438,19 +438,6 @@ class Controller_Front extends Controller {
         $view->set($data + $fields, null, false);
         return $view;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static function get_view($which) {
         // Cache views
@@ -562,7 +549,7 @@ class Controller_Front extends Controller {
                 }
             }
 ?>
-    <a class="tag <?= $prefixeclass.$poids ?>" href="<?= self::url_tag($tag->tag, 1, static::$blog_url) ?>"><?= $tag->tag ?></a>
+    <a class="tag <?= $prefixeclass.$poids ?>" href="<?= self::get_url_model($tag->tag, array('urlPath' => static::$blog_url)) ?>"><?= $tag->tag ?></a>
 <?php
         }
     }
@@ -623,7 +610,7 @@ class Controller_Front extends Controller {
             $nbss = count($nbss);
 
 ?>
-      <li><a href="<?= self::url_category($categorie, static::$blog_url) ?>"><?= $categorie->blgc_title ?></a>
+      <li><a href="<?= self::get_url_model($categorie, array('urlPath' => static::$blog_url)) ?>"><?= $categorie->blgc_title ?></a>
 <?          if ($nbss) { ?>
         <ul>
 <?              self::SousMenuCategorie($categorie->blgc_id); ?>
@@ -681,15 +668,6 @@ class Controller_Front extends Controller {
 <?
     }
 
-
-
-    static function url_item($item, $url = null) {
-        if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
-        }
-        return $url.urlencode($item->blog_virtual_name).'.html';
-    }
-
     protected static function url_stats($item, $url = null) {
         if (is_null($url)) {
             $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
@@ -697,24 +675,27 @@ class Controller_Front extends Controller {
         return $url.'stats/'.urlencode($item->blog_id).'.html';
     }
 
-    static function url_category($category, $page = 1, $url = null) {
-        if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
-        }
-	    return $url.'category/'.urlencode($category->blgc_title).($page > 1 ? '/'.$page : '').'.html';
-    }
+	static function get_url_model($item, $params = array()) {
+		$model = get_class($item);
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos::main_controller()->enhancerUrlPath;
+		$page = isset($params['page']) ? $params['page'] : 1;
 
-    static function url_author($author, $page, $url = null) {
-        if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
-        }
-        return $url.'author/'.urlencode($author->fullname()).($page > 1 ? '/'.$page : '').'.html';
-    }
+		switch ($model) {
+			case 'Nos\Blog\Model_Blog' :
+				return $url.urlencode($item->blog_virtual_name).'.html';
+				break;
 
-    static function url_tag($tag, $page, $url = null) {
-        if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
-        }
-	    return $url.'tag/'.urlencode($tag).($page > 1 ? '/'.$page : '').'.html';
-    }
+			case 'Nos\Blog\Model_Category' :
+				return $url.'category/'.urlencode($item->blgc_title).($page > 1 ? '/'.$page : '').'.html';
+				break;
+
+			case 'Nos\Blog\Model_Tag' :
+				return $url.'tag/'.urlencode($item->tag_label).($page > 1 ? '/'.$page : '').'.html';
+				break;
+
+			case 'Nos\Model_User_User' :
+				return $url.'author/'.urlencode($item->fullname()).($page > 1 ? '/'.$page : '').'.html';
+				break;
+		}
+	}
 }
