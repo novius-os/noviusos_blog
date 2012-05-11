@@ -132,7 +132,7 @@ class Controller_Front extends Controller {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return substr($self->enhancerUrlPath, 0, -1).'.html';
+                    return mb_substr($self->enhancerUrlPath, 0, -1).'.html';
                 }
                 return $self->enhancerUrlPath.'page/'.$page.'.html';
             }),
@@ -425,7 +425,7 @@ class Controller_Front extends Controller {
 
         // Renders all the fields
         $fields = array();
-        foreach (preg_split('/[\s,-]+/', $this->config['fields']) as $field) {
+        foreach (preg_split('/[\s,-]+/u', $this->config['fields']) as $field) {
             $view = isset($this->views[$field]) ? $this->views[$field] : $this->config['fields_view'];
             $data['display'] = array($field => true);
             $data['item']    = $item;
