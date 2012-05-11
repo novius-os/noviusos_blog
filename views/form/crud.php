@@ -13,20 +13,27 @@
 <script type="text/javascript">
     require(['jquery-nos-ostabs'], function ($nos) {
         $nos(function () {
-	        $nos('#<?= $uniqid ?>').tab('update', {
-                label : <?= \Format::forge()->to_json(isset($object) ? $object->blog_title : 'Add a blog post') ?>,
-                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-		        actions : [
-			        {
-				        label : <?= json_encode(_('Visualise')) ?>,
-				        click : function() {
-					        window.open(<?= json_encode($object->first_url()) ?>);
-				        },
-				        iconClasses : 'nos-icon16 nos-icon16-eye'
-			        }
-		        ]
-	        })
-	        .remove();
+            var tabInfos = {
+                label : <?= \Format::forge()->to_json(isset($blog) ? $blog->blog_title : 'Add a blog post') ?>,
+                iconUrl : 'static/apps/noviusos_blog/img/16/blog.png'
+            };
+            <?php
+            if (!empty($blog)) {
+                ?>
+                tabInfos.actions = [
+                    {
+                        label : <?= json_encode(_('Visualise')) ?>,
+                        click : function() {
+					        window.open(<?= json_encode($blog->first_url()) ?>);
+                        },
+                        iconClasses : 'nos-icon16 nos-icon16-eye'
+                    }
+                ];
+                <?php
+            }
+            ?>
+
+	        $nos('#<?= $uniqid ?>').tab('update', tabInfos).remove();
         });
     });
 </script>
