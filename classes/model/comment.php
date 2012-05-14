@@ -11,7 +11,7 @@
 namespace Nos\Blog;
 
 class Model_Comment extends \Nos\Orm\Model {
-    protected static $_table_name = 'os_comment';
+    protected static $_table_name = 'nos_comment';
     protected static $_primary_key = array('comm_id');
 
     protected static $_has_one = array();

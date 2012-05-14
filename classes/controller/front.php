@@ -11,7 +11,7 @@
 namespace Nos\Blog;
 
 use Nos\Controller;
-use Nos\Model_Page_Page;
+use Nos\Model_Page;
 
 use Fuel\Core\Inflector;
 use Fuel\Core\Str;
@@ -132,7 +132,7 @@ class Controller_Front extends Controller {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return substr($self->enhancerUrlPath, 0, -1).'.html';
+                    return mb_substr($self->enhancerUrlPath, 0, -1).'.html';
                 }
                 return $self->enhancerUrlPath.'page/'.$page.'.html';
             }),
@@ -200,7 +200,7 @@ class Controller_Front extends Controller {
 
         list(,,$user_id, $page) = $this->enhancerUrl_segments;
 
-        $this->author = \Nos\Model_User_User::find($user_id);
+        $this->author = \Nos\Model_User::find($user_id);
         $list = $this->_display_list('author');
 
         $class = get_called_class();
@@ -304,7 +304,7 @@ class Controller_Front extends Controller {
 
             // Retrieve the comment counts for each post (1 request)
             $comments_count = \Db::select(\Db::expr('COUNT(comm_id) AS count_result'), 'comm_parent_id')
-                    ->from(\Nos\Model_Comment::table())
+                    ->from(\Nos\Blog\Model_Comment::table())
                     ->and_where('comm_type', '=', 'blog')
                     ->and_where('comm_parent_id', 'in', $ids)
                     ->group_by('comm_parent_id')
@@ -436,7 +436,7 @@ class Controller_Front extends Controller {
 
         // Renders all the fields
         $fields = array();
-        foreach (preg_split('/[\s,-]+/', $this->config['fields']) as $field) {
+        foreach (preg_split('/[\s,-]+/u', $this->config['fields']) as $field) {
             $view = isset($this->views[$field]) ? $this->views[$field] : $this->config['fields_view'];
             $data['display'] = array($field => true);
             $data['item']    = $item;
@@ -469,7 +469,7 @@ class Controller_Front extends Controller {
     }
 
     public function action_menu_execute($dossier_menu = false) {
-        static::$blog_url = \Nos\Model_Page_Page::get_url(2);
+        static::$blog_url = \Nos\Model_Page::get_url(2);
         self::MenuBlog($dossier_menu);
     }
 
@@ -481,7 +481,7 @@ class Controller_Front extends Controller {
     }
 
     public function action_links_execute() {
-        static::$blog_url = \Nos\Model_Page_Page::get_url(2);
+        static::$blog_url = \Nos\Model_Page::get_url(2);
         self::newLiens();
     }
 
@@ -494,7 +494,7 @@ class Controller_Front extends Controller {
 
     public function action_insert_tags_execute() {
 
-        static::$blog_url = \Nos\Model_Page_Page::get_url(2);
+        static::$blog_url = \Nos\Model_Page::get_url(2);
         self::EncartTags();
     }
 
@@ -570,7 +570,7 @@ class Controller_Front extends Controller {
 
     static function MenuBlog($dossier_menu = false) {
 
-        $page = \Nos\Model_Page_Page::query()
+        $page = \Nos\Model_Page::query()
                 ->where_open()
                     ->where(array('page_home', '=', '1'))
                     ->or_where(array('page_carrefour', '=', '1'))
@@ -590,7 +590,7 @@ class Controller_Front extends Controller {
 
         //-------Listage des pages du dossier Menu Header
 
-        $list_page = \Nos\Model_Page_Page::query()
+        $list_page = \Nos\Model_Page::query()
                 ->where(array('page_parent_id', DOSSIER_MENU_HEADER))
                 ->where(array('page_published', 1))
                 ->where(array('page_menu', 1))
@@ -640,7 +640,7 @@ class Controller_Front extends Controller {
 <ul class="sf-menu" style="margin:0;">
   <!-- list-style-image pour IE 7 -->
   <?php
-  $page_newsletters = \Nos\Model_Page_Page::find(PAGE_INSCRIPTION_NEWSLETTER);
+  $page_newsletters = \Nos\Model_Page::find(PAGE_INSCRIPTION_NEWSLETTER);
   ?>
   <li style="list-style-type:none;list-style-image: none;"><a href="<?= $page_newsletters->page_virtual_url ?>"><img src="static/images/abonner_actualites.png" border="0" alt="s'abonner aux actualités"  title="s'abonner aux actualités" /></a></li>
   <li style="list-style-type:none;list-style-image: none;"><a href="<?= static::$blog_url ?>?todo=rss" ><img src="static/images/abonner_rss.png" border="0" alt="s'abonner au flux RSS" title="s'abonner au flux RSS" /></a></li>
@@ -704,7 +704,7 @@ class Controller_Front extends Controller {
 				return $url.'tag/'.urlencode($item->tag_label).($page > 1 ? '/'.$page : '').'.html';
 				break;
 
-			case 'Nos\Model_User_User' :
+			case 'Nos\Model_User' :
 				return $url.'author/'.urlencode($item->fullname()).($page > 1 ? '/'.$page : '').'.html';
 				break;
 		}

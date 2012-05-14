@@ -14,9 +14,12 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
 
     public function action_crud($id = null) {
         $blog = $id === null ? null : Model_Blog::find($id);
-        return \View::forge('noviusos_blog::form/crud', array(
-            'blog' => $blog,
-        ), false);
+	    return \View::forge('nos::form/layout_languages', array(
+		    'item' => $blog,
+		    'selected_lang' => $blog === null ? null : $blog->get_lang(),
+		    'url_blank_slate' => 'admin/noviusos_blog/form/blank_slate',
+		    'url_form' => 'admin/noviusos_blog/form/form',
+	    ) , false);
     }
 
     public function action_blank_slate($id = null) {

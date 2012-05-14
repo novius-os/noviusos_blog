@@ -51,3 +51,33 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
     ),
 ), false); ?>
 <?= $fieldset->close(); ?>
+<script type="text/javascript">
+	require(['jquery-nos-ostabs'], function ($nos) {
+		$nos(function () {
+			var tabInfos = {
+				label : <?= \Format::forge()->to_json(isset($item) ? $item->blog_title : 'Add a blog post') ?>,
+				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
+				url : 'admin/noviusos_blog/form/crud/<?= empty($item) ? '' : '/'.$item->blog_id ?>'
+			};
+<?php
+	if (!empty($item)) {
+?>
+			tabInfos.actions = [
+				{
+					label : <?= json_encode(_('Visualise')) ?>,
+					click : function() {
+						window.open(<?= json_encode($item->first_url()) ?> + '?_preview=1');
+					},
+					iconClasses : 'nos-icon16 nos-icon16-eye'
+				}
+			];
+<?php
+}
+?>
+			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
+			$el.onShow('bind', function() {
+				$el.tab('update', tabInfos);
+			});
+		});
+	});
+</script>

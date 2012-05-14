@@ -11,7 +11,7 @@
 namespace Nos\Blog;
 
 class Model_Blog extends \Nos\Orm\Model {
-    protected static $_table_name = 'os_blog';
+    protected static $_table_name = 'nos_blog';
     protected static $_primary_key = array('blog_id');
 
     protected static $_has_one = array();
@@ -19,7 +19,7 @@ class Model_Blog extends \Nos\Orm\Model {
     protected static $_belongs_to = array(
         'author' => array(
             'key_from' => 'blog_author_id',
-            'model_to' => 'Nos\Model_User_User',
+            'model_to' => 'Nos\Model_User',
             'key_to' => 'user_id',
             'cascade_save' => false,
             'cascade_delete' => false,
@@ -55,7 +55,7 @@ class Model_Blog extends \Nos\Orm\Model {
         'categories' => array(
             'key_from' => 'blog_id',
             'key_through_from' => 'blog_id', // column 1 from the table in between, should match a posts.id
-            'table_through' => 'os_blog_category_link', // both models plural without prefix in alphabetical order
+            'table_through' => 'nos_blog_category_link', // both models plural without prefix in alphabetical order
             'key_through_to' => 'blgc_id', // column 2 from the table in between, should match a users.id
             'model_to' => 'Nos\Blog\Model_Category',
             'key_to' => 'blgc_id',
@@ -65,7 +65,7 @@ class Model_Blog extends \Nos\Orm\Model {
         'tags' => array(
             'key_from'         => 'blog_id',
             'key_through_from' => 'blgt_blog_id',
-            'table_through'    => 'os_blog_tag',
+            'table_through'    => 'nos_blog_tag',
             'key_through_to'   => 'blgt_tag_id',
             'model_to'         => '\Nos\Blog\Model_Tag',
             'key_to'           => 'tag_id',

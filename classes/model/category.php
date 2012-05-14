@@ -11,7 +11,7 @@
 namespace Nos\Blog;
 
 class Model_Category extends \Nos\Orm\Model {
-    protected static $_table_name = 'os_blog_category';
+    protected static $_table_name = 'nos_blog_category';
     protected static $_primary_key = array('blgc_id');
 
 	protected static $_has_many = array(
@@ -38,7 +38,7 @@ class Model_Category extends \Nos\Orm\Model {
 		'blogs' => array(
 			'key_from'         => 'blgc_id',
 			'key_through_from' => 'blgc_id',
-			'table_through'    => 'os_blog_category_link',
+			'table_through'    => 'nos_blog_category_link',
 			'key_through_to'   => 'blog_id',
 			'model_to'         => '\Nos\Blog\Model_Blog',
 			'key_to'           => 'blog_id',

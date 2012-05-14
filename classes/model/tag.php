@@ -11,7 +11,7 @@
 namespace Nos\Blog;
 
 class Model_Tag extends \Nos\Orm\Model {
-    protected static $_table_name = 'os_tag';
+    protected static $_table_name = 'nos_tag';
     protected static $_primary_key = array('tag_id');
 
     protected static $_properties = array (
@@ -50,7 +50,7 @@ class Model_Tag extends \Nos\Orm\Model {
         'blogs' => array(
             'key_from'         => 'tag_id',
             'key_through_from' => 'blgt_tag_id',
-            'table_through'    => 'os_blog_tag',
+            'table_through'    => 'nos_blog_tag',
             'key_through_to'   => 'blgt_blog_id',
             'model_to'         => '\Nos\Blog\Model_Blog',
             'key_to'           => 'blog_id',
