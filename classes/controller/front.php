@@ -293,7 +293,7 @@ class Controller_Front extends Controller {
 
             // Retrieve the comment counts for each post (1 request)
             $comments_count = \Db::select(\Db::expr('COUNT(comm_id) AS count_result'), 'comm_parent_id')
-                    ->from(\Nos\Model_Comment::table())
+                    ->from(\Nos\Blog\Model_Comment::table())
                     ->and_where('comm_type', '=', 'blog')
                     ->and_where('comm_parent_id', 'in', $ids)
                     ->group_by('comm_parent_id')
