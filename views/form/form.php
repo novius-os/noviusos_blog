@@ -66,7 +66,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 				{
 					label : <?= json_encode(_('Visualise')) ?>,
 					click : function() {
-						window.open(<?= json_encode($item->first_url()) ?>);
+						window.open(<?= json_encode($item->first_url()) ?> + '?_preview=1');
 					},
 					iconClasses : 'nos-icon16 nos-icon16-eye'
 				}
