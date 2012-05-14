@@ -19,7 +19,7 @@ class Model_Blog extends \Nos\Orm\Model {
     protected static $_belongs_to = array(
         'author' => array(
             'key_from' => 'blog_author_id',
-            'model_to' => 'Nos\Model_User_User',
+            'model_to' => 'Nos\Model_User',
             'key_to' => 'user_id',
             'cascade_save' => false,
             'cascade_delete' => false,

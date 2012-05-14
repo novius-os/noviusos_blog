@@ -109,7 +109,7 @@ define([
                 },
                 inspectors : {
                     authors : {
-                        reloadEvent : 'nos_user_user',
+                        reloadEvent : 'nos_user',
                         label : appDesk.i18n('Authors'),
                         url : 'admin/noviusos_blog/inspector/author/list',
                         grid : {
