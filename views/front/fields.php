@@ -52,7 +52,7 @@ if (!empty($display['tags'])) {
 
     $tags = array();
     foreach ($item->tags as $tag) {
-        $tags[$link_to_tag($tag->tag_label)] = $tag->tag_label;
+        $tags[$link_to_tag($tag)] = $tag->tag_label;
     }
     echo implode(', ', array_map(function($href, $title) {
         return '<a href="'.$href.'">'.$title.'</a>';

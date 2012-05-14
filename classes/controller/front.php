@@ -150,8 +150,8 @@ class Controller_Front extends Controller {
         $self  = $this;
         $url   = $this->url;
 
-        $link_to_category = function($category, $page = 1) use($class, $url) {
-            return $class::url_category($category, $page, $url);
+        $link_to_category = function($category, $page = 1) use($self, $url) {
+            return $self::get_url_model($category, array('page' => $page, 'urlPath' => $url));
         };
         $link_pagination = function($page) use ($link_to_category, $self) {
             return $link_to_category($self->category, $page);
@@ -169,15 +169,17 @@ class Controller_Front extends Controller {
     public function display_list_tag($params) {
 
         list(, $tag) = $this->enhancerUrl_segments;
-        $this->tag = strtolower($tag);
+        $this->tag = Model_Tag::forge(array(
+            'tag_label' => strtolower($tag),
+        ));
 
 
         $class = get_called_class();
         $self  = $this;
         $url   = $this->url;
 
-        $link_to_tag = function($tag, $page = 1) use($class, $url) {
-            return $class::url_tag($tag, $page, $url);
+        $link_to_tag = function($tag, $page = 1) use($self, $url) {
+            return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
         };
         $link_pagination = function($page) use ($link_to_tag, $self) {
             return $link_to_tag($self->tag, $page);
@@ -206,7 +208,7 @@ class Controller_Front extends Controller {
         $url   = $this->url;
 
         $link_to_author = function($author, $page = 1) use($self, $url) {
-            return $self::url_author($author, $page, $url);
+            return $self::get_url_model($author, array('page' => $page, 'urlPath' => $url));
         };
         $link_pagination = function($page) use ($link_to_author, $self) {
             return $link_to_author($self->author, $page);
@@ -238,22 +240,20 @@ class Controller_Front extends Controller {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related('author');
+                ->related(array('author', 'categories', 'tags'));
 
         $query->where(array('blog_published', true));
 
 		$query->where(array('blog_lang', $this->page_from->page_lang));
 
         if (!empty($this->category)) {
-            $query->related('categories');
             $query->where(array('categories.blgc_id', $this->category->blgc_id));
         }
         if (!empty($this->author)) {
             $query->where(array('blog_author_id', $this->author->user_id));
         }
         if (!empty($this->tag)) {
-            $query->related('tags');
-            $query->where(array('tags.tag_label', $this->tag));
+            $query->where(array('tags.tag_label', $this->tag->tag_label));
         }
 
         $this->pagination->set_config(array(
@@ -267,6 +267,17 @@ class Controller_Front extends Controller {
 
         $query->order_by($this->config['order_by']);
         $posts = $query->get();
+
+        // Re-fetch with a 2nd request to get all the relations (not only the filtered ones)
+        if (!empty($this->category) || !empty($this->tag)) {
+            $keys = array_keys((array) $posts);
+            $posts = Model_Blog::query(array(
+                'where' => array(
+                    array('blog_id', 'IN', $keys),
+                ),
+                'related' => array('author', 'categories', 'tags'),
+            ))->get();
+        }
 
         // Display them
         return $this->_display_items($posts, $context);
@@ -328,7 +339,7 @@ class Controller_Front extends Controller {
             $this->trigger('display_list_item_loop');
             $this->trigger("display_{$context}_item_loop");
 
-            if ($index == 2) {
+            if ($this->loop['first']) {
                 $this->merge_config('display_list_item_first');
                 $this->merge_config("display_{$context}_item_first");
             } else {
