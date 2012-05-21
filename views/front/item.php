@@ -7,6 +7,7 @@
  *             http://www.gnu.org/licenses/agpl-3.0.html
  * @link http://www.novius-os.org
  */
+
 ?>
 <div class="billet">
       <h1><?= $title ?></h1>
@@ -29,7 +30,7 @@
           }
 ?>
           <?= render('front/comments_list', array('item' => $item), true) ?>
-          <?= render('front/comment_form', array('item' => $item), true) ?>
+          <?= render('front/comment_form', array('item' => $item, 'add_comment_success' => $add_comment_success, 'use_recaptcha' => $use_recaptcha), true) ?>
       </div>
 
       <?= $comments ?>

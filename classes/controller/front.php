@@ -361,6 +361,9 @@ class Controller_Front extends Controller {
      * @return  \Fuel\Core\View
      */
     public function display_item($args) {
+        if ($this->config['use_recaptcha']) {
+            \Package::load('fuel-recatpcha', APPPATH.'packages/fuel-recaptcha/');
+        }
 
         list($item_virtual_name) = $this->enhancerUrl_segments;
 
@@ -369,12 +372,12 @@ class Controller_Front extends Controller {
         if (empty($post)) {
             throw new \Nos\NotFoundException();
         }
-        $this->_add_comment($post);
+        $add_comment_success = $this->_add_comment($post);
 
         $this->trigger('display_item');
         $this->merge_config('display_item');
 
-        echo $this->_display_item($post);
+        echo $this->_display_item($post, array('add_comment_success' => $add_comment_success, 'use_recaptcha' => $this->config['use_recaptcha']));
     }
 
     protected function _get_post($where = array()) {
@@ -391,16 +394,27 @@ class Controller_Front extends Controller {
 
     protected function _add_comment($post) {
         if (\Input::post('todo') == 'add_comment') {
-            $comm = new Model_Comment();
-            $comm->comm_type = 'blog';
-            $comm->comm_email = \Input::post('comm_email');
-            $comm->comm_author = \Input::post('comm_author');
-            $comm->comm_content = \Input::post('comm_content');
-            $date = new \Fuel\Core\Date();
-            $comm->comm_created_at = \Date::forge()->format('mysql');
-            $comm->post = $post;
-            $comm->save();
+            if (!$this->config['use_recaptcha'] || \ReCaptcha\ReCaptcha::instance()->check_answer(\Input::real_ip(), \Input::post('recaptcha_challenge_field'), \Input::post('recaptcha_response_field')))
+            {
+                $comm = new Model_Comment();
+                $comm->comm_type = 'blog';
+                $comm->comm_email = \Input::post('comm_email');
+                $comm->comm_author = \Input::post('comm_author');
+                $comm->comm_content = \Input::post('comm_content');
+                $date = new \Fuel\Core\Date();
+                $comm->comm_created_at = \Date::forge()->format('mysql');
+                $comm->post = $post;
+                $comm->comm_state = $this->config['comment_default_state'];
+                $comm->save();
+
+                \Cookie::set('comm_email', \Input::post('comm_email'));
+                \Cookie::set('comm_author', \Input::post('comm_author'));
+                return true;
+            } else {
+                return false;
+            }
         }
+        return 'none';
     }
 
     /**
@@ -709,4 +723,5 @@ class Controller_Front extends Controller {
 				break;
 		}
 	}
+
 }
