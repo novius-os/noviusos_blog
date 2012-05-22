@@ -50,7 +50,7 @@ class Controller_Front extends Controller {
 			'config' => (array) $args,
 		));
 
-        $this->page_from = \Nos::main_page();
+        $this->page_from = \Nos\Nos::main_page();
 
         setlocale(LC_ALL, $this->page_from->get_lang());
 
@@ -58,7 +58,7 @@ class Controller_Front extends Controller {
 
         $this->merge_config('config');
 
-	    $this->enhancerUrlPath = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+	    $this->enhancerUrlPath = \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
 
 	    $url = $args['url'];
         $this->config['item_per_page'] = $args['config']->item_per_page;
@@ -122,7 +122,7 @@ class Controller_Front extends Controller {
 
         $list = $this->_display_list('list_main');
 
-        \Nos::main_controller()->page_title = 'Novius Labs';
+        \Nos\Nos::main_controller()->page_title = 'Novius Labs';
 
         $self   = $this;
         $class = get_class($this);
@@ -386,7 +386,7 @@ class Controller_Front extends Controller {
             $where = array(array('blog_virtual_name', '=', $where));
         }
 
-        if (!\Nos::main_controller()->is_preview) {
+        if (!\Nos\Nos::main_controller()->is_preview) {
             $where[] = array('blog_published', '=', true);
         }
         return Model_Blog::find('first', array('where' => $where));
@@ -702,7 +702,7 @@ class Controller_Front extends Controller {
 
 	static function get_url_model($item, $params = array()) {
 		$model = get_class($item);
-		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos::main_controller()->enhancerUrlPath;
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
 		$page = isset($params['page']) ? $params['page'] : 1;
 
 		switch ($model) {
