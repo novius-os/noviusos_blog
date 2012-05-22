@@ -1,6 +1,6 @@
 <?php
 return array(
-    'Posted: '                                      => 'Posté le : ',
+    'Created on '                                  => 'Posté le ',
     ':comments comments'                            => ':comments commentaires',
     '1 comment'                                     => '1 commentaire',
     'Comment by :author'                            => 'Commentaire de :author',
@@ -11,5 +11,6 @@ return array(
     'Your comment:'                                 => 'Votre commentaire : ',
     'No comments'                                   => 'Pas de commentaire',
     'Captcha was incorrect !'                       => 'Le captcha entré est invalide !',
-    'Your comment has been successfully added !'    => 'Votre commentaire a été ajouté avec succès !'
+    'Your comment has been successfully added !'    => 'Votre commentaire a été ajouté avec succès !',
+    '%m/%d/%Y at %H:%M'                             => '%d/%m/%Y à %H:%M'
 );
