@@ -17,10 +17,12 @@ $fieldset->field('blog_categories')->set_template('{field}');
 $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div class="table-field">{field} <span>&nbsp;.html</span></div>');
 //\Debug::dump($fieldset->field('wysiwygs->content'));
 //echo $fieldset->field('wysiwygs->content')->forge();
+//
 ?>
 
 <?= $fieldset->open('admin/noviusos_blog/form/form'.($item->is_new() ? '' : '/'.$item->blog_id)); ?>
 <?= View::forge('form/layout_standard', array(
+    'fieldset' => $fieldset,
     'fieldset' => $fieldset,
     'object' => $item,
     'medias' => array('medias->thumbnail->medil_media_id'),
@@ -73,6 +75,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 			];
 <?php
 }
+
 ?>
 			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
 			$el.onShow('bind', function() {

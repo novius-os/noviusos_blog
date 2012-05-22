@@ -58,6 +58,12 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
             } else {
                 $object_from = Model_Blog::find($create_from_id);
                 $blog      = clone $object_from;
+                $blog->tags = $object_from->tags;
+
+                //$blog->wysiwygs = new \Nos\Orm\Model_Wysiwyg_Provider($blog);
+                //\Debug::dump($blog->wysiwygs->content);
+
+                //$blog->wysiwygs->content = $object_from->wysiwygs->content; //$wysiwyg;
             }
             $blog->blog_lang = \Input::get('lang');
             $blog->author = \Session::user();
@@ -120,7 +126,7 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
                     'dispatchEvent' => 'reload.noviusos_blog',
                 );
                 if ($is_new) {
-                    $return['replaceTab'] = 'admin/noviusos_blog/form/edit/'.$object->blog_id;
+                    $return['replaceTab'] = 'admin/noviusos_blog/form/crud/'.$object->blog_id;
                 }
                 return $return;
             }
