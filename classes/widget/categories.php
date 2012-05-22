@@ -39,7 +39,7 @@ class Widget_Categories extends \Fieldset_Field {
      * @return type
      */
     public function build() {
-		$categories_id = $this->get_value();
+		$categories_id = $this->value;
 	    $categories_id = is_array($categories_id) ? $categories_id : array();
 	    $selected = array();
 	    $model = 'Nos\\Blog\\Model_Category';
@@ -54,7 +54,7 @@ class Widget_Categories extends \Fieldset_Field {
 	        'params' => array(
 		        'treeUrl' => 'admin/noviusos_blog/inspector/category/json',
 		        'reloadEvent' => 'noviusos_blog_categories',
-	            'input_name' => $this->get_name(),
+	            'input_name' => $this->name,
 	            'selected' => $selected,
 		        'columns' => array(
 			        array(
