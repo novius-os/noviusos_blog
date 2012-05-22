@@ -4,7 +4,7 @@ $email = \Cookie::get('comm_email', '');
 $content = "";
 ?>
 <div class="comment_form" id="comment_form">
-    <form class="comment_form" name="TheFormComment" id="TheFormComment" method="post" action="<?= Uri::full() ?>#comment_form">
+    <form class="comment_form" name="TheFormComment" id="TheFormComment" method="post" action="<?= \Nos\Nos::main_controller()->url ?>#comment_form">
         <input type="hidden" name="todo" value="add_comment">
         <div class="comment_form_title"><?= __('Leave your comment:') ?></div>
         <?php if (isset($add_comment_success)) {
