@@ -35,5 +35,7 @@ return array(
         'item_view'   => 'front/item',
         'fields_view' => 'front/fields',
     ),
+    'use_recaptcha' => false, // If you set this on true don't forget to add fuel-recaptcha on local/packages/fuel-recaptcha
+    'comment_default_state' => 'published'
 );
 ?>

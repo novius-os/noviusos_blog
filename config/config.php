@@ -13,7 +13,7 @@ return array(
 
     // Global
     'config' => array(
-        'date_format'   => '%A %e %B %Y %H:%M',
+        'date_format'   => '%A %e %B %Y',
         'link_on_title' => false,
         'item_per_page' => 10,
     ),

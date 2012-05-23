@@ -50,7 +50,7 @@ class Controller_Front extends Controller {
 			'config' => (array) $args,
 		));
 
-        $this->page_from = \Nos::main_page();
+        $this->page_from = \Nos\Nos::main_page();
 
         setlocale(LC_ALL, $this->page_from->get_lang());
 
@@ -58,7 +58,7 @@ class Controller_Front extends Controller {
 
         $this->merge_config('config');
 
-	    $this->enhancerUrlPath = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+	    $this->enhancerUrlPath = \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
 
 	    $url = $args['url'];
         $this->config['item_per_page'] = $args['config']->item_per_page;
@@ -122,7 +122,7 @@ class Controller_Front extends Controller {
 
         $list = $this->_display_list('list_main');
 
-        \Nos::main_controller()->page_title = 'Novius Labs';
+        \Nos\Nos::main_controller()->page_title = 'Novius Labs';
 
         $self   = $this;
         $class = get_class($this);
@@ -361,6 +361,9 @@ class Controller_Front extends Controller {
      * @return  \Fuel\Core\View
      */
     public function display_item($args) {
+        if ($this->config['use_recaptcha']) {
+            \Package::load('fuel-recatpcha', APPPATH.'packages/fuel-recaptcha/');
+        }
 
         list($item_virtual_name) = $this->enhancerUrl_segments;
 
@@ -369,12 +372,12 @@ class Controller_Front extends Controller {
         if (empty($post)) {
             throw new \Nos\NotFoundException();
         }
-        $this->_add_comment($post);
+        $add_comment_success = $this->_add_comment($post);
 
         $this->trigger('display_item');
         $this->merge_config('display_item');
 
-        echo $this->_display_item($post);
+        echo $this->_display_item($post, array('add_comment_success' => $add_comment_success, 'use_recaptcha' => $this->config['use_recaptcha']));
     }
 
     protected function _get_post($where = array()) {
@@ -383,7 +386,7 @@ class Controller_Front extends Controller {
             $where = array(array('blog_virtual_name', '=', $where));
         }
 
-        if (!\Nos::main_controller()->is_preview) {
+        if (!\Nos\Nos::main_controller()->is_preview) {
             $where[] = array('blog_published', '=', true);
         }
         return Model_Blog::find('first', array('where' => $where));
@@ -391,16 +394,27 @@ class Controller_Front extends Controller {
 
     protected function _add_comment($post) {
         if (\Input::post('todo') == 'add_comment') {
-            $comm = new Model_Comment();
-            $comm->comm_type = 'blog';
-            $comm->comm_email = \Input::post('comm_email');
-            $comm->comm_author = \Input::post('comm_author');
-            $comm->comm_content = \Input::post('comm_content');
-            $date = new \Fuel\Core\Date();
-            $comm->comm_created_at = \Date::forge()->format('mysql');
-            $comm->post = $post;
-            $comm->save();
+            if (!$this->config['use_recaptcha'] || \ReCaptcha\ReCaptcha::instance()->check_answer(\Input::real_ip(), \Input::post('recaptcha_challenge_field'), \Input::post('recaptcha_response_field')))
+            {
+                $comm = new Model_Comment();
+                $comm->comm_type = 'blog';
+                $comm->comm_email = \Input::post('comm_email');
+                $comm->comm_author = \Input::post('comm_author');
+                $comm->comm_content = \Input::post('comm_content');
+                $date = new \Fuel\Core\Date();
+                $comm->comm_created_at = \Date::forge()->format('mysql');
+                $comm->post = $post;
+                $comm->comm_state = $this->config['comment_default_state'];
+                $comm->save();
+
+                \Cookie::set('comm_email', \Input::post('comm_email'));
+                \Cookie::set('comm_author', \Input::post('comm_author'));
+                return true;
+            } else {
+                return false;
+            }
         }
+        return 'none';
     }
 
     /**
@@ -688,7 +702,7 @@ class Controller_Front extends Controller {
 
 	static function get_url_model($item, $params = array()) {
 		$model = get_class($item);
-		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos::main_controller()->enhancerUrlPath;
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
 		$page = isset($params['page']) ? $params['page'] : 1;
 
 		switch ($model) {
@@ -709,4 +723,5 @@ class Controller_Front extends Controller {
 				break;
 		}
 	}
+
 }

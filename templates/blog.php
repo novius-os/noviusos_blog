@@ -31,16 +31,16 @@
     <a href="<? //PubliPage::getUrl(array('carrefour' => $GLOBALS['page_rac_id'])) ?>" id="logo" title="Novius Labs"></a>
   </div>
   <div id="header_menu">
-    <?php echo Nos::hmvc('noviusos_blog/front/menu'); ?>
+    <?php echo \Nos\Nos::hmvc('noviusos_blog/front/menu'); ?>
     <div id="header_menu_left"></div>
     <div id="header_menu_right"></div>
   </div>
 
   <div id="main">
     <div id="sidebar">
-      <?php // echo Nos::hmvc('noviusos_blog/front/links'); ?>
+      <?php // echo \Nos\Nos::hmvc('noviusos_blog/front/links'); ?>
       <?php echo $wysiwyg_right ?>
-      <?php echo Nos::hmvc('noviusos_blog/front/insert_tags'); ?>
+      <?php echo \Nos\Nos::hmvc('noviusos_blog/front/insert_tags'); ?>
     </div>
     <div id="content<?= CONTENU_EDITORIAL ? '_editorial':'' ?>">
       <?= $wysiwyg_content ?>
@@ -60,5 +60,5 @@
 </html>
 
 <?php
-    Nos::main_controller()->page_title = Nos::main_controller()->page->page_meta_title.' - Laboratoire technologique Internet : CMS, mobile, emailing, réseaux sociaux - '.NOM_SITE;
+	\Nos\Nos::main_controller()->page_title = \Nos\Nos::main_controller()->page->page_meta_title.' - Laboratoire technologique Internet : CMS, mobile, emailing, réseaux sociaux - '.NOM_SITE;
 ?>
