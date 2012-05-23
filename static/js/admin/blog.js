@@ -64,10 +64,10 @@ define([
                 adds : {
                     post : {
                         label : appDesk.i18n('Add a post'),
-                        action : function(ui) {
+                        action : function(ui, appdesk) {
                             $nos(ui).tab('add', {
-                                url     : 'admin/noviusos_blog/form/crud',
-                                label   : appDesk.i18n('Edit')._()
+                                url     : 'admin/noviusos_blog/form/crud?lang=' + appdesk.lang,
+                                label   : appDesk.i18n('Add a new post')._()
                             });
                         }
                     },

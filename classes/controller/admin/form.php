@@ -16,7 +16,7 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
         $blog = $id === null ? null : Model_Blog::find($id);
 	    return \View::forge('nos::form/layout_languages', array(
 		    'item' => $blog,
-		    'selected_lang' => $blog === null ? null : $blog->get_lang(),
+		    'selected_lang' => \Input::get('lang', $blog === null ? null : $blog->get_lang()),
 		    'url_blank_slate' => 'admin/noviusos_blog/form/blank_slate',
 		    'url_form' => 'admin/noviusos_blog/form/form',
 	    ) , false);
@@ -90,31 +90,41 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
             ));
         }
 
-        $fieldset = static::fieldset($fields, $blog)->set_config('field_template', '<tr><th>{label}{required}</th><td class="{error_class}">{field} {error_msg}</td></tr>');
+        $fields = \Arr::merge($fields, array(
+            'blog_created_at_date' => array(
+                'populate' => function($item) {
+                    return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%Y-%m-%d');
+                }
+            ),
+            'blog_created_at_time' => array(
+                'populate' => function($item) {
+                    return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%H:%M');
+                }
+            ),
+            'blog_created_at' => array(
+                'populate' => function($item) {
+                    if (\Input::method() == 'POST') {
+                        return \Input::post('blog_created_at_date').' '.\Input::post('blog_created_at_time').':00';
+                    }
+                    return $item->blog_created_at;
+                }
+            ),
+        ));
 
-        return \View::forge('noviusos_blog::form/form', array(
-            'item'     => $blog,
-            'fieldset' => $fieldset,
-            'lang'     => $blog->blog_lang
-        ), false);
-    }
 
-    public static function fieldset($fields, $object) {
-
-        $is_new = false;
-        $fieldset = \Fieldset::build_from_config($fields, $object, array(
-            'save' => function($data) use ($object, $fields) {
+        $fieldset = \Fieldset::build_from_config($fields, $blog, array(
+            'save' => function($data) use ($blog, $fields) {
                 //print_r($object);
                 $categories = \Input::post('categories');
                 if ($categories == false) {
                     $categories = array();
                 }
-                $object->updateCategoriesById($categories);
+                $blog->updateCategoriesById($categories);
             },
-            'before_save' => function($object, $data) use(&$is_new) {
-                $is_new = $object->is_new();
+            'before_save' => function($object, $data) {
+                //\Debug::dump($object);
             },
-            'success' => function($object, $data) use (&$is_new) {
+            'success' => function($object, $data) use ($is_new) {
                 $return = array(
                     'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
                     'dispatchEvent' => 'reload.noviusos_blog',
@@ -127,6 +137,11 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
         ));
 
         $fieldset->js_validation();
-        return $fieldset;
+
+        return \View::forge('noviusos_blog::form/form', array(
+            'item'     => $blog,
+            'fieldset' => $fieldset,
+            'lang'     => $blog->blog_lang
+        ), false);
     }
 }
