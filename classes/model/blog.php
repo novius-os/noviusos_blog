@@ -52,16 +52,6 @@ class Model_Blog extends \Nos\Orm\Model {
     );//*/
 
     protected static $_many_many = array(
-        'categories' => array(
-            'key_from' => 'blog_id',
-            'key_through_from' => 'blog_id', // column 1 from the table in between, should match a posts.id
-            'table_through' => 'nos_blog_category_link', // both models plural without prefix in alphabetical order
-            'key_through_to' => 'blgc_id', // column 2 from the table in between, should match a users.id
-            'model_to' => 'Nos\Blog\Model_Category',
-            'key_to' => 'blgc_id',
-            'cascade_save' => false,
-            'cascade_delete' => false,
-        ),
         'tags' => array(
             'key_from'         => 'blog_id',
             'key_through_from' => 'blgt_blog_id',

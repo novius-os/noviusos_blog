@@ -31,17 +31,12 @@ define([
                 },
                 'delete' : {
                     action : function(item, ui) {
-                        $nos(ui).xhr({
-                            url: "admin/noviusos_blog/list/delete/" + item.id,
-                            data: {},
-                            success: function(response) {
-                                if (response.success) {
-                                    $nos.notify("Suppression réalisée !");
-                                    $nos.dispatchEvent('reload.noviusos_blog');
-                                } else {
-                                    $nos.notify("Erreur lors de la suppression !", "error");
-                                }
-                            }
+                        $nos(ui).dialog({
+                            contentUrl: 'admin/noviusos_blog/blog/delete/' + item.id,
+                            ajax : true,
+                            title: appDesk.i18n('Delete a post')._(),
+                            width: 400,
+                            height: 150
                         });
                     },
                     label : appDesk.i18n('Delete'),
@@ -117,21 +112,6 @@ define([
                                 title : {
                                     headerText : appDesk.i18n('Author'),
                                     dataKey : 'title'
-                                },
-                                actions : {
-                                    showOnlyArrow : true,
-                                    actions : [
-                                        {
-                                            action : function(item, ui) {
-                                                $nos(ui).tab({
-                                                    iframe : true,
-                                                    url     : "admin/noviusos_blog/form?id=" + item.id,
-                                                    label   : "Update"
-                                                });
-                                            },
-                                            label : appDesk.i18n('Update')
-                                        }
-                                    ]
                                 }
                             },
                             urlJson : 'admin/noviusos_blog/inspector/author/json'
@@ -139,57 +119,8 @@ define([
                         inputName : 'blog_author_id[]',
                         vertical : true
                     },
-                    categories : {
-                        reloadEvent : 'noviusos_blog_categories',
-                        label : appDesk.i18n('Categories'),
-                        vertical : true,
-                        url : 'admin/noviusos_blog/inspector/category/list',
-                        treeGrid : {
-                            columns : {
-                                title : {
-                                    headerText : appDesk.i18n('Category'),
-                                    dataKey : 'title'
-                                },
-                                actions : {
-                                    showOnlyArrow : true,
-                                    actions : [
-                                        {
-                                            action : function(item, ui) {
-                                                $nos(ui).tab({
-                                                    iframe : true,
-                                                    url     : "admin/noviusos_blog/form?id=" + item.id,
-                                                    label   : appDesk.i18n('Update')._()
-                                                });
-                                            },
-                                            label : appDesk.i18n('Update')
-                                        },
-                                        {
-                                            action : function(item, ui) {
-                                                $nos(ui).xhr({
-                                                    url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
-                                                    data: {},
-                                                    success: function(response) {
-                                                        if (response.success) {
-                                                            $nos.notify("Successfully deleted!");
-                                                            $nos.dispatchEvent('reload.noviusos_blog');
-                                                        } else {
-                                                            $nos.notify("Error when deleting!", "error");
-                                                        }
-                                                    }
-                                                });
-                                            },
-                                            label : appDesk.i18n('Delete')
-                                        }
-                                    ]
-                                }
-                            },
-                            treeUrl : 'admin/noviusos_blog/inspector/category/json'
-                        },
-                        inputName : 'blgc_id[]'
-                    },
                     tags : {
                         reloadEvent : 'noviusos_blog_tags',
-                        hide : true,
                         label : appDesk.i18n('Tags'),
                         url : 'admin/noviusos_blog/inspector/tag/list',
                         grid : {
@@ -200,40 +131,27 @@ define([
                                     dataKey : 'title'
                                 },
                                 actions : {
-                                    showOnlyArrow : true,
                                     actions : [
                                         {
                                             action : function(item, ui) {
-                                                $nos(ui).tab({
-                                                    iframe : true,
-                                                    url     : "admin/noviusos_blog/form?id=" + item.id,
-                                                    label   : appDesk.i18n('Edit')
+                                                $nos(ui).dialog({
+                                                    contentUrl: 'admin/noviusos_blog/tag/delete/' + item.id,
+                                                    ajax : true,
+                                                    title: appDesk.i18n('Delete a tag')._(),
+                                                    width: 500,
+                                                    height: 250
                                                 });
                                             },
-                                            label : appDesk.i18n('Edit')
-                                        },
-                                        {
-                                            action : function(item, ui) {
-                                                $nos(ui).xhr({
-                                                    url: "admin/noviusos_blog/inspector/category/delete/" + item.id,
-                                                    data: {},
-                                                    success: function(response) {
-                                                        if (response.success) {
-                                                            $nos.notify("Successfully deleted!");
-                                                            $nos.dispatchEvent('reload.noviusos_blog');
-                                                        } else {
-                                                            $nos.notify("Error when deleting.", "error");
-                                                        }
-                                                    }
-                                                });
-                                            },
-                                            label : appDesk.i18n('Delete')
+                                            label : appDesk.i18n('Delete'),
+                                            primary : true,
+                                            icon : 'trash'
                                         }
                                     ]
                                 }
                             }
                         },
-                        inputName : 'tag_id[]'
+                        inputName : 'tag_id[]',
+                        vertical: true
                     },
                     publishDate : {
                         vertical : true,
