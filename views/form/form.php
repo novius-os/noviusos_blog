@@ -13,7 +13,6 @@ $fieldset->field('author->user_fullname')->set_template('<p>{label} {field}</p>'
 $fieldset->field('blog_read')->set_template('{label} {field} times');
 $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
 $fieldset->field('blog_tags')->set_template('{field}');
-$fieldset->field('blog_categories')->set_template('{field}');
 $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div class="table-field">{field} <span>&nbsp;.html</span></div>');
 //\Debug::dump($fieldset->field('wysiwygs->content'));
 //echo $fieldset->field('wysiwygs->content')->forge();
@@ -48,7 +47,6 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
         // user_fullname is not a real field in the database
         'Meta' => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read'),
         __('URL (post address)') => array('blog_virtual_name'),
-        'Categories' => array('blog_categories'),
         'Tags' => array('blog_tags'),
     ),
 ), false); ?>

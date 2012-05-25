@@ -79,26 +79,6 @@ return array (
             'size' => '4',
         ),
     ),
-    'blog_categories' => array(
-        'label' => '',
-        'widget' => 'Nos\Blog\Widget_Categories',
-        'widget_options' => array(
-            'width' => '100%',
-            'height' => '250px',
-        ),
-        'populate' => function($object) {
-            $categories = Arr::assoc_to_keyval($object->categories, 'blgc_id', 'blgc_id');
-            return array_values($categories);
-        },
-        'before_save' => function($object, $data) {
-            $categories_id = is_array($data['blog_categories']) ? $data['blog_categories'] : array();
-            $object->categories = array();
-            if (!count($categories_id)) {
-                return;
-            }
-            $object->categories = \Nos\Blog\Model_Category::find('all', array('where' => array(array('blgc_id', 'IN', $categories_id))));
-        },
-    ),
     'blog_tags' => array(
         'label' => __('Tags'),
         'populate' => function($object) {

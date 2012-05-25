@@ -36,7 +36,7 @@ class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
     public function action_form($id = null) {
 
         $date = new \Date();
-        $date = $date->format('%Y-%m-%d');
+        $date = $date->format('%Y-%m-%d %H:%M:%S');
 
         if ($id === null) {
             $blog = Model_Blog::forge();
