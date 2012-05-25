@@ -58,7 +58,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $this->merge_config('config');
 
-	    $this->enhancerUrlPath = \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
+	    $this->enhancerUrlPath = \Nos\Nos::main_controller()->enhancerUrlPath;
 
 	    $url = $args['url'];
         $this->config['item_per_page'] = $args['config']->item_per_page;
@@ -698,14 +698,14 @@ class Controller_Front extends Controller_Front_Application {
 
     protected static function url_stats($item, $url = null) {
         if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+            $url = \Nos::main_controller()->enhancerUrlPath;
         }
         return $url.'stats/'.urlencode($item->blog_id).'.html';
     }
 
 	static function get_url_model($item, $params = array()) {
 		$model = get_class($item);
-		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \Nos\Nos::main_controller()->enhancerUrlPath;
 		$page = isset($params['page']) ? $params['page'] : 1;
 
 		switch ($model) {

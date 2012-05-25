@@ -19,10 +19,6 @@ class Controller_Admin_Preview extends \Nos\Controller_Admin_Application {
 			'preview' => \View::forge($this->config['views']['index'])->render(),
 		);
 
-		$response = \Response::forge(\Format::forge()->to_json($body), 200, array(
-			'Content-Type' => 'application/json',
-		));
-		$response->send(true);
-		exit();
+        \Response::json($body);
 	}
 }
