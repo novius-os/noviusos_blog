@@ -10,14 +10,14 @@
 
 namespace Nos\Blog;
 
-use Nos\Controller;
+use Nos\Controller_Front_Application;
 use Nos\Model_Page;
 
 use Fuel\Core\Inflector;
 use Fuel\Core\Str;
 use Fuel\Core\View;
 
-class Controller_Front extends Controller {
+class Controller_Front extends Controller_Front_Application {
 
     /**
      * @var Nos\Pagination
@@ -58,7 +58,7 @@ class Controller_Front extends Controller {
 
         $this->merge_config('config');
 
-	    $this->enhancerUrlPath = \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
+	    $this->enhancerUrlPath = \Nos\Nos::main_controller()->enhancerUrlPath;
 
 	    $url = $args['url'];
         $this->config['item_per_page'] = $args['config']->item_per_page;
@@ -240,7 +240,7 @@ class Controller_Front extends Controller {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related(array('author', 'categories', 'tags'));
+                ->related(array('author'));
 
         $query->where(array('blog_published', true));
 
@@ -262,10 +262,13 @@ class Controller_Front extends Controller {
             'current_page'   => $this->current_page,
         ));
 
-        $query->rows_limit($this->pagination->per_page);
         $query->rows_offset($this->pagination->offset);
+        $query->rows_limit((int)$this->pagination->per_page);
+        //$query->group_by('blog_id');
+
 
         $query->order_by($this->config['order_by']);
+
         $posts = $query->get();
 
         // Re-fetch with a 2nd request to get all the relations (not only the filtered ones)
@@ -695,14 +698,14 @@ class Controller_Front extends Controller {
 
     protected static function url_stats($item, $url = null) {
         if (is_null($url)) {
-            $url = \URI::base().\Nos::main_controller()->enhancerUrlPath;
+            $url = \Nos::main_controller()->enhancerUrlPath;
         }
         return $url.'stats/'.urlencode($item->blog_id).'.html';
     }
 
 	static function get_url_model($item, $params = array()) {
 		$model = get_class($item);
-		$url = isset($params['urlPath']) ? $params['urlPath'] : \URI::base().\Nos\Nos::main_controller()->enhancerUrlPath;
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \Nos\Nos::main_controller()->enhancerUrlPath;
 		$page = isset($params['page']) ? $params['page'] : 1;
 
 		switch ($model) {

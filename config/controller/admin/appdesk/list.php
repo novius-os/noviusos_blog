@@ -90,10 +90,6 @@ return array(
 				return !empty($url);
 			}
 		),
-		/*
-			  'visualise' => function($object) {
-				  return \Nos\Blog\Controller_Front::url_item($object); // ne fonctionne pas ?
-			  },*/
 	),
 	'inputs' => array(
 		'blgc_id' => function($value, $query) {
