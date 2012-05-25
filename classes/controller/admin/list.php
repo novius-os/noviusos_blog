@@ -17,21 +17,4 @@ use Nos\Controller_Appdesk_List;
 use Asset, Format, Input, Session, View, Uri;
 
 class Controller_Admin_List extends Controller_Appdesk_List {
-
-    public function action_delete($id) {
-
-        $success = false;
-
-        $billet = Model_Blog::find_by_blog_id($id);
-        if ($billet) {
-            $billet->delete();
-            $success = true;
-        }
-
-        \Response::json(array(
-			'success' => $success,
-		));
-    }
-
-
 }

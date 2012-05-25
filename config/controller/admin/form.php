@@ -45,21 +45,32 @@ return array (
     ),
     'wysiwygs->content->wysiwyg_text' => array(
         'label' => __('Content'),
-        'widget' => 'Nos\Widget_Wysiwyg', //wysiwyg
+        'widget' => 'Nos\Widget_Wysiwyg',
         'form' => array(
             'style' => 'width: 100%; height: 500px;',
-            ),
+        ),
     ),
     'medias->thumbnail->medil_media_id' => array(
         'label' => '',
-        'widget' => 'Nos\Widget_Media', //media
+        'widget' => 'Nos\Widget_Media',
         'form' => array(
             'title' => 'Thumbnail',
         ),
     ),
     'blog_created_at' => array(
-        'label' => __('Created at:'),
-        'widget' => 'Nos\Widget_Date_Picker', //date_picker
+        'form' => array(
+            'type' => 'text',
+        ),
+    ),
+    'blog_created_at_date' => array(
+        'label' => __('Created on:'),
+        'widget' => 'Nos\Widget_Date_Picker',
+        'dont_save' => true,
+    ),
+    'blog_created_at_time' => array(
+        'label' => __('Created time:'),
+        'widget' => 'Nos\Widget_Time_Picker',
+        'dont_save' => true,
     ),
     'blog_read' => array(
         'label' => __('Read'),
@@ -133,4 +144,3 @@ return array (
         ),
     ),
 );
-        
