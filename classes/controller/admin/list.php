@@ -12,9 +12,10 @@ namespace Nos\Blog;
 
 use Fuel\Core\Config;
 
-use Nos\Controller_Appdesk_List;
+use Nos\Controller_Admin_Appdesk;
 
 use Asset, Format, Input, Session, View, Uri;
 
-class Controller_Admin_List extends Controller_Appdesk_List {
+class Controller_Admin_List extends Controller_Admin_Appdesk {
+
 }

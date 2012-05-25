@@ -10,14 +10,14 @@
 
 namespace Nos\Blog;
 
-use Nos\Controller;
+use Nos\Controller_Front_Application;
 use Nos\Model_Page;
 
 use Fuel\Core\Inflector;
 use Fuel\Core\Str;
 use Fuel\Core\View;
 
-class Controller_Front extends Controller {
+class Controller_Front extends Controller_Front_Application {
 
     /**
      * @var Nos\Pagination
@@ -240,7 +240,7 @@ class Controller_Front extends Controller {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related(array('author', 'categories', 'tags'));
+                ->related(array('author'));
 
         $query->where(array('blog_published', true));
 
@@ -262,10 +262,13 @@ class Controller_Front extends Controller {
             'current_page'   => $this->current_page,
         ));
 
-        $query->rows_limit($this->pagination->per_page);
         $query->rows_offset($this->pagination->offset);
+        $query->rows_limit((int)$this->pagination->per_page);
+        //$query->group_by('blog_id');
+
 
         $query->order_by($this->config['order_by']);
+
         $posts = $query->get();
 
         // Re-fetch with a 2nd request to get all the relations (not only the filtered ones)
