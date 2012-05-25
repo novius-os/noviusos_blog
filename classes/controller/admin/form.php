@@ -10,7 +10,7 @@
 
 namespace Nos\Blog;
 
-class Controller_Admin_Form extends \Nos\Controller_Generic_Admin {
+class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
 
     public function action_crud($id = null) {
         $blog = $id === null ? null : Model_Blog::find($id);
