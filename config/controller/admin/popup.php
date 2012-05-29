@@ -4,4 +4,3 @@ return array(
         'index' => 'noviusos_blog::popup',
     ),
 );
-?>
