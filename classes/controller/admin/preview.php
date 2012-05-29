@@ -12,13 +12,16 @@ namespace Nos\Blog;
 
 class Controller_Admin_Preview extends \Nos\Controller_Admin_Application {
 
-	public function action_index() {
+    public function action_index() {
+        return $this->action_save();
+    }
 
-		$body = array(
-			'config'  => \Format::forge()->to_json($_POST),
-			'preview' => \View::forge($this->config['views']['index'])->render(),
-		);
+    public function action_save() {
 
+        $body = array(
+            'config'  => \Format::forge()->to_json($_POST),
+            'preview' => \View::forge('tuto_voiture::preview',$_POST)->render(),
+        );
         \Response::json($body);
-	}
+    }
 }
