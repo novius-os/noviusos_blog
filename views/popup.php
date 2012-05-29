@@ -17,8 +17,8 @@
 				<div class="expander">
 					<h3>Options</h3>
 					<div>
-						<p><label for="item_per_page">Item per page:</label> <input type="text" name="item_per_page" id="item_per_page" value="<?= \Fuel\Core\Input::post('item_per_page', 10) ?>" /></p>
-						<p><input type="checkbox" name="link_on_title" id="link_on_title" value="1" <?= \Fuel\Core\Input::post('link_on_title', 0) ? 'checked' : '' ?> /> <label for="link_on_title">Link on title</label></p>
+						<p><label for="item_per_page">Item per page:</label> <input type="text" name="item_per_page" id="item_per_page" value="<?= \Fuel\Core\Input::get('item_per_page', 10) ?>" /></p>
+						<p><input type="checkbox" name="link_on_title" id="link_on_title" value="1" <?= \Fuel\Core\Input::get('link_on_title', 0) ? 'checked' : '' ?> /> <label for="link_on_title">Link on title</label></p>
 					</div>
 				</div>
 			</div>
