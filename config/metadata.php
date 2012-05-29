@@ -27,7 +27,6 @@ return array(
     'enhancers' => array(
         'noviusos_blog' => array(
             'title' => 'Blog',
-            'id'    => 'noviusos_blog',
             'desc'  => '',
 	        //'enhancer' => 'noviusos_blog/front',
             'urlEnhancer' => 'noviusos_blog/front',
