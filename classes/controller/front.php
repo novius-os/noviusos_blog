@@ -60,8 +60,8 @@ class Controller_Front extends Controller_Front_Application {
 
 	    $this->enhancerUrlPath = \Nos\Nos::main_controller()->enhancerUrlPath;
 
-	    $url = $args['url'];
-        $this->config['item_per_page'] = $args['config']->item_per_page;
+	    $url = \Nos\Nos::main_controller()->enhancerUrl;
+        $this->config['item_per_page'] = $args['item_per_page'];
 
         \Nos\I18n::load('noviusos_blog::comments', 'comments');
 
