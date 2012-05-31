@@ -61,16 +61,28 @@ return array (
         'form' => array(
             'type' => 'text',
         ),
+        'populate' => function($item) {
+            if (\Input::method() == 'POST') {
+                return \Input::post('blog_created_at_date').' '.\Input::post('blog_created_at_time').':00';
+            }
+            return $item->blog_created_at;
+        }
     ),
     'blog_created_at_date' => array(
         'label' => __('Created on:'),
         'widget' => 'Nos\Widget_Date_Picker',
         'dont_save' => true,
+        'populate' => function($item) {
+            return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%Y-%m-%d');
+        }
     ),
     'blog_created_at_time' => array(
         'label' => __('Created time:'),
         'widget' => 'Nos\Widget_Time_Picker',
         'dont_save' => true,
+        'populate' => function($item) {
+            return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%H:%M');
+        }
     ),
     'blog_read' => array(
         'label' => __('Read'),
