@@ -9,15 +9,15 @@
  */
 ?>
 <div id="<?= $id = uniqid('temp_') ?>">
-	<form method="POST" action="admin/noviusos_blog/preview">
+	<form method="POST" action="admin/noviusos_blog/preview/save">
 		<div class="line myBody">
 			<div class="unit col c1"></div>
 			<div class="unit col c10 ui-widget">
 				<div class="expander">
 					<h3>Options</h3>
 					<div>
-						<p><label for="item_per_page"><?= __('Item per page:') ?></label> <input type="text" name="item_per_page" id="item_per_page" value="<?= Input::post('item_per_page', 10) ?>" /></p>
-						<p><input type="checkbox" name="link_on_title" id="link_on_title" value="1" <?= Input::post('link_on_title', 0) ? 'checked' : '' ?> /> <label for="link_on_title"><?= __('Link on title') ?></label></p>
+						<p><label for="item_per_page"><?= __('Item per page:') ?></label> <input type="text" name="item_per_page" id="item_per_page" value="<?= \Fuel\Core\Input::get('item_per_page', 10) ?>" /></p>
+						<p><input type="checkbox" name="link_on_title" id="link_on_title" value="1" <?= \Fuel\Core\Input::get('link_on_title', 0) ? 'checked' : '' ?> /> <label for="link_on_title"><?= __('Link on title') ?>/label></p>
 					</div>
 				</div>
 			</div>
