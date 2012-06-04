@@ -11,7 +11,7 @@
 <div id="<?= $uniqid = uniqid('id_') ?>" class="fieldset standalone">
     <input type="hidden" name="id" value="<?= $blog->id ?>" />
     <p>
-        <?= Str::tr(__('You are about to delete the blog post <span style="font-weight: bold;">":blog_title"</span>. Are you sure you want to continue ?'), array('blog_title' => $blog->blog_title)) ?>
+        <?= Str::tr(__('You are about to delete the blog post <span style="font-weight: bold;">":blog_title"</span>. Are you sure you want to continue?'), array('blog_title' => $blog->blog_title)) ?>
     </p>
     <p>&nbsp;</p>
     <p>

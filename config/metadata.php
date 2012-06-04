@@ -27,10 +27,9 @@ return array(
     'enhancers' => array(
         'noviusos_blog' => array(
             'title' => 'Blog',
-            'id'    => 'noviusos_blog',
             'desc'  => '',
 	        //'enhancer' => 'noviusos_blog/front',
-            'urlEnhancer' => 'noviusos_blog/front',
+            'urlEnhancer' => 'noviusos_blog/front/main',
             'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
             'previewUrl' => 'admin/noviusos_blog/preview',
 	        'dialog' => array(

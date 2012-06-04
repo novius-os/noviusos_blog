@@ -24,7 +24,7 @@ class Controller_Admin_Blog extends Controller {
 
         $success = false;
 
-        $billet = Model_Blog::find_by_blog_id(\Input::post('id'));
+        $billet = Model_Blog::find(\Input::post('id'));
         if ($billet) {
             $billet->delete();
             $success = true;

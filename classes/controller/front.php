@@ -39,13 +39,14 @@ class Controller_Front extends Controller_Front_Application {
 
     public static $blog_url = '';
 
+    public $enhancerUrl_segments;
 
     public function action_main($args = array()) {
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));
 
-        $this->page_from = \Nos\Nos::main_page();
+        $this->page_from = $this->main_controller->page;
 
         setlocale(LC_ALL, $this->page_from->get_lang());
 
@@ -53,15 +54,12 @@ class Controller_Front extends Controller_Front_Application {
 
         $this->merge_config('config');
 
-	    $this->enhancerUrlPath = \Nos\Nos::main_controller()->enhancerUrlPath;
-
-	    $url = $args['url'];
-        $this->config['item_per_page'] = $args['config']->item_per_page;
+        $this->config['item_per_page'] = $args['item_per_page'];
 
         \Nos\I18n::load('noviusos_blog::comments', 'comments');
 
-        if (!empty($url)) {
-	        $this->enhancerUrl_segments = explode('/', $url);
+        if (!empty($this->main_controller->enhancerUrl)) {
+	        $this->enhancerUrl_segments = explode('/', $this->main_controller->enhancerUrl);
             $segments = $this->enhancerUrl_segments;
 
 
@@ -113,7 +111,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $list = $this->_display_list('list_main');
 
-        \Nos\Nos::main_controller()->page_title = 'Novius Labs';
+        $this->main_controller->page_title = 'Novius Labs';
 
         $self   = $this;
         $class = get_class($this);
@@ -123,9 +121,9 @@ class Controller_Front extends Controller_Front_Application {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return mb_substr($self->enhancerUrlPath, 0, -1).'.html';
+                    return mb_substr($self->main_controller->enhancerUrlPath, 0, -1).'.html';
                 }
-                return $self->enhancerUrlPath.'page/'.$page.'.html';
+                return $self->main_controller->enhancerUrlPath.'page/'.$page.'.html';
             }),
         ), false);
     }
@@ -140,7 +138,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $class = get_called_class();
         $self  = $this;
-        $url   = $this->url;
+        $url   = $this->main_controller->url;
 
         $link_to_tag = function($tag, $page = 1) use($self, $url) {
             return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
@@ -169,7 +167,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $class = get_called_class();
         $self  = $this;
-        $url   = $this->url;
+        $url   = $this->main_controller->url;
 
         $link_to_author = function($author, $page = 1) use($self, $url) {
             return $self::get_url_model($author, array('page' => $page, 'urlPath' => $url));
@@ -353,7 +351,7 @@ class Controller_Front extends Controller_Front_Application {
             $where = array(array('blog_virtual_name', '=', $where));
         }
 
-        if (!\Nos\Nos::main_controller()->is_preview) {
+        if (!$this->main_controller->is_preview) {
             $where[] = array('blog_published', '=', true);
         }
         return Model_Blog::find('first', array('where' => $where));
@@ -404,10 +402,10 @@ class Controller_Front extends Controller_Front_Application {
         $data['link_to_author'] = $item->author ? self::get_url_model($item->author) : '';
         $data['link_to_item']   = self::get_url_model($item);
         $data['link_on_title']  = $this->config['link_on_title'] ? $data['link_to_item'] : false;
-        $data['link_to_stats']  = self::url_stats($item, $this->enhancerUrlPath);
+        $data['link_to_stats']  = $this->url_stats($item);
 
         $self = get_called_class();
-        $url  = $this->url;
+        $url  = $this->main_controller->url;
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
             return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
         };
@@ -632,11 +630,8 @@ class Controller_Front extends Controller_Front_Application {
 <?
     }
 
-    protected static function url_stats($item, $url = null) {
-        if (is_null($url)) {
-            $url = \Nos::main_controller()->enhancerUrlPath;
-        }
-        return $url.'stats/'.urlencode($item->blog_id).'.html';
+    protected function url_stats($item) {
+        return $this->main_controller->enhancerUrlPath.'stats/'.urlencode($item->blog_id).'.html';
     }
 
 	static function get_url_model($item, $params = array()) {

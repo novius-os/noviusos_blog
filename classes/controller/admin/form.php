@@ -96,28 +96,6 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
             ));
         }
 
-        $fields = \Arr::merge($fields, array(
-            'blog_created_at_date' => array(
-                'populate' => function($item) {
-                    return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%Y-%m-%d');
-                }
-            ),
-            'blog_created_at_time' => array(
-                'populate' => function($item) {
-                    return \Date::create_from_string($item->blog_created_at, 'mysql')->format('%H:%M');
-                }
-            ),
-            'blog_created_at' => array(
-                'populate' => function($item) {
-                    if (\Input::method() == 'POST') {
-                        return \Input::post('blog_created_at_date').' '.\Input::post('blog_created_at_time').':00';
-                    }
-                    return $item->blog_created_at;
-                }
-            ),
-        ));
-
-
         $fieldset = \Fieldset::build_from_config($fields, $blog, array(
             'save' => function($data) use ($blog, $fields) {
                 //print_r($object);
