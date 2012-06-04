@@ -26,11 +26,6 @@ class Controller_Front extends Controller_Front_Application {
     public $current_page = 1;
 
     /**
-     * @var Nos\Blog\Model_Category
-     */
-    public $category;
-
-    /**
      * @var Nos\Model_User
      */
     public $author;
@@ -91,10 +86,6 @@ class Controller_Front extends Controller_Front_Application {
 		        $this->cache_cleanup = "blog/list";
 		        $this->init_pagination(empty($segments[1]) ? 1 : $segments[1]);
 		        return $this->display_list_main($args);
-	        } else if ($segments[0] === 'category') {
-		        $this->cache_cleanup = "blog/category/{$segments[1]}";
-		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
-		        return $this->display_list_category($args);
 	        } else if ($segments[0] === 'author') {
 		        $this->cache_cleanup = "blog/author/{$segments[1]}";
 		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
@@ -136,33 +127,6 @@ class Controller_Front extends Controller_Front_Application {
                 }
                 return $self->enhancerUrlPath.'page/'.$page.'.html';
             }),
-        ), false);
-    }
-
-    public function display_list_category($params) {
-
-        list(,,$cat_id, $page) = $this->enhancerUrl_segments;
-
-        $this->category = Model_Category::find($cat_id);
-        $list = $this->_display_list('category');
-
-        $class = get_called_class();
-        $self  = $this;
-        $url   = $this->url;
-
-        $link_to_category = function($category, $page = 1) use($self, $url) {
-            return $self::get_url_model($category, array('page' => $page, 'urlPath' => $url));
-        };
-        $link_pagination = function($page) use ($link_to_category, $self) {
-            return $link_to_category($self->category, $page);
-        };
-
-        // Add surrounding stuff
-        return View::forge($this->config['list_view'], array(
-            'list'             => $list,
-            'pagination'       => $this->pagination->create_links($link_pagination),
-            'category'         => $this->category,
-            'link_to_category' => $link_to_category,
         ), false);
     }
 
@@ -226,7 +190,7 @@ class Controller_Front extends Controller_Front_Application {
     /**
      * Display several items (from a list context)
      *
-     * @param   string  $context = list_main | list_author | list_category | list_tag
+     * @param   string  $context = list_main | list_author | list_tag
      */
     protected function _display_list($context = 'list_main') {
 
@@ -240,21 +204,21 @@ class Controller_Front extends Controller_Front_Application {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related(array('author'));
+                ->related(array('author', 'tags'));
 
         $query->where(array('blog_published', true));
 
 		$query->where(array('blog_lang', $this->page_from->page_lang));
 
-        if (!empty($this->category)) {
-            $query->where(array('categories.blgc_id', $this->category->blgc_id));
-        }
+
         if (!empty($this->author)) {
             $query->where(array('blog_author_id', $this->author->user_id));
         }
         if (!empty($this->tag)) {
             $query->where(array('tags.tag_label', $this->tag->tag_label));
         }
+
+
 
         $this->pagination->set_config(array(
             'total_items'    => $query->count(),
@@ -272,13 +236,13 @@ class Controller_Front extends Controller_Front_Application {
         $posts = $query->get();
 
         // Re-fetch with a 2nd request to get all the relations (not only the filtered ones)
-        if (!empty($this->category) || !empty($this->tag)) {
+        if (!empty($this->tag)) {
             $keys = array_keys((array) $posts);
             $posts = Model_Blog::query(array(
                 'where' => array(
                     array('blog_id', 'IN', $keys),
                 ),
-                'related' => array('author', 'categories', 'tags'),
+                'related' => array('author', 'tags'),
             ))->get();
         }
 
@@ -290,7 +254,7 @@ class Controller_Front extends Controller_Front_Application {
      * Display several items (from a list context)
      *
      * @param   array   $items
-     * @param   string  $context = list_main | list_author | list_category | list_tag
+     * @param   string  $context = list_main | list_author | list_tag
      * @return  string  Rendered view
      */
     protected function _display_items($items, $context = 'list_main')  {
@@ -444,9 +408,6 @@ class Controller_Front extends Controller_Front_Application {
 
         $self = get_called_class();
         $url  = $this->url;
-        $data['link_to_category'] = function($category, $page = 1) use($self, $url) {
-            return $self::get_url_model($category, array('page' => $page, 'urlPath' => $url));
-        };
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
             return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
         };
@@ -603,7 +564,7 @@ class Controller_Front extends Controller_Front_Application {
 ?>
     <ul>
       <li><a <?= $accueil->get_link() ?> class="<?= $on ? 'on' : '' ?>"><?= $page_menu_title ?></a></li>
-<?      self::SousMenuCategorie(null);
+<?
 
         //-------Listage des pages du dossier Menu Header
 
@@ -624,31 +585,6 @@ class Controller_Front extends Controller_Front_Application {
     </ul>
 <?
         }
-
-    static function SousMenuCategorie($parent_id = null) {
-        $categories = Model_Category::query()
-                ->where(array('blgc_parent_id', '=', $parent_id))
-                ->get();
-        $nb_categorie = count($categories);
-        $compteur = 1;
-        foreach ($categories as $categorie) {
-
-            $nbss = Model_Category::query()
-                ->where(array('blgc_parent_id', '=', $categorie->blgc_id))->get();
-            $nbss = count($nbss);
-
-?>
-      <li><a href="<?= self::get_url_model($categorie, array('urlPath' => static::$blog_url)) ?>"><?= $categorie->blgc_title ?></a>
-<?          if ($nbss) { ?>
-        <ul>
-<?              self::SousMenuCategorie($categorie->blgc_id); ?>
-        </ul>
-<?          } ?>
-      </li>
-<?
-            $compteur++;
-        }
-    }
 
 
 
@@ -711,10 +647,6 @@ class Controller_Front extends Controller_Front_Application {
 		switch ($model) {
 			case 'Nos\Blog\Model_Blog' :
 				return $url.urlencode($item->blog_virtual_name).'.html';
-				break;
-
-			case 'Nos\Blog\Model_Category' :
-				return $url.'category/'.urlencode($item->blgc_title).($page > 1 ? '/'.$page : '').'.html';
 				break;
 
 			case 'Nos\Blog\Model_Tag' :
