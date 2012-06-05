@@ -40,17 +40,6 @@ class Model_Blog extends \Nos\Orm\Model {
 		'Nos\Orm_Behaviour_Url' => array(),
 	);
 
-    /*
-    protected static $_has_many = array(
-        'tags' => array(
-            'key_from' => 'blog_id',
-            'model_to' => 'Nos\Blog\Model_Tag',
-            'key_to' => 'blgt_blog_id',
-            'cascade_save' => false,
-            'cascade_delete' => false,
-        ),
-    );//*/
-
     protected static $_many_many = array(
         'tags' => array(
             'key_from'         => 'blog_id',
@@ -73,23 +62,6 @@ class Model_Blog extends \Nos\Orm\Model {
             'cascade_delete' => true,
         ),
     );
-
-
-    function updateCategoriesById($ids) {
-        $deleteIds = array();
-        for ($i = 0; $i < count($this->categories); $i++) {
-            $searched = array_search($this->categories[$i]->blgc_id, $ids);
-            if ($searched !== false) {
-                array_splice($ids, $searched, 1);
-            } else {
-                array_splice($this->categories, $i, 1);
-                $i--;
-            }
-        }
-        foreach ($ids as $id) {
-            $this->categories[] = Model_Category::find($id);
-        }
-    }
 
     public function get_possible_lang() {
         return array_keys(\Config::get('locales'));
