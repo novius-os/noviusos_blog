@@ -97,17 +97,6 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
         }
 
         $fieldset = \Fieldset::build_from_config($fields, $blog, array(
-            'save' => function($data) use ($blog, $fields) {
-                //print_r($object);
-                $categories = \Input::post('categories');
-                if ($categories == false) {
-                    $categories = array();
-                }
-                $blog->updateCategoriesById($categories);
-            },
-            'before_save' => function($object, $data) {
-                //\Debug::dump($object);
-            },
             'success' => function($object, $data) use ($is_new) {
                 $return = array(
                     'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
@@ -117,13 +106,13 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
                     $return['replaceTab'] = 'admin/noviusos_blog/form/crud/'.$object->blog_id;
                 }
                 return $return;
-            }
+            },
         ));
 
         $fieldset->js_validation();
 
         return \View::forge('noviusos_blog::form/form', array(
-            'item'     => $blog,
+            'blog'     => $blog,
             'fieldset' => $fieldset,
             'lang'     => $blog->blog_lang
         ), false);

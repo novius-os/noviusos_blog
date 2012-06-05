@@ -1,5 +1,5 @@
 <?php
-$fieldset->populate_with_instance($item);
+$fieldset->populate_with_instance($blog);
 $fieldset->form()->set_config('field_template',  "\t\t<tr><th class=\"{error_class}\">{label}{required}</th><td class=\"{error_class}\">{field} {error_msg}</td></tr>\n");
 
 foreach ($fieldset->field() as $field) {
@@ -14,40 +14,38 @@ $fieldset->field('blog_read')->set_template('{label} {field} times');
 $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
 $fieldset->field('blog_tags')->set_template('{field}');
 $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div class="table-field">{field} <span>&nbsp;.html</span></div>');
-//\Debug::dump($fieldset->field('wysiwygs->content'));
-//echo $fieldset->field('wysiwygs->content')->forge();
-//
+
 ?>
 
-<?= $fieldset->open('admin/noviusos_blog/form/form'.($item->is_new() ? '' : '/'.$item->blog_id)); ?>
-<?= View::forge('form/layout_standard', array(
+<?= $fieldset->open('admin/noviusos_blog/form/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
+<?= View::forge('nos::form/layout_standard', array(
     'fieldset' => $fieldset,
-    'fieldset' => $fieldset,
-    'object' => $item,
-    'medias' => array('medias->thumbnail->medil_media_id'),
+    'object' => $blog,
     'title' => 'blog_title',
-    'id' => 'blog_id',
-    'medias' => array(),
+    //'id' => 'blog_id',
+    'medias' => array(),//'medias->thumbnail->medil_media_id'),
     'large' => true,
 
     'save' => 'save',
 
     'subtitle' => array('blog_summary'),
 
-    'content' => View::forge('form/expander', array(
-        'title'   => __('Content'),
-        'nomargin' => true,
-        'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
-        'options' => array(
-            'allowExpand' => false,
-        ),
-    ), false),
+    'content' => array(
+        View::forge('form/expander', array(
+            'title'   => __('Content'),
+            'nomargin' => true,
+            'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
+            'options' => array(
+                'allowExpand' => false,
+            ),
+        ), false),
+    ),
 
     'menu' => array(
         // user_fullname is not a real field in the database
-        'Meta' => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read'),
+        __('Meta') => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read'),
         __('URL (post address)') => array('blog_virtual_name'),
-        'Tags' => array('blog_tags'),
+        __('Tags') => array('blog_tags'),
     ),
 ), false); ?>
 <?= $fieldset->close(); ?>
@@ -55,18 +53,18 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 	require(['jquery-nos-ostabs'], function ($nos) {
 		$nos(function () {
 			var tabInfos = {
-				label : <?= \Format::forge()->to_json(isset($item) ? $item->blog_title : 'Add a blog post') ?>,
+				label : <?= \Format::forge()->to_json(isset($blog) ? $blog->blog_title : 'Add a blog post') ?>,
 				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-				url : 'admin/noviusos_blog/form/crud/<?= empty($item) ? '' : '/'.$item->blog_id ?>'
+				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
 			};
 <?php
-	if (!empty($item)) {
+	if (!empty($blog)) {
 ?>
 			tabInfos.actions = [
 				{
 					label : <?= json_encode(_('Visualise')) ?>,
 					click : function() {
-						window.open(<?= json_encode($item->first_url()) ?> + '?_preview=1');
+						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
 					},
 					iconClasses : 'nos-icon16 nos-icon16-eye'
 				}
