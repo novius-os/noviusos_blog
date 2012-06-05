@@ -354,7 +354,7 @@ class Controller_Front extends Controller_Front_Application {
         if (!$this->main_controller->is_preview) {
             $where[] = array('blog_published', '=', true);
         }
-        return Model_Blog::find('first', array('where' => $where));
+        return Model_Blog::find('first', array('related' => array('comments' => array('order_by' => array('comm_created_at' => 'ASC'))), 'where' => $where));
     }
 
     protected function _add_comment($post) {

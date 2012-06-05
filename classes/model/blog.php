@@ -60,6 +60,7 @@ class Model_Blog extends \Nos\Orm\Model {
             'key_to' => 'comm_parent_id',
             'cascade_save' => false,
             'cascade_delete' => true,
+            //'conditions' => array('order_by' => array('comm_created_at', 'ASC'))
         ),
     );
 
