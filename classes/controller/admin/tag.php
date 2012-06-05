@@ -31,6 +31,7 @@ class Controller_Admin_Tag extends Controller {
         }
 
         \Response::json(array(
+            'notify' => __('The tag has successfully been deleted !'),
             'success' => $success,
         ));
     }

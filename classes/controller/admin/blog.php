@@ -31,6 +31,7 @@ class Controller_Admin_Blog extends Controller {
         }
 
         \Response::json(array(
+            'notify' => __('The blog post has successfully been deleted !'),
             'success' => $success,
         ));
     }
