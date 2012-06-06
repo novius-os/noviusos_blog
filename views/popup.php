@@ -26,9 +26,9 @@
 		<div class="line">
 			<div class="unit col c1"></div>
 			<div class="unit col c10 ui-widget">
-				<?= Str::tr('{save} or {cancel}', array(
-                    '{save}'   => '<button type="submit" data-icon="check">'.__('Save').'</button>',
-                    '{cancel}' => '<a data-id="close" href="#">'.__('Cancel').'</a>',
+				<?= Str::tr(':save or cancel', array(
+                    'save'   => '<button type="submit" data-icon="check">'.__('Save').'</button>',
+                    'cancel' => '<a data-id="close" href="#">'.__('Cancel').'</a>',
                 )) ?>
 			</div>
 			<div class="unit lastUnit"></div>

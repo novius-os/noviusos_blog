@@ -20,7 +20,7 @@ class Controller_Admin_Preview extends \Nos\Controller_Admin_Application {
 
         $body = array(
             'config'  => \Format::forge()->to_json($_POST),
-            'preview' => \View::forge('tuto_voiture::preview',$_POST)->render(),
+            'preview' => \View::forge('noviusos_blog::preview',$_POST)->render(),
         );
         \Response::json($body);
     }
