@@ -203,7 +203,7 @@ class Controller_Front extends Controller_Front_Application {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related(array('author', 'tags'));
+                ->related(array('author'));
 
         $query->where(array('blog_published', true));
 
