@@ -1,5 +1,10 @@
 <?php
 return array(
+    
+    'date_format'   => '%A %e %B %Y',
+    'link_on_title' => false,
+    'item_per_page' => 10,
+
     // List view
     'display_list' => array(
         'order_by'    => array('blog_created_at' => 'DESC', 'blog_id' => 'DESC'),

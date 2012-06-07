@@ -16,6 +16,7 @@ return array(
     'provider' => array(
         'name' => 'Novius OS',
     ),
+    'namespace' => 'Nos\Blog',
     'launchers' => array(
         'blog' => array(
             'name'    => 'Blog',
