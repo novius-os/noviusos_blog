@@ -42,6 +42,7 @@ class Controller_Front extends Controller_Front_Application {
     public $enhancerUrl_segments;
 
     public function action_main($args = array()) {
+
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));
@@ -202,7 +203,7 @@ class Controller_Front extends Controller_Front_Application {
 
         // Get the list of posts
         $query = Model_Blog::query()
-                ->related(array('author', 'tags'));
+                ->related(array('author'));
 
         $query->where(array('blog_published', true));
 
