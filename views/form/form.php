@@ -62,7 +62,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 ?>
 			tabInfos.actions = [
 				{
-					label : <?= json_encode(_('Visualise')) ?>,
+					label : <?= json_encode(__('Visualise')) ?>,
 					click : function() {
 						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
 					},
