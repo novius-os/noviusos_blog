@@ -15,7 +15,6 @@
       <?= $date ?>
       <br />
       <div class="auteur"><?= $author ?></div>
-      <span class="categories"><?= $categories ?></span>
     </div>
     <div id="encart_droite_blog" style="margin-top:5px;margin-left:220px;margin-bottom:10px;">
       <?= $title ?>

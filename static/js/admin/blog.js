@@ -66,10 +66,6 @@ define([
                             });
                         }
                     },
-                    category : {
-                        label : appDesk.i18n('Add a category'),
-                        url : 'admin/noviusos_blog/categoryform'
-                    }
                 },
                 splittersVertical :  250,
                 grid : {
