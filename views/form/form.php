@@ -53,12 +53,12 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 	require(['jquery-nos-ostabs'], function ($nos) {
 		$nos(function () {
 			var tabInfos = {
-				label : <?= \Format::forge()->to_json(isset($blog) ? $blog->blog_title : 'Add a blog post') ?>,
+				label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
 				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
 				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
 			};
 <?php
-	if (!empty($blog)) {
+	if (!$blog->is_new()) {
 ?>
 			tabInfos.actions = [
 				{
