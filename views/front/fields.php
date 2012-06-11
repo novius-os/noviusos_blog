@@ -60,17 +60,6 @@ if (!empty($display['tags'])) {
 }
 
 
-if (!empty($display['categories']) && !empty($item->categories)) {
-    echo '<span class="categories_titre" style="padding-right:5px;">Catégorie :</span>';
-    $categories = array();
-    foreach ($item->categories as $category) {
-        $categories[$link_to_category($category)] = $category->blgc_title;
-    }
-    echo implode(', ', array_map(function($href, $title) {
-        return '<a href="'.$href.'">'.$title.'</a>';
-    }, array_keys($categories), array_values($categories)));
-}
-
 /*
 if (!empty($display['stats'])) {
     if (empty($comments_count)) {

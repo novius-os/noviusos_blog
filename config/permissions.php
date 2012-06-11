@@ -49,17 +49,4 @@ return array(
 			),
 		),
 	),
-	'categories' => array(
-		'driver' => 'tree',
-		'label' => 'Categories tree',
-		'driver_config' => array(
-			'tree' => function() {
-				$categories = Nos\Blog\Model_Category::find('all');
-				$list = array();
-				foreach ($categories as $c) {
-					$list[$c->cat_id] = $c->cat_title;
-				}
-			},
-		),
-	),
 );

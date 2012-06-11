@@ -19,7 +19,6 @@
       <div style="clear:both;"></div>
       <img src="<?= $link_to_stats ?>" title="" alt="" />
 
-      <div class="categories"><?= $categories ?></div>
       <div class="tags"><?= $tags ?></div>
       <div class="comments" id="comments">
 <?php

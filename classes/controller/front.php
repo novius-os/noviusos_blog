@@ -43,6 +43,11 @@ class Controller_Front extends Controller_Front_Application {
 
     public function action_main($args = array()) {
 
+        if (!isIpIn()) {
+            echo 'Le blog est actuellement en maintenance. Merci !';
+            exit();
+        }
+
         $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
 			'config' => (array) $args,
 		));

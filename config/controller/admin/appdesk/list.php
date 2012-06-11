@@ -29,13 +29,11 @@ return array(
 	'i18n' => array(
 		'Blog' => __('Blog'),
 		'Add a post' => __('Add a post'),
-		'Add a category' => __('Add a category'),
 		'Title' => __('Title'),
 		'Author' => __('Author'),
 		'Date' => __('Date'),
 		'Delete' => __('Delete'),
 		'Edit' => __('Edit'),
-		'Categories' => __('Categories'),
 		'Tags' => __('Tags'),
 		'Authors' => __('Authors'),
 		'Publish date' => __('Publish date'),
@@ -93,10 +91,6 @@ return array(
 	),
 	'inputs' => array(
 		'blgc_id' => function($value, $query) {
-			if ( is_array($value) && count($value) && $value[0]) {
-				$query->related('categories');
-				$query->where(array('categories.blgc_id', 'in', $value));
-			}
 			return $query;
 		},
 		'tag_id' => function($value, $query) {
