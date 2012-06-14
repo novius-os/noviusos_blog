@@ -58,6 +58,9 @@ return array(
 		'viewThumbnails' => __('Thumbnails'),
 		'preview' => __('Preview'),
 		'loading' => __('Loading...'),
+        'Confirm the deletion' => __('Confirm the deletion'),
+        'or' => __('or'),
+        'Cancel' => __('Cancel')
 	),
 	'dataset' => array(
 		'id' => 'blog_id',

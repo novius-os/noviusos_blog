@@ -15,7 +15,7 @@ use Nos\Model_Page;
 
 use Fuel\Core\Inflector;
 use Fuel\Core\Str;
-use Fuel\Core\View;
+use View;
 
 class Controller_Front extends Controller_Front_Application {
 

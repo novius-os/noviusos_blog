@@ -11,20 +11,19 @@
 namespace Nos\Blog;
 
 use Nos\Controller;
-use Fuel\Core\View;
 
 class Controller_Admin_Blog extends Controller {
 
     public function action_delete($blog_id) {
         $blog = Model_Blog::find($blog_id);
-        return View::forge($this->config['views']['delete'], array('blog' => $blog));
+        return \View::forge($this->config['views']['delete'], array('blog' => $blog));
     }
 
     public function action_delete_confirm() {
 
         $success = false;
 
-        $billet = Model_Blog::find(\Input::post('id'));
+        $billet = Model_Blog::find(\Input::post('id', 0));
         if ($billet) {
             $billet->delete();
             $success = true;

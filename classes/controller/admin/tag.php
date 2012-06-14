@@ -11,12 +11,13 @@
 namespace Nos\Blog;
 
 use Nos\Controller;
-use Fuel\Core\View;
+use View;
 
 class Controller_Admin_Tag extends Controller {
 
     public function action_delete($id) {
         $tag = Model_Tag::find($id);
+
         return View::forge($this->config['views']['delete'], array('tag' => $tag));
     }
 
@@ -24,7 +25,7 @@ class Controller_Admin_Tag extends Controller {
 
         $success = false;
 
-        $tag = Model_Tag::find(\Input::post('id'));
+        $tag = Model_Tag::find(\Input::post('id', 0));
         if ($tag) {
             $tag->delete();
             $success = true;

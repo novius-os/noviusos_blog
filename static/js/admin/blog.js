@@ -31,12 +31,21 @@ define([
                 },
                 'delete' : {
                     action : function(item, ui) {
-                        $nos(ui).dialog({
+                        $nos.appDesk = appDesk;
+                        $nos(ui).confirmationDialog({
                             contentUrl: 'admin/noviusos_blog/blog/delete/' + item.id,
-                            ajax : true,
                             title: appDesk.i18n('Delete a post')._(),
-                            width: 400,
-                            height: 150
+                            confirmed: function($dialog) {
+                                $dialog.xhr({
+                                    url : 'admin/noviusos_blog/blog/delete_confirm',
+                                    method : 'POST',
+                                    data : $dialog.find('form').serialize(),
+                                    success : function(json) {
+                                        $nos.dispatchEvent('reload.noviusos_blog');
+                                    }
+                                });
+                            },
+                            appDesk: appDesk
                         });
                     },
                     label : appDesk.i18n('Delete'),
@@ -65,7 +74,7 @@ define([
                                 label   : appDesk.i18n('Add a new post')._()
                             });
                         }
-                    },
+                    }
                 },
                 splittersVertical :  250,
                 grid : {
@@ -130,12 +139,20 @@ define([
                                     actions : [
                                         {
                                             action : function(item, ui) {
-                                                $nos(ui).dialog({
+                                                $nos(ui).confirmationDialog({
                                                     contentUrl: 'admin/noviusos_blog/tag/delete/' + item.id,
-                                                    ajax : true,
                                                     title: appDesk.i18n('Delete a tag')._(),
-                                                    width: 500,
-                                                    height: 250
+                                                    confirmed: function($dialog) {
+                                                        $dialog.xhr({
+                                                            url : 'admin/noviusos_blog/tag/delete_confirm',
+                                                            method : 'POST',
+                                                            data : $dialog.find('form').serialize(),
+                                                            success : function(json) {
+                                                                $nos.dispatchEvent('reload.noviusos_blog_tags');
+                                                            }
+                                                        });
+                                                    },
+                                                    appDesk: appDesk
                                                 });
                                             },
                                             label : appDesk.i18n('Delete'),

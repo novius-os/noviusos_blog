@@ -11,11 +11,10 @@
 namespace Nos\Blog;
 
 use Nos\Controller;
-use Fuel\Core\View;
 
 class Controller_Admin_Popup extends \Nos\Controller_Admin_Application {
 
 	public function action_index() {
-		return View::forge($this->config['views']['index']);
+		return \View::forge($this->config['views']['index']);
 	}
 }
