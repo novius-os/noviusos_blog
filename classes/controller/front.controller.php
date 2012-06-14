@@ -48,9 +48,7 @@ class Controller_Front extends Controller_Front_Application {
             exit();
         }
 
-        $this->default_config = \Arr::merge($this->config, \Config::get('noviusos_blog::config'), array(
-			'config' => (array) $args,
-		));
+        $this->default_config = $this->config;
 
         $this->page_from = $this->main_controller->page;
 
