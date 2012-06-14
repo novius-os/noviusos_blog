@@ -38,8 +38,7 @@
 
 <script type="text/javascript">
 require([
-	'jquery-nos',
-	'order!jquery-form'
+	'jquery-nos'
 	], function($nos) {
 		$nos(function() {
 			var div = $nos('#<?= $id ?>')

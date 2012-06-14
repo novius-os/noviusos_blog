@@ -13,7 +13,7 @@ namespace Nos\Blog;
 class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
 
     public function action_crud($id = null) {
-        $blog = $id === null ? null : Model_Blog::find($id);
+        $blog = $id === null ? Model_Blog::forge() : Model_Blog::find($id);
 	    return \View::forge('nos::form/layout_languages', array(
 		    'item' => $blog,
 		    'selected_lang' => \Input::get('lang', $blog === null ? null : $blog->get_lang()),
@@ -23,13 +23,18 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
     }
 
     public function action_blank_slate($id = null) {
-        $blog = $id === null ? null : Model_Blog::find($id);
+        $blog = $id === null ? Model_Blog::forge() : Model_Blog::find($id);
         return \View::forge('nos::form/layout_blank_slate', array(
             'item'      => $blog,
             'lang'      => \Input::get('lang', ''),
             'common_id' => \Input::get('common_id', ''),
             'item_text' => __('post'),
             'url_form'  => 'admin/noviusos_blog/form/form',
+            'url_crud'  => 'admin/noviusos_blog/form/crud',
+            'tabInfos' => array(
+                'label'   =>  __('Add a post'),
+                'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
+            ),
         ), false);
     }
 
