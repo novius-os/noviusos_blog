@@ -43,14 +43,9 @@ class Controller_Front extends Controller_Front_Application {
 
     public function action_main($args = array()) {
 
-        if (!isIpIn()) {
-            echo 'Le blog est actuellement en maintenance. Merci !';
-            exit();
-        }
-
         $this->default_config = $this->config;
 
-        $this->page_from = $this->main_controller->page;
+        $this->page_from = $this->main_controller->getPage();
 
         setlocale(LC_ALL, $this->page_from->get_lang());
 
@@ -62,14 +57,15 @@ class Controller_Front extends Controller_Front_Application {
 
         \Nos\I18n::load('noviusos_blog::comments', 'comments');
 
-        if (!empty($this->main_controller->enhancerUrl)) {
-	        $this->enhancerUrl_segments = explode('/', $this->main_controller->enhancerUrl);
+        $enhancer_url = $this->main_controller->getEnhancerUrl();
+        if (!empty($enhancer_url)) {
+	        $this->enhancerUrl_segments = explode('/', $enhancer_url);
             $segments = $this->enhancerUrl_segments;
 
 
 	        if (empty($segments[1])) {
 		        $this->cache_cleanup = "blog/post/{$segments[0]}";
-		        return $this->display_item($args);
+                return $this->display_item($args);
             } else if ($segments[0] == 'stats') {
 
                 $post = $this->_get_post(array(array('blog_id', $segments[1])));
@@ -115,8 +111,6 @@ class Controller_Front extends Controller_Front_Application {
 
         $list = $this->_display_list('list_main');
 
-        $this->main_controller->page_title = 'Novius Labs';
-
         $self   = $this;
         $class = get_class($this);
 
@@ -125,9 +119,9 @@ class Controller_Front extends Controller_Front_Application {
             'list'       => $list,
             'pagination' => $this->pagination->create_links(function($page) use ($class, $self) {
                 if ($page == 1) {
-                    return mb_substr($self->main_controller->enhancerUrlPath, 0, -1).'.html';
+                    return mb_substr($self->main_controller->getEnhancedUrlPath(), 0, -1).'.html';
                 }
-                return $self->main_controller->enhancerUrlPath.'page/'.$page.'.html';
+                return $self->main_controller->getEnhancedUrlPath().'page/'.$page.'.html';
             }),
         ), false);
     }
@@ -142,7 +136,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $class = get_called_class();
         $self  = $this;
-        $url   = $this->main_controller->url;
+        $url   = $this->main_controller->getUrl();
 
         $link_to_tag = function($tag, $page = 1) use($self, $url) {
             return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
@@ -171,7 +165,7 @@ class Controller_Front extends Controller_Front_Application {
 
         $class = get_called_class();
         $self  = $this;
-        $url   = $this->main_controller->url;
+        $url   = $this->main_controller->getUrl();
 
         $link_to_author = function($author, $page = 1) use($self, $url) {
             return $self::get_url_model($author, array('page' => $page, 'urlPath' => $url));
@@ -355,7 +349,7 @@ class Controller_Front extends Controller_Front_Application {
             $where = array(array('blog_virtual_name', '=', $where));
         }
 
-        if (!$this->main_controller->is_preview) {
+        if (!$this->main_controller->isPreview()) {
             $where[] = array('blog_published', '=', true);
         }
         return Model_Blog::find('first', array('related' => array('comments' => array('order_by' => array('comm_created_at' => 'ASC'))), 'where' => $where));
@@ -409,7 +403,7 @@ class Controller_Front extends Controller_Front_Application {
         $data['link_to_stats']  = $this->url_stats($item);
 
         $self = get_called_class();
-        $url  = $this->main_controller->url;
+        $url  = $this->main_controller->getUrl();
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
             return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
         };
@@ -441,12 +435,12 @@ class Controller_Front extends Controller_Front_Application {
     }
 
     protected function url_stats($item) {
-        return $this->main_controller->enhancerUrlPath.'stats/'.urlencode($item->blog_id).'.html';
+        return $this->main_controller->getEnhancedUrlPath().'stats/'.urlencode($item->blog_id).'.html';
     }
 
 	static function get_url_model($item, $params = array()) {
 		$model = get_class($item);
-		$url = isset($params['urlPath']) ? $params['urlPath'] : \Nos\Nos::main_controller()->enhancerUrlPath;
+		$url = isset($params['urlPath']) ? $params['urlPath'] : \Nos\Nos::main_controller()->getEnhancedUrlPath();
 		$page = isset($params['page']) ? $params['page'] : 1;
 
 		switch ($model) {

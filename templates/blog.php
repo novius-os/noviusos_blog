@@ -60,5 +60,5 @@
 </html>
 
 <?php
-	\Nos\Nos::main_controller()->page_title = \Nos\Nos::main_controller()->page->page_meta_title.' - Laboratoire technologique Internet : CMS, mobile, emailing, réseaux sociaux - '.NOM_SITE;
+	\Nos\Nos::main_controller()->setPageTitle(\Nos\Nos::main_controller()->getPage()->page_meta_title.' - Laboratoire technologique Internet : CMS, mobile, emailing, réseaux sociaux - '.NOM_SITE);
 ?>
