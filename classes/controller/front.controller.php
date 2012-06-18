@@ -139,7 +139,7 @@ class Controller_Front extends Controller_Front_Application {
         $url   = $this->main_controller->getUrl();
 
         $link_to_tag = function($tag, $page = 1) use($self, $url) {
-            return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
+            return $self::get_url_model($tag, array('page' => $page)); //, 'urlPath' => $url
         };
         $link_pagination = function($page) use ($link_to_tag, $self) {
             return $link_to_tag($self->tag, $page);
@@ -168,7 +168,7 @@ class Controller_Front extends Controller_Front_Application {
         $url   = $this->main_controller->getUrl();
 
         $link_to_author = function($author, $page = 1) use($self, $url) {
-            return $self::get_url_model($author, array('page' => $page, 'urlPath' => $url));
+            return $self::get_url_model($author, array('page' => $page)); //, 'urlPath' => $url
         };
         $link_pagination = function($page) use ($link_to_author, $self) {
             return $link_to_author($self->author, $page);
@@ -406,7 +406,7 @@ class Controller_Front extends Controller_Front_Application {
         $self = get_called_class();
         $url  = $this->main_controller->getUrl();
         $data['link_to_tag'] = function($tag, $page = 1) use($self, $url) {
-            return $self::get_url_model($tag, array('page' => $page, 'urlPath' => $url));
+            return $self::get_url_model($tag, array('page' => $page)); //, 'urlPath' => $url
         };
 
         // Renders all the fields
