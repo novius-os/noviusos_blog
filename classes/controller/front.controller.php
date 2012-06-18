@@ -211,6 +211,7 @@ class Controller_Front extends Controller_Front_Application {
             $query->where(array('blog_author_id', $this->author->user_id));
         }
         if (!empty($this->tag)) {
+            $query->related(array('tags'));
             $query->where(array('tags.tag_label', $this->tag->tag_label));
         }
 
