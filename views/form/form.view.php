@@ -14,7 +14,9 @@ $fieldset->field('blog_read')->set_template('{label} {field} times');
 $fieldset->field('wysiwygs->content->wysiwyg_text')->set_template('{field}');
 $fieldset->field('blog_tags')->set_template('{field}');
 $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div class="table-field">{field} <span>&nbsp;.html</span></div>');
-
+$fieldset->field('blog_created_at_date')->set_template('<p>{label}<br/>{field}');
+$fieldset->field('blog_created_at_time')->set_template(' {field}</p>');
+$fieldset->field('blog_read')->set_template('<p>'.$fieldset->field('blog_read')->template.'</p>')
 ?>
 
 <?= $fieldset->open('admin/noviusos_blog/form/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
@@ -43,7 +45,7 @@ $fieldset->field('blog_virtual_name')->set_template('{label}{required} <div clas
 
     'menu' => array(
         // user_fullname is not a real field in the database
-        __('Meta') => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read'),
+        __('Meta') => array('field_template' => '{field}', 'fields' => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read')),
         __('URL (post address)') => array('blog_virtual_name'),
         __('Tags') => array('blog_tags'),
     ),

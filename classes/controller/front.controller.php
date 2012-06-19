@@ -47,10 +47,6 @@ class Controller_Front extends Controller_Front_Application {
 
         $this->page_from = $this->main_controller->getPage();
 
-        setlocale(LC_ALL, $this->page_from->get_lang());
-
-        \Nos\I18n::setLocale($this->page_from->get_lang());
-
         $this->merge_config('config');
 
         $this->config['item_per_page'] = $args['item_per_page'];
