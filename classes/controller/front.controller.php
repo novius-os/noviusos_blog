@@ -327,7 +327,7 @@ class Controller_Front extends Controller_Front_Application {
 
         list($item_virtual_name) = $this->enhancerUrl_segments;
 
-        $post = $this->_get_post($item_virtual_name);
+        $post = $this->_get_post(array(array('blog_virtual_name', '=', $item_virtual_name), array('blog_lang', '=', $this->page_from->page_lang)));
 
         if (empty($post)) {
             throw new \Nos\NotFoundException();
@@ -453,5 +453,6 @@ class Controller_Front extends Controller_Front_Application {
 				return $url.'author/'.urlencode($item->fullname()).($page > 1 ? '/'.$page : '').'.html';
 				break;
 		}
+        return false;
 	}
 }
