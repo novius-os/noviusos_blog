@@ -116,10 +116,17 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
 
         $fieldset->js_validation();
 
-        return \View::forge('noviusos_blog::form/form', array(
+        $return = '';
+        if ($blog::behaviours('Nos\Orm_Behaviour_Sharable')) {
+            $return .= (string) \Request::forge('nos/admin/catcher/form')->execute(array($blog));
+        }
+
+        $return .= (string) \View::forge('noviusos_blog::form/form', array(
             'blog'     => $blog,
             'fieldset' => $fieldset,
             'lang'     => $blog->blog_lang
         ), false);
+
+        return $return;
     }
 }
