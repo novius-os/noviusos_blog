@@ -10,12 +10,32 @@
 
 namespace Nos\Blog;
 
-use Fuel\Core\Config;
+use View;
 
-use Nos\Controller_Admin_Appdesk;
+class Controller_Admin_List extends \Nos\Controller_Admin_Appdesk
+{
+    public function action_delete($blog_id)
+    {
+        $blog = Model_Blog::find($blog_id);
+        return \View::forge($this->config['views']['delete'], array('blog' => $blog));
+    }
 
-use Asset, Format, Input, Session, View, Uri;
+    public function action_delete_confirm()
+    {
 
-class Controller_Admin_List extends Controller_Admin_Appdesk {
+        $success = false;
 
+        $billet = Model_Blog::find(\Input::post('id', 0));
+        if ($billet)
+        {
+            $billet->delete();
+            $success = true;
+        }
+
+        $this->response(array(
+            'notify' => __('The blog post has successfully been deleted!'),
+            'success' => $success,
+        ));
+    }
 }
+

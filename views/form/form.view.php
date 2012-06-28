@@ -19,7 +19,7 @@ $fieldset->field('blog_created_at_time')->set_template(' {field}</p>');
 $fieldset->field('blog_read')->set_template('<p>'.$fieldset->field('blog_read')->template.'</p>')
 ?>
 
-<?= $fieldset->open('admin/noviusos_blog/form/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
+<?= $fieldset->open('admin/noviusos_blog/blog/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
 
 <?php
 
@@ -39,27 +39,8 @@ $config = Config::load('noviusos_blog::views/form/form', true);
 <script type="text/javascript">
 	require(['jquery-nos-ostabs'], function ($nos) {
 		$nos(function () {
-			var tabInfos = {
-				label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
-				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
-			};
-<?php
-	if (!$blog->is_new()) {
-?>
-			tabInfos.actions = [
-				{
-					label : <?= json_encode(__('Visualise')) ?>,
-					click : function() {
-						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
-					},
-					iconClasses : 'nos-icon16 nos-icon16-eye'
-				}
-			];
-<?php
-}
+			var tabInfos = <?= \Format::forge()->to_json($tabInfos) ?>;
 
-?>
 			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
 			$el.onShow('bind', function() {
 				$el.tab('update', tabInfos);
