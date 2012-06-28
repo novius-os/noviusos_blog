@@ -44,6 +44,7 @@ return array(
 		        'Nos\Blog\Model_Blog',
 	        ),
 	        'get_url_model' => array('Nos\Blog\Controller_Front', 'get_url_model'),
+            'data_catchers_added' => array('blog_rss_channel'),
         ),
     ),
     'models_catched' => array(
@@ -51,7 +52,7 @@ return array(
         'user' => array('blog_rss_chanel'),
     ),
     'data_catchers' => array(
-        'blog_rss_chanel' => \Nos\DataCatcher::configRssChanel(array(
+        'blog_rss_channel' => \Nos\DataCatcher::configRssChanel(array(
             'title' => 'RSS Chanel Blog',
             'specified_models' => array('Nos\Blog\Model_Blog'),
         )),
