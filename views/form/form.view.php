@@ -37,33 +37,35 @@ $config = Config::load('noviusos_blog::views/form/form', true);
 <?= View::forge('nos::form/layout_standard', $config, false); ?>
 <?= $fieldset->close(); ?>
 <script type="text/javascript">
-	require(['jquery-nos-ostabs'], function ($nos) {
-		$nos(function () {
-			var tabInfos = {
-				label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
-				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
-			};
+	require(
+        ['jquery-nos-ostabs'],
+        function ($) {
+            $(function () {
+                var tabInfos = {
+                    label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
+                    iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
+                    url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
+                };
 <?php
 	if (!$blog->is_new()) {
 ?>
-			tabInfos.actions = [
-				{
-					label : <?= json_encode(__('Visualise')) ?>,
-					click : function() {
-						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
-					},
-					iconClasses : 'nos-icon16 nos-icon16-eye'
-				}
-			];
+                tabInfos.actions = [
+                    {
+                        label : <?= json_encode(__('Visualise')) ?>,
+                        click : function() {
+                            window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
+                        },
+                        iconClasses : 'nos-icon16 nos-icon16-eye'
+                    }
+                ];
 <?php
 }
 
 ?>
-			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
-			$el.onShow('bind', function() {
-				$el.tab('update', tabInfos);
-			});
-		});
-	});
+                var $el = $('#<?= $fieldset->form()->get_attribute('id') ?>');
+                $el.nosOnShow('bind', function() {
+                    $el.nosTabs('update', tabInfos);
+                });
+            });
+        });
 </script>
