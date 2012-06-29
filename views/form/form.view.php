@@ -20,65 +20,52 @@ $fieldset->field('blog_read')->set_template('<p>'.$fieldset->field('blog_read')-
 ?>
 
 <?= $fieldset->open('admin/noviusos_blog/form/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
-<?= View::forge('nos::form/layout_standard', array(
-    'fieldset' => $fieldset,
-    'object' => $blog,
-    'title' => 'blog_title',
-    //'id' => 'blog_id',
-    'medias' => array(),//'medias->thumbnail->medil_media_id'),
-    'large' => true,
 
-    'save' => 'save',
+<?php
 
-    'subtitle' => array('blog_summary'),
+Event::register_function('config|noviusos_blog::views/form/form', 1, function(&$config) use ($fieldset, $blog) {
+    $config['fieldset'] = $fieldset;
+    $config['object']   = $blog;
+    $config['content'][0]->set('content', $fieldset->field('wysiwygs->content->wysiwyg_text'));
+});
 
-    'content' => array(
-        View::forge('form/expander', array(
-            'title'   => __('Content'),
-            'nomargin' => true,
-            'content' => $fieldset->field('wysiwygs->content->wysiwyg_text'),
-            'options' => array(
-                'allowExpand' => false,
-            ),
-        ), false),
-    ),
+$config = Config::load('noviusos_blog::views/form/form', true);
 
-    'menu' => array(
-        // user_fullname is not a real field in the database
-        __('Meta') => array('field_template' => '{field}', 'fields' => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read')),
-        __('URL (post address)') => array('blog_virtual_name'),
-        __('Tags') => array('blog_tags'),
-    ),
-), false); ?>
+
+
+?>
+<?= View::forge('nos::form/layout_standard', $config, false); ?>
 <?= $fieldset->close(); ?>
 <script type="text/javascript">
-	require(['jquery-nos-ostabs'], function ($nos) {
-		$nos(function () {
-			var tabInfos = {
-				label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
-				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
-			};
+	require(
+        ['jquery-nos-ostabs'],
+        function ($) {
+            $(function () {
+                var tabInfos = {
+                    label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
+                    iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
+                    url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
+                };
 <?php
 	if (!$blog->is_new()) {
 ?>
-			tabInfos.actions = [
-				{
-					label : <?= json_encode(__('Visualise')) ?>,
-					click : function() {
-						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
-					},
-					iconClasses : 'nos-icon16 nos-icon16-eye'
-				}
-			];
+                tabInfos.actions = [
+                    {
+                        label : <?= json_encode(__('Visualise')) ?>,
+                        click : function() {
+                            window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
+                        },
+                        iconClasses : 'nos-icon16 nos-icon16-eye'
+                    }
+                ];
 <?php
 }
 
 ?>
-			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
-			$el.onShow('bind', function() {
-				$el.tab('update', tabInfos);
-			});
-		});
-	});
+                var $el = $('#<?= $fieldset->form()->get_attribute('id') ?>');
+                $el.nosOnShow('bind', function() {
+                    $el.nosTabs('update', tabInfos);
+                });
+            });
+        });
 </script>
