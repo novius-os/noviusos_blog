@@ -39,15 +39,7 @@ define([
                                 $dialog.nosAjax({
                                     url : 'admin/noviusos_blog/blog/delete_confirm',
                                     method : 'POST',
-                                    data : $dialog.find('form').serialize(),
-                                    dispatchEvent : {
-                                        name : 'Nos\\Blog\\Model_Blog',
-                                        action : 'delete'
-
-                                    },
-                                    success : function(json) {
-                                        $.nosDispatchEvent('reload.noviusos_blog');
-                                    }
+                                    data : $dialog.find('form').serialize()
                                 });
                             },
                             appDesk: appDesk
@@ -151,10 +143,7 @@ define([
                                                         $dialog.nosAjax({
                                                             url : 'admin/noviusos_blog/tag/delete_confirm',
                                                             method : 'POST',
-                                                            data : $dialog.find('form').serialize(),
-                                                            success : function(json) {
-                                                                $.nosDispatchEvent('reload.noviusos_blog_tags');
-                                                            }
+                                                            data : $dialog.find('form').serialize()
                                                         });
                                                     },
                                                     appDesk: appDesk

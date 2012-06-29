@@ -24,6 +24,14 @@ class Controller_Admin_Tag extends Controller {
     public function action_delete_confirm() {
 
         $tag = Model_Tag::find(\Input::post('id', 0));
+
+        // Recover infos before delete, if not id is null
+        $dispatchEvent = array(
+            'name' => get_class($tag),
+            'action' => 'delete',
+            'id' => $tag->tag_id,
+        );
+
         if ($tag) {
             $tag->delete();
         }
@@ -31,11 +39,7 @@ class Controller_Admin_Tag extends Controller {
 
         $this->response(array(
             'notify' => __('The tag has successfully been deleted !'),
-            'dispatchEvent' => array(
-                'name' => get_class($tag),
-                'action' => 'delete',
-                'id' => $tag->tag_id,
-            ),
+            'dispatchEvent' => $dispatchEvent,
         ));
     }
 }
