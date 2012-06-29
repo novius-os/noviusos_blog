@@ -21,17 +21,20 @@ class Controller_Admin_Blog extends Controller {
 
     public function action_delete_confirm() {
 
-        $success = false;
-
-        $billet = Model_Blog::find(\Input::post('id', 0));
-        if ($billet) {
-            $billet->delete();
-            $success = true;
+        $blog = Model_Blog::find(\Input::post('id', 0));
+        if ($blog) {
+            $blog->delete();
         }
 
         $this->response(array(
             'notify' => __('The blog post has successfully been deleted !'),
-            'success' => $success,
+            'dispatchEvent' => array(
+                'name' => get_class($blog),
+                'action' => 'delete',
+                'id' => $blog->blog_id,
+                'lang_common_id' => $blog->blog_lang_common_id,
+                'lang' => $blog->blog_lang,
+            ),
         ));
     }
 }

@@ -40,6 +40,11 @@ define([
                                     url : 'admin/noviusos_blog/blog/delete_confirm',
                                     method : 'POST',
                                     data : $dialog.find('form').serialize(),
+                                    dispatchEvent : {
+                                        name : 'Nos\\Blog\\Model_Blog',
+                                        action : 'delete'
+
+                                    },
                                     success : function(json) {
                                         $.nosDispatchEvent('reload.noviusos_blog');
                                     }
@@ -63,7 +68,7 @@ define([
                     }
                 }
             },
-            reloadEvent : 'noviusos_blog',
+            reloadEvent : 'Nos\\Blog\\Model_Blog',
             appdesk : {
                 adds : {
                     post : {
@@ -109,7 +114,7 @@ define([
                 },
                 inspectors : {
                     authors : {
-                        reloadEvent : 'nos_user',
+                        reloadEvent : 'Nos\\Model_User',
                         label : appDesk.i18n('Authors'),
                         url : 'admin/noviusos_blog/inspector/author/list',
                         grid : {
@@ -125,7 +130,7 @@ define([
                         vertical : true
                     },
                     tags : {
-                        reloadEvent : 'noviusos_blog_tags',
+                        reloadEvent : 'Nos\\Blog\\Model_Tag',
                         label : appDesk.i18n('Tags'),
                         url : 'admin/noviusos_blog/inspector/tag/list',
                         grid : {
