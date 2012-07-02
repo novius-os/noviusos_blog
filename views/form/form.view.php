@@ -36,6 +36,13 @@ $config = Config::load('noviusos_blog::views/form/form', true);
 ?>
 <?= View::forge('nos::form/layout_standard', $config, false); ?>
 <?= $fieldset->close(); ?>
+
+<div id="<?= $uniqid_close = uniqid('close_') ?>" style="display:none;">
+    <p><?= __('This item has been deleted.') ?></p>
+    <p>&nbsp;</p>
+    <p><button class="primary" data-icon="close" onclick="$(this).nosTabs('close');"><?= __('Close tab') ?></button></p>
+</div>
+
 <script type="text/javascript">
 	require(
         ['jquery-nos-ostabs'],
@@ -43,10 +50,34 @@ $config = Config::load('noviusos_blog::views/form/form', true);
             $(function () {
                 var tabInfos = <?= \Format::forge()->to_json($tabInfos) ?>;
 
-                var $el = $('#<?= $fieldset->form()->get_attribute('id') ?>');
-                $el.nosOnShow('bind', function() {
-                    $el.nosTabs('update', tabInfos);
+                var $container = $('#<?= $fieldset->form()->get_attribute('id') ?>');
+                $container.nosOnShow('bind', function() {
+                    $container.nosTabs('update', tabInfos);
                 });
-            });
+                <?php
+                if  (!$blog->is_new())
+                {
+                    ?>
+                    $container.nosListenEvent({
+                        name: 'Nos\\Blog\\Model_Blog',
+                        action: 'delete',
+                        id: '<?= $blog->blog_id ?>'
+                    }, function() {
+                        var $close = $('#<?= $uniqid_close ?>');
+                        $close.show().nosFormUI();
+                        $container.nosDialog({
+                            title: <?= Format::forge()->to_json(__('Bye bye')) ?>,
+                            content: $close,
+                            width: 300,
+                            height: 130,
+                            close: function() {
+                                $container.nosTabs('close');
+                            }
+                        });
+                    });
+                    <?php
+                }
+                ?>
+                });
         });
 </script>

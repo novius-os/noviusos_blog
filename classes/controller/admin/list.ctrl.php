@@ -24,7 +24,7 @@ class Controller_Admin_List extends \Nos\Controller_Admin_Appdesk
     {
         $dispatchEvent = null;
         $blog = Model_Blog::find(\Input::post('id', 0));
-        if ($blog)
+        if (!empty($blog))
         {
             $dispatchEvent = array(
                 'name' => get_class($blog),
