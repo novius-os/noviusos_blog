@@ -22,19 +22,23 @@ class Controller_Admin_List extends \Nos\Controller_Admin_Appdesk
 
     public function action_delete_confirm()
     {
-
-        $success = false;
-
-        $billet = Model_Blog::find(\Input::post('id', 0));
-        if ($billet)
+        $dispatchEvent = null;
+        $blog = Model_Blog::find(\Input::post('id', 0));
+        if ($blog)
         {
-            $billet->delete();
-            $success = true;
+            $dispatchEvent = array(
+                'name' => get_class($blog),
+                'action' => 'delete',
+                'id' => $blog->blog_id,
+                'lang_common_id' => $blog->blog_lang_common_id,
+                'lang' => $blog->blog_lang,
+            );
+            $blog->delete();
         }
 
         $this->response(array(
             'notify' => __('The blog post has successfully been deleted!'),
-            'success' => $success,
+            'dispatchEvent' => $dispatchEvent,
         ));
     }
 }

@@ -37,14 +37,16 @@ $config = Config::load('noviusos_blog::views/form/form', true);
 <?= View::forge('nos::form/layout_standard', $config, false); ?>
 <?= $fieldset->close(); ?>
 <script type="text/javascript">
-	require(['jquery-nos-ostabs'], function ($nos) {
-		$nos(function () {
-			var tabInfos = <?= \Format::forge()->to_json($tabInfos) ?>;
+	require(
+        ['jquery-nos-ostabs'],
+        function ($) {
+            $(function () {
+                var tabInfos = <?= \Format::forge()->to_json($tabInfos) ?>;
 
-			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
-			$el.onShow('bind', function() {
-				$el.tab('update', tabInfos);
-			});
-		});
-	});
+                var $el = $('#<?= $fieldset->form()->get_attribute('id') ?>');
+                $el.nosOnShow('bind', function() {
+                    $el.nosTabs('update', tabInfos);
+                });
+            });
+        });
 </script>

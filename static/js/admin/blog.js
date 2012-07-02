@@ -9,7 +9,7 @@
 
 define([
     'jquery-nos'
-], function($nos) {
+], function($) {
     return function(appDesk) {
         return {
             tab : {
@@ -19,7 +19,7 @@ define([
             actions : {
                 update : {
                     action : function(item, ui) {
-                        $nos(ui).tab({
+                        $(ui).nosTabs({
                             url     : "admin/noviusos_blog/blog/crud/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
@@ -31,18 +31,15 @@ define([
                 },
                 'delete' : {
                     action : function(item, ui) {
-                        $nos.appDesk = appDesk;
-                        $nos(ui).confirmationDialog({
+                        $.appDesk = appDesk;
+                        $(ui).nosConfirmationDialog({
                             contentUrl: 'admin/noviusos_blog/list/delete/' + item.id,
                             title: appDesk.i18n('Delete a post')._(),
                             confirmed: function($dialog) {
-                                $dialog.xhr({
+                                $dialog.nosAjax({
                                     url : 'admin/noviusos_blog/list/delete_confirm',
                                     method : 'POST',
-                                    data : $dialog.find('form').serialize(),
-                                    success : function(json) {
-                                        $nos.dispatchEvent('reload.noviusos_blog');
-                                    }
+                                    data : $dialog.find('form').serialize()
                                 });
                             },
                             appDesk: appDesk
@@ -63,13 +60,13 @@ define([
                     }
                 }
             },
-            reloadEvent : 'noviusos_blog',
+            reloadEvent : 'Nos\\Blog\\Model_Blog',
             appdesk : {
                 adds : {
                     post : {
                         label : appDesk.i18n('Add a post'),
                         action : function(ui, appdesk) {
-                            $nos(ui).tab('add', {
+                            $(ui).nosTabs('add', {
                                 url     : 'admin/noviusos_blog/blog/crud?lang=' + appdesk.lang,
                                 label   : appDesk.i18n('Add a new post')._()
                             });
@@ -109,7 +106,7 @@ define([
                 },
                 inspectors : {
                     authors : {
-                        reloadEvent : 'nos_user',
+                        reloadEvent : 'Nos\\Model_User',
                         label : appDesk.i18n('Authors'),
                         url : 'admin/noviusos_blog/inspector/author/list',
                         grid : {
@@ -125,7 +122,7 @@ define([
                         vertical : true
                     },
                     tags : {
-                        reloadEvent : 'noviusos_blog_tags',
+                        reloadEvent : 'Nos\\Blog\\Model_Tag',
                         label : appDesk.i18n('Tags'),
                         url : 'admin/noviusos_blog/inspector/tag/list',
                         grid : {
@@ -139,17 +136,14 @@ define([
                                     actions : [
                                         {
                                             action : function(item, ui) {
-                                                $nos(ui).confirmationDialog({
+                                                $(ui).nosConfirmationDialog({
                                                     contentUrl: 'admin/noviusos_blog/tag/delete/' + item.id,
                                                     title: appDesk.i18n('Delete a tag')._(),
                                                     confirmed: function($dialog) {
-                                                        $dialog.xhr({
+                                                        $dialog.nosAjax({
                                                             url : 'admin/noviusos_blog/tag/delete_confirm',
                                                             method : 'POST',
-                                                            data : $dialog.find('form').serialize(),
-                                                            success : function(json) {
-                                                                $nos.dispatchEvent('reload.noviusos_blog_tags');
-                                                            }
+                                                            data : $dialog.find('form').serialize()
                                                         });
                                                     },
                                                     appDesk: appDesk
