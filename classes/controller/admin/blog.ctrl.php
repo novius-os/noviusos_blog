@@ -12,32 +12,105 @@ namespace Nos\Blog;
 
 use Nos\Controller;
 
-class Controller_Admin_Blog extends Controller {
+class Controller_Admin_Blog extends \Nos\Controller_Admin_Crud {
 
-    public function action_delete($blog_id) {
-        $blog = Model_Blog::find($blog_id);
-        return \View::forge($this->config['views']['delete'], array('blog' => $blog));
+
+    protected function crud_item($id)
+    {
+        return $id === null ? Model_Blog::forge() : Model_Blog::find($id);
     }
 
-    public function action_delete_confirm() {
+    public function action_form($id = null)
+    {
+        $date = new \Date();
+        $date = $date->format('%Y-%m-%d %H:%M:%S');
 
-        $blog = Model_Blog::find(\Input::post('id', 0));
-
-        // Recover infos before delete, if not id is null
-        $dispatchEvent = array(
-            'name' => get_class($blog),
-            'action' => 'delete',
-            'id' => $blog->blog_id,
-            'lang_common_id' => $blog->blog_lang_common_id,
-            'lang' => $blog->blog_lang,
-        );
-        if ($blog) {
-            $blog->delete();
+        if ($id === null) {
+            $blog = Model_Blog::forge();
+            $blog->author = \Session::user();
+            $blog->blog_lang = 'fr_FR'; // default selected language...
+            $blog->blog_created_at = $date;
+        } else {
+            $blog = Model_Blog::find($id);
         }
 
-        $this->response(array(
-            'notify' => __('The blog post has successfully been deleted !'),
-            'dispatchEvent' => $dispatchEvent,
+        $is_new = $blog->is_new();
+
+
+        if ($is_new) {
+            $create_from_id = \Input::get('create_from_id', 0);
+            if (empty($create_from_id)) {
+                $blog                 = Model_Blog::forge();
+                $blog->blog_lang_common_id = \Input::get('common_id');
+            } else {
+                $object_from = Model_Blog::find($create_from_id);
+                $blog      = clone $object_from;
+                $blog->tags = $object_from->tags;
+
+                //$blog->wysiwygs = new \Nos\Orm\Model_Wysiwyg_Provider($blog);
+                //\Debug::dump($blog->wysiwygs->content);
+
+                //$blog->wysiwygs->content = $object_from->wysiwygs->content; //$wysiwyg;
+            }
+            $blog->blog_lang = \Input::get('lang');
+            $blog->author = \Session::user();
+            $blog->blog_created_at = $date;
+        }
+
+
+        $fields = \Config::load('noviusos_blog::controller/admin/form', true);
+        \Arr::set($fields, 'author->user_fullname.form.value', $blog->author->fullname());
+
+        if ($is_new || \Input::post('blog_lang', false) != false) {
+            $fields = \Arr::merge($fields, array(
+                'blog_lang' => array(
+                    'form' => array(
+                        'type' => 'hidden',
+                        'value' => \Input::get('lang'),
+                    ),
+                ),
+                'blog_lang_common_id' => array(
+                    'form' => array(
+                        'type' => 'hidden',
+                        'value' => $blog->blog_lang_common_id,
+                    ),
+                ),
+                'save' => array(
+                    'form' => array(
+                        'value' => __('Add'),
+                    ),
+                ),
+            ));
+        }
+
+        $fieldset = \Fieldset::build_from_config($fields, $blog, array(
+            'success' => function($object, $data) use ($is_new) {
+                $return = array(
+                    'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
+                    'dispatchEvent' => 'reload.noviusos_blog',
+                );
+                if ($is_new) {
+                    $return['replaceTab'] = 'admin/noviusos_blog/form/crud/'.$object->blog_id;
+                }
+                return $return;
+            },
         ));
+
+        $fieldset->js_validation();
+
+        $return = '';
+        if ($blog::behaviours('Nos\Orm_Behaviour_Sharable')) {
+            $return .= (string) \Request::forge('nos/admin/datacatcher/form')->execute(array($blog));
+        }
+
+        $return .= (string) \View::forge('noviusos_blog::form/form', array(
+            'blog'     => $blog,
+            'url_crud'  => 'admin/noviusos_blog/blog/crud',
+            'fieldset' => $fieldset,
+            'lang'     => $blog->blog_lang,
+            'tabInfos' => $this->get_tabInfos($blog),
+        ), false);
+
+        return $return;
     }
 }

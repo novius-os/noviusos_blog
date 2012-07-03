@@ -20,7 +20,7 @@ define([
                 update : {
                     action : function(item, ui) {
                         $(ui).nosTabs({
-                            url     : "admin/noviusos_blog/form/crud/" + item.id,
+                            url     : "admin/noviusos_blog/blog/crud/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
                     },
@@ -33,11 +33,11 @@ define([
                     action : function(item, ui) {
                         $.appDesk = appDesk;
                         $(ui).nosConfirmationDialog({
-                            contentUrl: 'admin/noviusos_blog/blog/delete/' + item.id,
+                            contentUrl: 'admin/noviusos_blog/list/delete/' + item.id,
                             title: appDesk.i18n('Delete a post')._(),
                             confirmed: function($dialog) {
                                 $dialog.nosAjax({
-                                    url : 'admin/noviusos_blog/blog/delete_confirm',
+                                    url : 'admin/noviusos_blog/list/delete_confirm',
                                     method : 'POST',
                                     data : $dialog.find('form').serialize()
                                 });
@@ -67,7 +67,7 @@ define([
                         label : appDesk.i18n('Add a post'),
                         action : function(ui, appdesk) {
                             $(ui).nosTabs('add', {
-                                url     : 'admin/noviusos_blog/form/crud?lang=' + appdesk.lang,
+                                url     : 'admin/noviusos_blog/blog/crud?lang=' + appdesk.lang,
                                 label   : appDesk.i18n('Add a new post')._()
                             });
                         }
