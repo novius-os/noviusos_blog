@@ -84,10 +84,16 @@ class Controller_Admin_Blog extends \Nos\Controller_Admin_Crud {
         }
 
         $fieldset = \Fieldset::build_from_config($fields, $blog, array(
-            'success' => function($object, $data) use ($is_new) {
+            'success' => function($object, $data) use ($is_new, $blog) {
                 $return = array(
-                    'notify' =>  __($is_new ? 'Post successfully added.' : 'Post successfully saved.'),
-                    'dispatchEvent' => 'reload.noviusos_blog',
+                    'notify' =>  $is_new ? __('Post successfully added.') : __('Post successfully saved.'),
+                    'dispatchEvent' => array(
+                        'name' => get_class($blog),
+                        'action' => $is_new ? 'insert' : 'update',
+                        'id' => $blog->blog_id,
+                        'lang_common_id' => $blog->blog_lang_common_id,
+                        'lang' => $blog->blog_lang,
+                    ),
                 );
                 if ($is_new) {
                     $return['replaceTab'] = 'admin/noviusos_blog/form/crud/'.$object->blog_id;
