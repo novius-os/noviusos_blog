@@ -12,7 +12,7 @@ namespace Nos\Blog;
 
 use View;
 
-class Controller_Admin_List extends \Nos\Controller_Admin_Appdesk
+class Controller_Admin_Appdesk extends \Nos\Controller_Admin_Appdesk
 {
     public function action_delete($blog_id)
     {

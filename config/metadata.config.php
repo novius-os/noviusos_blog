@@ -11,7 +11,7 @@
 return array(
     'name'    => 'Blog',
     'version' => '0.9-alpha',
-	'href' => 'admin/noviusos_blog/list',
+	'href' => 'admin/noviusos_blog/appdesk',
 	'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
     'provider' => array(
         'name' => 'Novius OS',
@@ -20,7 +20,7 @@ return array(
     'launchers' => array(
         'blog' => array(
             'name'    => 'Blog',
-            'url' => 'admin/noviusos_blog/list',
+            'url' => 'admin/noviusos_blog/appdesk',
             'iconUrl' => 'static/apps/noviusos_blog/img/32/blog.png',
             'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
         ),

@@ -33,11 +33,11 @@ define([
                     action : function(item, ui) {
                         $.appDesk = appDesk;
                         $(ui).nosConfirmationDialog({
-                            contentUrl: 'admin/noviusos_blog/list/delete/' + item.id,
+                            contentUrl: 'admin/noviusos_blog/appdesk/delete/' + item.id,
                             title: appDesk.i18n('Delete a post')._(),
                             confirmed: function($dialog) {
                                 $dialog.nosAjax({
-                                    url : 'admin/noviusos_blog/list/delete_confirm',
+                                    url : 'admin/noviusos_blog/appdesk/delete_confirm',
                                     method : 'POST',
                                     data : $dialog.find('form').serialize()
                                 });
@@ -75,7 +75,7 @@ define([
                 },
                 splittersVertical :  250,
                 grid : {
-                    proxyUrl : 'admin/noviusos_blog/list/json',
+                    proxyUrl : 'admin/noviusos_blog/appdesk/json',
                     columns : {
                         title : {
                             headerText : appDesk.i18n('Title'),
