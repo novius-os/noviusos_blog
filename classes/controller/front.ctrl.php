@@ -60,7 +60,6 @@ class Controller_Front extends Controller_Front_Application {
 
 
 	        if (empty($segments[1])) {
-		        $this->cache_cleanup = "blog/post/{$segments[0]}";
                 return $this->display_item($args);
             } else if ($segments[0] == 'stats') {
 
@@ -77,15 +76,12 @@ class Controller_Front extends Controller_Front_Application {
                 \Nos\Tools_File::send(DOCROOT.'static/apps/noviusos_blog/img/transparent.gif');
 
 	        } else if ($segments[0] === 'page') {
-		        $this->cache_cleanup = "blog/list";
 		        $this->init_pagination(empty($segments[1]) ? 1 : $segments[1]);
 		        return $this->display_list_main($args);
 	        } else if ($segments[0] === 'author') {
-		        $this->cache_cleanup = "blog/author/{$segments[1]}";
 		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
 		        return $this->display_list_author($args);
 	        } else if ($segments[0] === 'tag') {
-		        $this->cache_cleanup = "blog/tag/{$segments[1]}";
 		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
 		        return $this->display_list_tag($args);
 	        }
@@ -93,7 +89,6 @@ class Controller_Front extends Controller_Front_Application {
 	        throw new \Nos\NotFoundException();
         }
 
-        $this->cache_cleanup = "blog/list";
         $this->init_pagination(1);
         return $this->display_list_main($args);
     }

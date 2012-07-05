@@ -21,7 +21,7 @@ return array(
     'launchers' => array(
         'noviusos_blog' => array(
             'name'    => 'Blog',
-            'url' => 'admin/noviusos_blog/list',
+            'url' => 'admin/noviusos_blog/appdesk',
             'iconUrl' => 'static/apps/noviusos_blog/img/32/blog.png',
             'icon64'  => 'static/apps/noviusos_blog/img/64/blog.png',
         ),
