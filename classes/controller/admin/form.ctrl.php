@@ -124,7 +124,7 @@ class Controller_Admin_Form extends \Nos\Controller_Admin_Application {
 
         $return = '';
         if ($blog::behaviours('Nos\Orm_Behaviour_Sharable')) {
-            $return .= (string) \Request::forge('nos/admin/catcher/form')->execute(array($blog));
+            $return .= (string) \Request::forge('nos/admin/datacatcher/form')->execute(array($blog));
         }
 
         $return .= (string) \View::forge('noviusos_blog::form/form', array(
