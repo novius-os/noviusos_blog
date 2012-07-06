@@ -19,7 +19,7 @@ $fieldset->field('blog_created_at_time')->set_template(' {field}</p>');
 $fieldset->field('blog_read')->set_template('<p>'.$fieldset->field('blog_read')->template.'</p>')
 ?>
 
-<?= $fieldset->open('admin/noviusos_blog/form/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
+<?= $fieldset->open('admin/noviusos_blog/blog/form'.($blog->is_new() ? '' : '/'.$blog->blog_id)); ?>
 
 <?php
 
@@ -36,34 +36,48 @@ $config = Config::load('noviusos_blog::views/form/form', true);
 ?>
 <?= View::forge('nos::form/layout_standard', $config, false); ?>
 <?= $fieldset->close(); ?>
-<script type="text/javascript">
-	require(['jquery-nos-ostabs'], function ($nos) {
-		$nos(function () {
-			var tabInfos = {
-				label : <?= \Format::forge()->to_json($blog->is_new()? __('Add a post') : $blog->blog_title) ?>,
-				iconUrl : 'static/apps/noviusos_blog/img/16/blog.png',
-				url : 'admin/noviusos_blog/form/crud/<?= empty($blog) ? '' : '/'.$blog->blog_id ?>'
-			};
-<?php
-	if (!$blog->is_new()) {
-?>
-			tabInfos.actions = [
-				{
-					label : <?= json_encode(__('Visualise')) ?>,
-					click : function() {
-						window.open(<?= json_encode($blog->first_url()) ?> + '?_preview=1');
-					},
-					iconClasses : 'nos-icon16 nos-icon16-eye'
-				}
-			];
-<?php
-}
 
-?>
-			var $el = $nos('#<?= $fieldset->form()->get_attribute('id') ?>');
-			$el.onShow('bind', function() {
-				$el.tab('update', tabInfos);
-			});
-		});
-	});
+<div id="<?= $uniqid_close = uniqid('close_') ?>" style="display:none;">
+    <p><?= __('This item has been deleted.') ?></p>
+    <p>&nbsp;</p>
+    <p><button class="primary" data-icon="close" onclick="$(this).nosTabs('close');"><?= __('Close tab') ?></button></p>
+</div>
+
+<script type="text/javascript">
+	require(
+        ['jquery-nos-ostabs'],
+        function ($) {
+            $(function () {
+                var tabInfos = <?= \Format::forge()->to_json($tabInfos) ?>;
+
+                var $container = $('#<?= $fieldset->form()->get_attribute('id') ?>');
+                $container.nosOnShow('bind', function() {
+                    $container.nosTabs('update', tabInfos);
+                });
+                <?php
+                if  (!$blog->is_new())
+                {
+                    ?>
+                    $container.nosListenEvent({
+                        name: 'Nos\\Blog\\Model_Blog',
+                        action: 'delete',
+                        id: '<?= $blog->blog_id ?>'
+                    }, function() {
+                        var $close = $('#<?= $uniqid_close ?>');
+                        $close.show().nosFormUI();
+                        $container.nosDialog({
+                            title: <?= Format::forge()->to_json(__('Bye bye')) ?>,
+                            content: $close,
+                            width: 300,
+                            height: 130,
+                            close: function() {
+                                $container.nosTabs('close');
+                            }
+                        });
+                    });
+                    <?php
+                }
+                ?>
+                });
+        });
 </script>

@@ -39,9 +39,9 @@
 <script type="text/javascript">
 require([
 	'jquery-nos'
-	], function($nos) {
-		$nos(function() {
-			var div = $nos('#<?= $id ?>')
+	], function($) {
+		$(function() {
+			var div = $('#<?= $id ?>')
 				.find('a[data-id=close]')
 				.click(function(e) {
 					div.closest('.ui-dialog-content').wijdialog('close');
@@ -51,18 +51,18 @@ require([
 				.find('form')
 				.submit(function() {
 					var self = this;
-					$nos(self).ajaxSubmit({
+					$(self).ajaxSubmit({
 						dataType: 'json',
 						success: function(json) {
 							div.closest('.ui-dialog-content').trigger('save.enhancer', json);
 						},
 						error: function(error) {
-							$nos.notify('An error occured', 'error');
+							$.nosNotify('An error occured', 'error');
 						}
 					});
 					return false;
 				})
-				.form();
+				.nosFormUI();
 		});
 	});
 </script>
