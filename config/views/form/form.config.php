@@ -24,5 +24,6 @@ return array(
     __('Meta') => array('field_template' => '{field}', 'fields' => array('author->user_fullname', 'blog_author', 'blog_created_at_date', 'blog_created_at_time', 'blog_read')),
     __('URL (post address)') => array('blog_virtual_name'),
     __('Tags') => array('blog_tags'),
+    __('Categories') => array('categories'),
     ),
 );

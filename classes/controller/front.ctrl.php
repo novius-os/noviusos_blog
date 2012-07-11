@@ -56,8 +56,7 @@ class Controller_Front extends Controller_Front_Application {
         $enhancer_url = $this->main_controller->getEnhancerUrl();
         if (!empty($enhancer_url)) {
 	        $this->enhancerUrl_segments = explode('/', $enhancer_url);
-            $segments = $this->enhancerUrl_segments;
-
+                $segments = $this->enhancerUrl_segments;
 
 	        if (empty($segments[1])) {
                 return $this->display_item($args);
@@ -84,6 +83,9 @@ class Controller_Front extends Controller_Front_Application {
 	        } else if ($segments[0] === 'tag') {
 		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
 		        return $this->display_list_tag($args);
+	        } else if ($segments[0] === 'category') {
+		        $this->init_pagination(!empty($segments[2]) ? $segments[2] : 1);
+		        return $this->display_list_category($args);
 	        }
 
 	        throw new \Nos\NotFoundException();
@@ -147,6 +149,37 @@ class Controller_Front extends Controller_Front_Application {
         ), false);
     }
 
+    public function display_list_category($params) {
+
+        list(, $category) = $this->enhancerUrl_segments;
+        
+        
+        $this->category = Model_Category::forge(array(
+            'blgc_title' => strtolower($category),
+        ));
+
+        $class = get_called_class();
+        $self  = $this;
+        $url   = $this->main_controller->getUrl();
+
+        $link_to_category = function($category, $page = 1) use($self, $url) {
+            return $self::get_url_model($category, array('page' => $page)); //, 'urlPath' => $url
+        };
+        $link_pagination = function($page) use ($link_to_category, $self) {
+            return $link_to_category($self->category, $page);
+        };
+
+        $list = $this->_display_list('category');
+
+        // Add surrounding stuff
+        return View::forge('front/list_category', array(
+            'list'        => $list,
+            'pagination'  => $this->pagination->create_links($link_pagination),
+            'category'         => $this->category,
+            'link_to_category' => $link_to_category,
+        ), false);
+    }
+    
     public function display_list_author($user_id) {
 
         list(,,$user_id, $page) = $this->enhancerUrl_segments;
@@ -205,6 +238,10 @@ class Controller_Front extends Controller_Front_Application {
             $query->related(array('tags'));
             $query->where(array('tags.tag_label', $this->tag->tag_label));
         }
+        if (!empty($this->category)) {
+            $query->related(array('categories'));
+            $query->where(array('categories.blgc_title', $this->category->blgc_title));
+        }
 
 
 
@@ -233,6 +270,7 @@ class Controller_Front extends Controller_Front_Application {
                 'related' => array('author', 'tags'),
             ))->get();
         }
+        
 
         // Display them
         return $this->_display_items($posts, $context);
@@ -316,6 +354,7 @@ class Controller_Front extends Controller_Front_Application {
      * @return  \Fuel\Core\View
      */
     public function display_item($args) {
+      
         if ($this->config['use_recaptcha']) {
             \Package::load('fuel-recatpcha', APPPATH.'packages/fuel-recaptcha/');
         }
@@ -443,6 +482,10 @@ class Controller_Front extends Controller_Front_Application {
 			case 'Nos\Blog\Model_Tag' :
 				return $url.'tag/'.urlencode($item->tag_label).($page > 1 ? '/'.$page : '').'.html';
 				break;
+                
+            case 'Nos\Blog\Model_Category' :
+				return $item->get_url();
+				break;    
 
 			case 'Nos\Model_User' :
 				return $url.'author/'.urlencode($item->fullname()).($page > 1 ? '/'.$page : '').'.html';

@@ -125,6 +125,32 @@ return array (
             'type' => 'text',
         ),
     ),
+    'categories' => array(
+        'widget' => 'Nos\Blog\Widget_Category_Selector',
+        'widget_options' => array(
+            'width' => '250px',
+            'height' => '250px',
+        ),
+        'label' => __(''),
+        'form' => array(
+        ),
+        //'dont_populate' => true,
+        'before_save' => function($object, $data) {
+            $object->categories;//fetch et 'cree' la relation
+            unset($object->categories);
+            
+            \Log::debug(print_r($data['categories'], true));
+            if(!empty($data['categories']))
+            {
+                foreach($data['categories'] as $cat_id)
+                {
+                    if (ctype_digit($cat_id) ) {
+                        $object->categories[$cat_id] = \Nos\Blog\Model_Category::find($cat_id);
+                    }
+                }
+            }
+        },
+    ),            
     'save' => array(
         'label' => '',
         'form' => array(
