@@ -3,7 +3,6 @@ return array(
     'title' => 'blog_title',
     //'id' => 'blog_id',
     'medias' => array(),//'medias->thumbnail->medil_media_id'),
-    'large' => true,
 
     'save' => 'save',
 
