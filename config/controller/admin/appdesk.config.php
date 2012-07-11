@@ -127,4 +127,7 @@ return array(
 			return $query;
 		},
 	),
+    'views' => array(
+        'delete' => 'noviusos_blog::blog_delete_popup'
+    )
 );
