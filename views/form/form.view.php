@@ -32,9 +32,12 @@ Event::register_function('config|noviusos_blog::views/form/form', 1, function(&$
 $config = Config::load('noviusos_blog::views/form/form', true);
 
 
-
 ?>
 <?= View::forge('nos::form/layout_standard', $config, false); ?>
+
+
+
+
 <?= $fieldset->close(); ?>
 
 <div id="<?= $uniqid_close = uniqid('close_') ?>" style="display:none;">

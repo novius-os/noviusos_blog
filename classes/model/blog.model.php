@@ -51,6 +51,16 @@ class Model_Blog extends \Nos\Orm\Model {
             'cascade_save'     => false,
             'cascade_delete'   => false,
         ),
+        'categories' => array(
+            'key_from'         => 'blog_id',
+            'key_through_from' => 'blog_id',
+            'table_through'    => 'nos_blog_category_post',
+            'key_through_to'   => 'blgc_id',
+            'model_to'         => '\Nos\Blog\Model_Category',
+            'key_to'           => 'blgc_id',
+            'cascade_save'     => false,
+            'cascade_delete'   => false,
+        ),
     );
 
     protected static $_has_many = array(

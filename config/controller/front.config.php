@@ -22,6 +22,9 @@ return array(
         'list_view'   => 'front/list_tag',
     ),
 
+    'display_category' => array(
+        'list_view'   => 'front/list_category',
+    ),
     // Item view
     'display_list_item' => array(
         'fields'      => 'title author date thumbnail summary tags stats',
