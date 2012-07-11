@@ -33,11 +33,11 @@ define([
                     action : function(item, ui) {
                         $.appDesk = appDesk;
                         $(ui).nosConfirmationDialog({
-                            contentUrl: 'admin/noviusos_blog/appdesk/delete/' + item.id,
+                            contentUrl: 'admin/noviusos_blog/blog/delete/' + item.id,
                             title: appDesk.i18n('Delete a post')._(),
                             confirmed: function($dialog) {
                                 $dialog.nosAjax({
-                                    url : 'admin/noviusos_blog/appdesk/delete_confirm',
+                                    url : 'admin/noviusos_blog/blog/delete_confirm',
                                     method : 'POST',
                                     data : $dialog.find('form').serialize()
                                 });
@@ -104,63 +104,6 @@ define([
                         }
                     }
                 },
-                /*inspectors : {
-                    categories : {
-                        inputName : 'cat[]',
-                        widget_id : 'noviusos_catalogue_categories',
-                        label : appDesk.i18n('Categories'),
-                        vertical : true,
-                        url : 'admin/noviusos_catalogue/inspector/category/list',
-                        reloadEvent : 'Nos\\Catalogue\\Model_Category',
-                        treeGrid : {
-                            treeUrl : 'admin/noviusos_catalogue/inspector/category/json',
-                            columns : {
-                                title : {
-                                    headerText : appDesk.i18n('Category'),
-                                    dataKey : 'title'
-                                },
-                                actions : {
-                                    showOnlyArrow : true,
-                                    actions : [
-                                        {
-                                            action : function(item, ui) {
-                                                $(ui).nosTabs({
-                                                    url     : "admin/noviusos_catalogue/inspector/category/edit/" + item.id,
-                                                    label   : appDesk.i18n('Edit')._()
-                                                });
-                                            },
-                                            label : appDesk.i18n('Edit')
-                                        },
-                                        {
-                                            action : function(item, ui) {
-                                                var id = item.id;
-                                                $(ui).nosAjax({
-                                                    url: "admin/noviusos_catalogue/inspector/category/delete/" + id,
-                                                    data: {},
-                                                    success: function(response) {
-                                                        if (response.success) {
-                                                            $.nosNotify(appDesk.i18n("Category deleted.")._());
-                                                            $.nosDispatchEvent({
-                                                                name: 'Nos\\Catalogue\\Model_Category',
-                                                                action: 'delete',
-                                                                id: id
-
-                                                            });
-                                                        } else {
-                                                            $.nosNotify(appDesk.i18n("Error: Category has not been deleted!")._(), "error");
-                                                        }
-                                                    }
-                                                });
-                                            },
-                                            label : appDesk.i18n('Delete')
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }*
-                }
-            }*/
                 inspectors : {
                     authors : {
                         reloadEvent : 'Nos\\Model_User',
