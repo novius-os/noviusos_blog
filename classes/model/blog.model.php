@@ -26,7 +26,7 @@ class Model_Blog extends \Nos\Orm\Model {
         ),
     );
 
-	protected static $_behaviours = array(
+    protected static $_behaviours = array(
 		'Nos\Orm_Behaviour_Translatable' => array(
 			'events' => array('before_insert', 'after_insert', 'before_save', 'after_delete', 'before_change_parent', 'after_change_parent'),
 			'lang_property'      => 'blog_lang',
