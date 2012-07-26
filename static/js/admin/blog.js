@@ -20,7 +20,7 @@ define([
                 update : {
                     action : function(item, ui) {
                         $(ui).nosTabs({
-                            url     : "admin/noviusos_blog/blog/crud/" + item.id,
+                            url     : "admin/noviusos_blog/blog/insert_update/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
                     },
@@ -67,7 +67,7 @@ define([
                         label : appDesk.i18n('Add a post'),
                         action : function(ui, appdesk) {
                             $(ui).nosTabs('add', {
-                                url     : 'admin/noviusos_blog/blog/crud?lang=' + appdesk.lang,
+                                url     : 'admin/noviusos_blog/blog/insert_update?lang=' + appdesk.lang,
                                 label   : appDesk.i18n('Add a new post')._()
                             });
                         }
@@ -123,11 +123,11 @@ define([
                     },
                     categories : {
                         inputName : 'cat[]',
-                        
+
                         reloadEvent : 'noviusos_blog_categories',
                         label : appDesk.i18n('Categories'),
                         url : 'admin/noviusos_blog/inspector/category/list',
-                        
+
                         treeGrid : {
                             treeUrl : 'admin/noviusos_blog/inspector/category/json',
                             columns : {
@@ -173,9 +173,9 @@ define([
                                     ]
                                 }
                             }
-                        },                        
-                        
-                        
+                        },
+
+
                         /*
                         grid : {
                             urlJson : 'admin/noviusos_blog/inspector/category/json',
