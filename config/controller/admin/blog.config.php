@@ -14,17 +14,21 @@ return array(
     'messages' => array(
         'successfully added' => __('Post successfully added.'),
         'successfully saved' => __('Post successfully saved.'),
+        'successfully deleted' => __('The post has successfully been deleted!'),
+        'you are about to delete, confim' => __('You are about to delete the post <span style="font-weight: bold;">":title"</span>. Are you sure you want to continue?'),
+        'you are about to delete' => __('You are about to delete the post <span style="font-weight: bold;">":title"</span>.'),
+        'exists in multiple lang' => __('This post exists in <strong>{count} languages</strong>.'),
+        'delete in the following languages' => __('Delete this post in the following languages:'),
         'item deleted' => __('This post has been deleted.'),
+        'not found' => __('Post not found'),
         'blank_state_item_text' => __('post'),
     ),
     'tab' => array(
         'iconUrl' => 'static/apps/noviusos_blog/img/16/blog.png',
         'labels' => array(
-            'update' => 'blog_title',
             'insert' => __('Add a post'),
             'blankSlate' => __('Translate a post'),
         ),
-
         'actions' => array(
             'visualise' => function($item) {
                 return array(
@@ -36,9 +40,6 @@ return array(
                 );
             }
         ),
-    ),
-    'views' => array(
-        'delete' => 'noviusos_blog::blog_delete_popup',
     ),
     'layout' => array(
         'title' => 'blog_title',

@@ -51,32 +51,4 @@ class Controller_Admin_Blog extends \Nos\Controller_Admin_Crud {
         $fieldset->field('blog_read')->set_template('<p>'.$fieldset->field('blog_read')->template.'</p>');
         return $fieldset;
     }
-
-    public function action_delete($blog_id)
-    {
-        $blog = Model_Blog::find($blog_id);
-        return \View::forge($this->config['views']['delete'], array('blog' => $blog));
-    }
-
-    public function action_delete_confirm()
-    {
-        $dispatchEvent = null;
-        $blog = Model_Blog::find(\Input::post('id', 0));
-        if (!empty($blog))
-        {
-            $dispatchEvent = array(
-                'name' => get_class($blog),
-                'action' => 'delete',
-                'id' => $blog->blog_id,
-                'lang_common_id' => $blog->blog_lang_common_id,
-                'lang' => $blog->blog_lang,
-            );
-            $blog->delete();
-        }
-
-        $this->response(array(
-            'notify' => __('The blog post has successfully been deleted!'),
-            'dispatchEvent' => $dispatchEvent,
-        ));
-    }
 }
