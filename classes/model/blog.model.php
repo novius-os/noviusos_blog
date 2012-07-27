@@ -26,7 +26,7 @@ class Model_Blog extends \Nos\Orm\Model {
         ),
     );
 
-	protected static $_behaviours = array(
+    protected static $_behaviours = array(
 		'Nos\Orm_Behaviour_Translatable' => array(
 			'events' => array('before_insert', 'after_insert', 'before_save', 'after_delete', 'before_change_parent', 'after_change_parent'),
 			'lang_property'      => 'blog_lang',
@@ -48,6 +48,16 @@ class Model_Blog extends \Nos\Orm\Model {
             'key_through_to'   => 'blgt_tag_id',
             'model_to'         => '\Nos\Blog\Model_Tag',
             'key_to'           => 'tag_id',
+            'cascade_save'     => false,
+            'cascade_delete'   => false,
+        ),
+        'categories' => array(
+            'key_from'         => 'blog_id',
+            'key_through_from' => 'blog_id',
+            'table_through'    => 'nos_blog_category_post',
+            'key_through_to'   => 'blgc_id',
+            'model_to'         => '\Nos\Blog\Model_Category',
+            'key_to'           => 'blgc_id',
             'cascade_save'     => false,
             'cascade_delete'   => false,
         ),

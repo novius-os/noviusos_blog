@@ -93,7 +93,14 @@ return array(
 		),
 	),
 	'inputs' => array(
-		'blgc_id' => function($value, $query) {
+		'category_id' => function($value, $query) {
+			if ( is_array($value) && count($value) && $value[0]) {
+				$query->related('categories', array(
+					'where' => array(
+						array('categories.blgc_id', 'in', $value),
+					),
+				));
+			}
 			return $query;
 		},
 		'tag_id' => function($value, $query) {
