@@ -152,8 +152,8 @@ class Controller_Front extends Controller_Front_Application {
     public function display_list_category($params) {
 
         list(, $category) = $this->enhancerUrl_segments;
-        
-        
+
+
         $this->category = Model_Category::forge(array(
             'blgc_title' => strtolower($category),
         ));
@@ -179,7 +179,7 @@ class Controller_Front extends Controller_Front_Application {
             'link_to_category' => $link_to_category,
         ), false);
     }
-    
+
     public function display_list_author($user_id) {
 
         list(,,$user_id, $page) = $this->enhancerUrl_segments;
@@ -270,7 +270,7 @@ class Controller_Front extends Controller_Front_Application {
                 'related' => array('author', 'tags'),
             ))->get();
         }
-        
+
 
         // Display them
         return $this->_display_items($posts, $context);
@@ -354,7 +354,7 @@ class Controller_Front extends Controller_Front_Application {
      * @return  \Fuel\Core\View
      */
     public function display_item($args) {
-      
+
         if ($this->config['use_recaptcha']) {
             \Package::load('fuel-recatpcha', APPPATH.'packages/fuel-recaptcha/');
         }
@@ -482,10 +482,10 @@ class Controller_Front extends Controller_Front_Application {
 			case 'Nos\Blog\Model_Tag' :
 				return $url.'tag/'.urlencode($item->tag_label).($page > 1 ? '/'.$page : '').'.html';
 				break;
-                
+
             case 'Nos\Blog\Model_Category' :
 				return $item->get_url();
-				break;    
+				break;
 
 			case 'Nos\Model_User' :
 				return $url.'author/'.urlencode($item->fullname()).($page > 1 ? '/'.$page : '').'.html';
@@ -493,4 +493,29 @@ class Controller_Front extends Controller_Front_Application {
 		}
         return false;
 	}
+
+    static function url_model($item, $first = false) {
+        \Config::load(APPPATH.'data'.DS.'config'.DS.'page_enhanced.php', 'page_enhanced');
+        $page_enhanced = \Config::get('page_enhanced', array());
+        $model = get_class($item);
+        $urls = array();
+        foreach ($page_enhanced['noviusos_blog'] as $page_id => $params) {
+            if ($page = Model_Page::find($page_id)) {
+                if ($model !== 'Nos\Blog\Model_Blog' || $page->page_lang === $item->blog_lang) {
+                    $urlPath = mb_substr($page->get_href(), 0, -5).'/';
+                    $temp_urls = static::get_url_model($item, array('urlPath' => $urlPath));
+                    $temp_urls = is_array($temp_urls) ? $temp_urls : array($temp_urls);
+                    if ($first && count($temp_urls))
+                    {
+                        return $temp_urls[0];
+                    }
+                    else
+                    {
+                        $urls = array_merge($urls, $temp_urls);
+                    }
+                }
+            }
+        }
+        return $urls;
+    }
 }

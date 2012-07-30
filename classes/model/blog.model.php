@@ -37,7 +37,11 @@ class Model_Blog extends \Nos\Orm\Model {
         'Nos\Orm_Behaviour_Publishable' => array(
             'publication_bool_property' => 'blog_published',
         ),
-		'Nos\Orm_Behaviour_Url' => array(),
+		'Nos\Orm_Behaviour_Url' => array(
+            'urls' => array(
+                array('Nos\Blog\Controller_Front', 'url_model'),
+            ),
+        ),
     );
 
     protected static $_many_many = array(

@@ -34,7 +34,7 @@ return array(
                 return array(
                     'label' => __('Visualise'),
                     'action' => array(
-                        'openWindow' => $item->first_url() . '?_preview=1',
+                        'openWindow' => $item->url_canonical() . '?_preview=1',
                     ),
                     'iconClasses' => 'nos-icon16 nos-icon16-eye',
                 );
