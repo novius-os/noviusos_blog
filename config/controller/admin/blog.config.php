@@ -29,17 +29,6 @@ return array(
             'insert' => __('Add a post'),
             'blankSlate' => __('Translate a post'),
         ),
-        'actions' => array(
-            'visualise' => function($item) {
-                return array(
-                    'label' => __('Visualise'),
-                    'action' => array(
-                        'openWindow' => $item->url_canonical() . '?_preview=1',
-                    ),
-                    'iconClasses' => 'nos-icon16 nos-icon16-eye',
-                );
-            }
-        ),
     ),
     'layout' => array(
         'title' => 'blog_title',
