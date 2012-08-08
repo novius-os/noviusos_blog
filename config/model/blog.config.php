@@ -20,11 +20,11 @@ return array(
             'data_catchers' => array(
                 array(
                     'data_catcher' => 'rss_item',
-                    'title' => __('RSS Blog item'),
+                    'title' => __('RSS Post item'),
                 ),
                 array(
-                    'data_catcher' => 'rss_chanel',
-                    'title' => __('RSS Blog item comments'),
+                    'data_catcher' => 'rss_channel',
+                    'title' => __('RSS Post channel comments'),
                 ),
             ),
         ),
