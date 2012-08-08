@@ -43,18 +43,4 @@ return array(
             'data_catchers_added' => array('blog_rss_channel'),
         ),
     ),
-    'models_catched' => array(
-        'blog' => array('blog_rss_chanel', 'blog_rss_item'),
-        'user' => array('blog_rss_chanel'),
-    ),
-    'data_catchers' => array(
-        /*'blog_rss_channel' => \Nos\DataCatcher::configRssChanel(array(
-            'title' => 'RSS Chanel Blog',
-            'specified_models' => array('Nos\Blog\Model_Blog'),
-        )),
-        'blog_rss_item' => \Nos\DataCatcher::configRssItem(array(
-            'title' => 'RSS Item Blog',
-            'specified_models' => array('Nos\Blog\Model_Blog'),
-        )),*/
-    ),
 );
