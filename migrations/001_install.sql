@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS `nos_blog_category` (
 
 CREATE TABLE IF NOT EXISTS `nos_blog_category_post` (
   `post_id` int(11) NOT NULL,
-  `cat_id` int(11) NOT NULL
+  `cat_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`, `cat_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
