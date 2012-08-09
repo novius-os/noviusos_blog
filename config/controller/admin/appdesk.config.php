@@ -1,7 +1,7 @@
 <?php
 $config = array(
     'query' => array(
-        'model' => '\NoviusDev\BlogNews\Blog\Model_Post',
+        'model' => '\Nos\BlogNews\Blog\Model_Post',
         'order_by' => array('post_created_at' => 'DESC'),
         'limit' => 20,
     ),

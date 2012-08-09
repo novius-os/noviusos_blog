@@ -9,7 +9,7 @@ define([
              * Config variables
              */
             blognews : {
-                namespace   : 'NoviusDev\\BlogNews\\Blog',
+                namespace   : 'Nos\\BlogNews\\Blog',
                 dir         : 'noviusos_blog',
                 icon_name   : 'blog'
             }

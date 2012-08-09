@@ -7,7 +7,7 @@ return array(
     'provider' => array(
         'name' => 'Novius OS',
     ),
-    'namespace' => 'NoviusDev\BlogNews\Blog',
+    'namespace' => 'Nos\BlogNews\Blog',
     'launchers' => array(
         'noviusos_blog' => array(
             'name'    => 'Blog',
@@ -30,9 +30,9 @@ return array(
                 'ajax' => true,
             ),
             'models_url_enhanced' => array(
-                'NoviusDev\BlogNews\Blog\Model_Post',
+                'Nos\BlogNews\Blog\Model_Post',
             ),
-            'get_url_model' => array('NoviusDev\BlogNews\Blog\Controller_Front', 'get_url_model'),
+            'get_url_model' => array('Nos\BlogNews\Blog\Controller_Front', 'get_url_model'),
         ),
     ),
 );
