@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `nos_blog_category` (
   `cat_sort` float DEFAULT NULL,
   PRIMARY KEY (`cat_id`),
   KEY `cat_lang` (`cat_lang`,`cat_lang_common_id`,`cat_lang_single_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `nos_blog_post` (
   PRIMARY KEY (`post_id`),
   UNIQUE KEY `news_virtual_name` (`post_virtual_name`),
   KEY `news_lang` (`post_lang`,`post_lang_common_id`,`post_lang_single_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `nos_blog_tag` (
   `tag_label` varchar(255) NOT NULL,
   PRIMARY KEY (`tag_id`),
   UNIQUE KEY `tag_label` (`tag_label`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `nos_blog_tag` (
 CREATE TABLE IF NOT EXISTS `nos_blog_tag_post` (
   `post_id` int(10) unsigned NOT NULL,
   `tag_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`post_id`,`tag_id`),
   KEY `tag_id` (`tag_id`),
   KEY `post_id` (`post_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
