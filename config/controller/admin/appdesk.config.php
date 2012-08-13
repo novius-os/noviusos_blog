@@ -82,18 +82,25 @@ return array(
 		),
 		'url' => array(
 			'value' => function($object) {
-				return $object->first_url();
+				return $object->url_canonical();
 			},
 		),
 		'actions' => array(
 			'visualise' => function($object) {
-				$url = $object->first_url();
+				$url = $object->url_canonical();
 				return !empty($url);
 			}
 		),
 	),
 	'inputs' => array(
-		'blgc_id' => function($value, $query) {
+		'category_id' => function($value, $query) {
+			if ( is_array($value) && count($value) && $value[0]) {
+				$query->related('categories', array(
+					'where' => array(
+						array('categories.blgc_id', 'in', $value),
+					),
+				));
+			}
 			return $query;
 		},
 		'tag_id' => function($value, $query) {

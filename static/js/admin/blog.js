@@ -20,7 +20,7 @@ define([
                 update : {
                     action : function(item, ui) {
                         $(ui).nosTabs({
-                            url     : "admin/noviusos_blog/blog/crud/" + item.id,
+                            url     : "admin/noviusos_blog/blog/insert_update/" + item.id,
                             label   : appDesk.i18n('Edit')._()
                         });
                     },
@@ -33,11 +33,11 @@ define([
                     action : function(item, ui) {
                         $.appDesk = appDesk;
                         $(ui).nosConfirmationDialog({
-                            contentUrl: 'admin/noviusos_blog/list/delete/' + item.id,
+                            contentUrl: 'admin/noviusos_blog/blog/delete/' + item.id,
                             title: appDesk.i18n('Delete a post')._(),
                             confirmed: function($dialog) {
                                 $dialog.nosAjax({
-                                    url : 'admin/noviusos_blog/list/delete_confirm',
+                                    url : 'admin/noviusos_blog/blog/delete_confirm',
                                     method : 'POST',
                                     data : $dialog.find('form').serialize()
                                 });
@@ -67,7 +67,7 @@ define([
                         label : appDesk.i18n('Add a post'),
                         action : function(ui, appdesk) {
                             $(ui).nosTabs('add', {
-                                url     : 'admin/noviusos_blog/blog/crud?lang=' + appdesk.lang,
+                                url     : 'admin/noviusos_blog/blog/insert_update?lang=' + appdesk.lang,
                                 label   : appDesk.i18n('Add a new post')._()
                             });
                         }
@@ -75,7 +75,7 @@ define([
                 },
                 splittersVertical :  250,
                 grid : {
-                    proxyUrl : 'admin/noviusos_blog/list/json',
+                    proxyUrl : 'admin/noviusos_blog/appdesk/json',
                     columns : {
                         title : {
                             headerText : appDesk.i18n('Title'),
@@ -120,6 +120,100 @@ define([
                         },
                         inputName : 'blog_author_id[]',
                         vertical : true
+                    },
+                    categories : {
+                        inputName : 'cat[]',
+
+                        reloadEvent : 'noviusos_blog_categories',
+                        label : appDesk.i18n('Categories'),
+                        url : 'admin/noviusos_blog/inspector/category/list',
+
+                        treeGrid : {
+                            treeUrl : 'admin/noviusos_blog/inspector/category/json',
+                            columns : {
+                                title : {
+                                    headerText : appDesk.i18n('Category'),
+                                    dataKey : 'title'
+                                },
+                                actions : {
+                                    showOnlyArrow : true,
+                                    actions : [
+                                        /*{
+                                            action : function(item, ui) {
+                                                $(ui).nosTabs({
+                                                    url     : "admin/noviusos_blog/inspector/category/edit/" + item.id,
+                                                    label   : appDesk.i18n('Edit')._()
+                                                });
+                                            },
+                                            label : appDesk.i18n('Edit')
+                                        },*/
+                                        {
+                                            action : function(item, ui) {
+                                                var id = item.id;
+                                                $(ui).nosAjax({
+                                                    url: "admin/noviusos_blog/inspector/category/delete/" + id,
+                                                    data: {},
+                                                    success: function(response) {
+                                                        if (response.success) {
+                                                            $.nosNotify(appDesk.i18n("Category deleted.")._());
+                                                            $.nosDispatchEvent({
+                                                                name: 'Nos\\Blog\\Model_Category',
+                                                                action: 'delete',
+                                                                id: id
+
+                                                            });
+                                                        } else {
+                                                            $.nosNotify(appDesk.i18n("Error: Category has not been deleted!")._(), "error");
+                                                        }
+                                                    }
+                                                });
+                                            },
+                                            label : appDesk.i18n('Delete')
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+
+
+                        /*
+                        grid : {
+                            urlJson : 'admin/noviusos_blog/inspector/category/json',
+                            columns : {
+                                title : {
+                                    headerText : appDesk.i18n('Category'),
+                                    dataKey : 'title'
+                                },
+                                actions : {
+                                    actions : [
+                                        {
+                                            action : function(item, ui) {
+                                                $(ui).nosConfirmationDialog({
+                                                    contentUrl: 'admin/noviusos_blog/inspector/category/delete/' + item.id,
+                                                    title: appDesk.i18n('Delete a category')._(),
+                                                    confirmed: function($dialog) {
+                                                        $dialog.xhr({
+                                                            url : 'admin/noviusos_blog/inspector/category/delete_confirm',
+                                                            method : 'POST',
+                                                            data : $dialog.find('form').serialize(),
+                                                            success : function(json) {
+                                                                $.nosDispatchEvent('reload.noviusos_blog_categories');
+                                                            }
+                                                        });
+                                                    },
+                                                    appDesk: appDesk
+                                                });
+                                            },
+                                            label : appDesk.i18n('Delete'),
+                                            primary : true,
+                                            icon : 'trash'
+                                        }
+                                    ]
+                                }
+                            }
+                        },*/
+                        inputName : 'category_id[]',
+                        vertical: true
                     },
                     tags : {
                         reloadEvent : 'Nos\\Blog\\Model_Tag',

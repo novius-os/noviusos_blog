@@ -1,6 +1,14 @@
 <?php
+/**
+ * NOVIUS OS - Web OS for digital communication
+ *
+ * @copyright  2011 Novius
+ * @license    GNU Affero General Public License v3 or (at your option) any later version
+ *             http://www.gnu.org/licenses/agpl-3.0.html
+ * @link http://www.novius-os.org
+ */
 return array(
-    
+
     'date_format'   => '%A %e %B %Y',
     'link_on_title' => false,
     'item_per_page' => 10,
@@ -22,6 +30,9 @@ return array(
         'list_view'   => 'front/list_tag',
     ),
 
+    'display_category' => array(
+        'list_view'   => 'front/list_category',
+    ),
     // Item view
     'display_list_item' => array(
         'fields'      => 'title author date thumbnail summary tags stats',
@@ -39,4 +50,3 @@ return array(
     'use_recaptcha' => false, // If you set this on true don't forget to add fuel-recaptcha on local/packages/fuel-recaptcha
     'comment_default_state' => 'published'
 );
-?>

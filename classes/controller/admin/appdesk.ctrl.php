@@ -7,8 +7,13 @@
  *             http://www.gnu.org/licenses/agpl-3.0.html
  * @link http://www.novius-os.org
  */
-?>
-<input type="hidden" name="id" value="<?= $blog->id ?>" />
-<p>
-    <?= Str::tr(__('You are about to delete the blog post <span style="font-weight: bold;">":blog_title"</span>. Are you sure you want to continue?'), array('blog_title' => $blog->blog_title)) ?>
-</p>
+
+namespace Nos\Blog;
+
+use View;
+
+class Controller_Admin_Appdesk extends \Nos\Controller_Admin_Appdesk
+{
+
+}
+
