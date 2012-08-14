@@ -12,11 +12,13 @@ $config = array(
             'json' => array('static/apps/noviusos_blog/js/admin/blog.js', 'static/apps/noviusos_blognews/js/admin/blognews.js'),
         ),
     ),
-    'i18n' => array(
-        'Posts'                 => __('Posts'),
-        'Add a post'            => __('Add a post'),
-        'Delete this post'      => __('Delete this post'),
+);
+$appdesk = array(
+    'tab' => array(
+        'label' => __('Blog'),
     ),
 );
 $base = \Config::load('noviusos_blognews::controller/admin/appdesk', true);
-return array_merge($base, $config);
+$config = array_merge($base, $config);
+$config['appdesk'] = \Arr::merge($config['appdesk'], $appdesk);
+return $config;
