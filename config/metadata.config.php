@@ -21,12 +21,12 @@ return array(
             'title' => 'Blog',
             'desc'  => '',
             'urlEnhancer' => 'noviusos_blog/front/main',
-            'iconUrl' => 'static/apps/news/img/blog-16.png',
-            'previewUrl' => 'admin/noviusos_blognews/application/preview',
+            'iconUrl' => 'static/apps/noviusos_blog/img/blog-36.png',
+            'previewUrl' => 'admin/noviusos_blog/application/preview',
             'dialog' => array(
-                'contentUrl' => 'admin/noviusos_blognews/application/popup',
+                'contentUrl' => 'admin/noviusos_blog/application/popup',
                 'width' => 450,
-                'height' => 180,
+                'height' => 400,
                 'ajax' => true,
             ),
             'models_url_enhanced' => array(
