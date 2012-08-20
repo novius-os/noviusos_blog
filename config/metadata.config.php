@@ -21,11 +21,7 @@ return array(
             'title' => 'Blog',
             'desc'  => '',
             'urlEnhancer' => 'noviusos_blog/front/main',
-<<<<<<< HEAD
-            'iconUrl' => 'static/apps/news/img/blog-16.png',
-=======
             'iconUrl' => 'static/apps/noviusos_blog/img/blog-36.png',
->>>>>>> 7956a030ba2977f008fc82aa85a4f2ab852595f3
             'previewUrl' => 'admin/noviusos_blog/application/preview',
             'dialog' => array(
                 'contentUrl' => 'admin/noviusos_blog/application/popup',
