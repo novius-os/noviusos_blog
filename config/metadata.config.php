@@ -29,14 +29,15 @@ return array(
                 'height' => 400,
                 'ajax' => true,
             ),
-            'models_url_enhanced' => array(
-                'Nos\BlogNews\Blog\Model_Post',
-            ),
             'get_url_model' => array('Nos\BlogNews\Blog\Controller_Front', 'get_url_model'),
             'data_catchers_added' => array(
-                array(
+                'posts_rss_channel' => array(
                     'data_catcher' => 'rss_channel',
                     'title' => __('RSS Post channel'),
+                ),
+                'comments_rss_channel' => array(
+                    'data_catcher' => 'rss_channel',
+                    'title' => __('RSS Comments channel'),
                 ),
             ),
         ),
