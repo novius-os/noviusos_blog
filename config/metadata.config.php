@@ -33,6 +33,12 @@ return array(
                 'Nos\BlogNews\Blog\Model_Post',
             ),
             'get_url_model' => array('Nos\BlogNews\Blog\Controller_Front', 'get_url_model'),
+            'data_catchers_added' => array(
+                array(
+                    'data_catcher' => 'rss_channel',
+                    'title' => __('RSS Post channel'),
+                ),
+            ),
         ),
     ),
 );
