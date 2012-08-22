@@ -8,7 +8,7 @@ class Model_Category extends \Nos\BlogNews\Model_Category
 
     public static function _init() {
         parent::_init();
-        static::$_behaviours['Nos\Orm_Behaviour_Url']['enhancers'][] = 'noviusos_blog';
+        static::$_behaviours['Nos\Orm_Behaviour_Urlenhancer']['enhancers'][] = 'noviusos_blog';
     }
 
 }
