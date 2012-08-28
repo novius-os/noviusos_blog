@@ -29,7 +29,6 @@ return array(
                 'height' => 400,
                 'ajax' => true,
             ),
-            'get_url_model' => array('Nos\BlogNews\Blog\Controller_Front', 'get_url_model'),
             'data_catchers_added' => array(
                 'posts_rss_channel' => array(
                     'data_catcher' => 'rss_channel',
