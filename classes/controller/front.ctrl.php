@@ -10,8 +10,6 @@
 
 namespace Nos\BlogNews\Blog;
 
-
-class Controller_Front extends \Nos\BlogNews\Controller_Front {
-
-
+class Controller_Front extends \Nos\BlogNews\Controller_Front
+{
 }
