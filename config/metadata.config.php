@@ -9,6 +9,9 @@ return array(
         'name' => 'Novius OS',
     ),
     'namespace' => 'Nos\BlogNews\Blog',
+    'permission' => array(
+
+    ),
     'launchers' => array(
         'noviusos_blog' => array(
             'name'    => 'Blog',
