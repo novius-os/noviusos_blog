@@ -58,4 +58,28 @@ return array(
             ),*/
         ),
     ),
+    'data_catchers' => array(
+        'noviusos_blog' => array(
+            'title' => 'Blog',
+            'description'  => '',
+            'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
+            'action' => array(
+                'action' => 'nosTabs',
+                'tab' => array(
+                    'url' => 'admin/noviusos_blog/post/insert_update/?lang={{lang}}&title={{urlencode:'.\Nos\DataCatcher::TYPE_TITLE.'}}&summary={{urlencode:'.\Nos\DataCatcher::TYPE_TEXT.'}}&thumbnail={{urlencode:'.\Nos\DataCatcher::TYPE_IMAGE.'}}',
+                    'label' => __('Add a post'),
+                    'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
+                ),
+            ),
+            'onDemand' => true,
+            'specified_models' => false,
+            'required_data' => array(
+                \Nos\DataCatcher::TYPE_TITLE,
+            ),
+            'optional_data' => array(
+                \Nos\DataCatcher::TYPE_TEXT,
+                \Nos\DataCatcher::TYPE_IMAGE,
+            ),
+        ),
+    ),
 );
