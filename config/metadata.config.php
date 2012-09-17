@@ -14,8 +14,13 @@ return array(
     'launchers' => array(
         'noviusos_blog' => array(
             'name'    => 'Blog',
-            'url'     => 'admin/noviusos_blog/appdesk',
-            'iconUrl' => 'static/apps/noviusos_blog/img/blog-32.png',
+            'action' => array(
+                'action' => 'nosTabs',
+                'tab' => array(
+                    'url' => 'admin/noviusos_blog/appdesk',
+                    'iconUrl' => 'static/apps/noviusos_blog/img/blog-32.png',
+                ),
+            ),
             'icon64'  => 'static/apps/noviusos_blog/img/blog-64.png',
         ),
     ),
