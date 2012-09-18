@@ -4,6 +4,7 @@ return array(
     'version' => '0.1',
     'href' => 'admin/noviusos_blog/appdesk',
     'icon16'  => 'static/apps/noviusos_blog/img/blog-16.png',
+    'icon64'  => 'static/apps/noviusos_blog/img/blog-64.png',
     'provider' => array(
         'name' => 'Novius OS',
     ),
