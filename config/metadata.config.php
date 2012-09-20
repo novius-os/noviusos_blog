@@ -2,8 +2,8 @@
 return array(
     'name'    => 'Blog',
     'version' => '0.1',
-    'href' => 'admin/noviusos_blog/appdesk',
     'icon16'  => 'static/apps/noviusos_blog/img/blog-16.png',
+    'icon64'  => 'static/apps/noviusos_blog/img/blog-64.png',
     'provider' => array(
         'name' => 'Novius OS',
     ),
@@ -29,7 +29,7 @@ return array(
             'title' => 'Blog',
             'desc'  => '',
             'urlEnhancer' => 'noviusos_blog/front/main',
-            'iconUrl' => 'static/apps/noviusos_blog/img/blog-36.png',
+            'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
             'previewUrl' => 'admin/noviusos_blog/application/preview',
             'dialog' => array(
                 'contentUrl' => 'admin/noviusos_blog/application/popup',
@@ -47,19 +47,6 @@ return array(
                     'title' => __('RSS Comments channel'),
                 ),
             ),
-        ),
-        'noviusos_blog2' => array(
-            'title' => 'Blog 2',
-            'desc'  => '',
-            'urlEnhancer' => 'noviusos_blog/front/main',
-            'iconUrl' => 'static/apps/noviusos_blog/img/blog-36.png',
-            'previewUrl' => 'admin/noviusos_blog/application/preview',
-            /*'dialog' => array(
-                'contentUrl' => 'admin/noviusos_blog/application/popup',
-                'width' => 450,
-                'height' => 400,
-                'ajax' => true,
-            ),*/
         ),
     ),
     'data_catchers' => array(
