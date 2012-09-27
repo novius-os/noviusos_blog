@@ -57,7 +57,7 @@ return array(
             'action' => array(
                 'action' => 'nosTabs',
                 'tab' => array(
-                    'url' => 'admin/noviusos_blog/post/insert_update/?site={{site}}&title={{urlencode:'.\Nos\DataCatcher::TYPE_TITLE.'}}&summary={{urlencode:'.\Nos\DataCatcher::TYPE_TEXT.'}}&thumbnail={{urlencode:'.\Nos\DataCatcher::TYPE_IMAGE.'}}',
+                    'url' => 'admin/noviusos_blog/post/insert_update/?context={{context}}&title={{urlencode:'.\Nos\DataCatcher::TYPE_TITLE.'}}&summary={{urlencode:'.\Nos\DataCatcher::TYPE_TEXT.'}}&thumbnail={{urlencode:'.\Nos\DataCatcher::TYPE_IMAGE.'}}',
                     'label' => __('Add a post'),
                     'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
                 ),
