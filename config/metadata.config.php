@@ -32,16 +32,6 @@ return array(
                 'height' => 400,
                 'ajax' => true,
             ),
-            'data_catchers_added' => array(
-                'posts_rss_channel' => array(
-                    'data_catcher' => 'rss_channel',
-                    'title' => __('RSS Posts channel'),
-                ),
-                'comments_rss_channel' => array(
-                    'data_catcher' => 'rss_channel',
-                    'title' => __('RSS Comments channel'),
-                ),
-            ),
         ),
     ),
     'data_catchers' => array(
