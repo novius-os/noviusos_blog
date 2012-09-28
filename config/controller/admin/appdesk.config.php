@@ -8,6 +8,7 @@
  * @link http://www.novius-os.org
  */
 
+/*
 $config = array(
     'query' => array(
         'model' => '\Nos\BlogNews\Blog\Model_Post',
@@ -27,8 +28,9 @@ $appdesk = array(
         'label' => __('Blog'),
     ),
 );
+*/
 
 $base = \Config::load('noviusos_blognews::controller/admin/appdesk', true);
-$config = array_merge($base, $config);
-$config['appdesk'] = \Arr::merge($config['appdesk'], $appdesk);
-return $config;
+//$config = array_merge($base, array());
+//$config['appdesk'] = \Arr::merge($config['appdesk'], $appdesk);
+return $base;
