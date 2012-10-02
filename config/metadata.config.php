@@ -18,10 +18,8 @@ return array(
                 'action' => 'nosTabs',
                 'tab' => array(
                     'url' => 'admin/noviusos_blog/appdesk',
-                    'iconUrl' => 'static/apps/noviusos_blog/img/blog-32.png',
                 ),
             ),
-            'icon64'  => 'static/apps/noviusos_blog/img/blog-64.png',
         ),
     ),
     'enhancers' => array(
@@ -85,5 +83,10 @@ return array(
                 \Nos\DataCatcher::TYPE_IMAGE,
             ),
         ),
+    ),
+    'icons' => array(
+        64 => 'static/apps/noviusos_blog/img/blog-64.png',
+        32 => 'static/apps/noviusos_blog/img/blog-32.png',
+        16 => 'static/apps/noviusos_blog/img/blog-16.png',
     ),
 );
