@@ -1,10 +1,6 @@
 <?php
 \Module::load('noviusos_blognews');
 
-function getBlogNewsNamespace() {
-    return 'Nos\\BlogNews\Blog';
-}
-
 $configFiles = array(
     'config',
     'controller/front',
@@ -17,9 +13,10 @@ $configFiles = array(
     'controller/admin/inspector/tag',
     'model/admin/post',
     'model/admin/tag',
+    'model/admin/category',
 );
 
-$namespace = getBlogNewsNamespace();
+$namespace = 'Nos\\BlogNews\Blog';
 $application_name = 'noviusos_blog';
 
 foreach ($configFiles as $configFile) {

@@ -1,5 +1,3 @@
 <?php
-return array (
-    'controller_url'  => 'admin/noviusos_blog/tag',
-    'model' => 'Nos\\BlogNews\\Blog\\Model_Tag',
-);
+$base = \Config::load('noviusos_blognews::controller/admin/tag', true);
+return $base;
