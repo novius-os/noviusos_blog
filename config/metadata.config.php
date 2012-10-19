@@ -1,7 +1,7 @@
 <?php
 return array(
     'name'    => 'Blog',
-    'version' => '0.1',
+    'version' => '0.2',
     'icon16'  => 'static/apps/noviusos_blog/img/blog-16.png',
     'icon64'  => 'static/apps/noviusos_blog/img/blog-64.png',
     'provider' => array(
