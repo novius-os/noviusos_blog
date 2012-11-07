@@ -6,9 +6,9 @@ use Asset, Format, Input, Session, View, Uri;
 
 class Controller_Admin_Post extends \Nos\BlogNews\Controller_Admin_Post
 {
-    protected function form_item()
+    protected function from_item()
     {
-        parent::form_item();
+        parent::from_item();
         if ($this->is_new) {
             $title = \Input::get('title', null);
             $summary = \Input::get('summary', null);
