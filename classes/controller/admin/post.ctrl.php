@@ -6,22 +6,21 @@ use Asset, Format, Input, Session, View, Uri;
 
 class Controller_Admin_Post extends \Nos\BlogNews\Controller_Admin_Post
 {
-    protected function from_item()
+    protected function init_item()
     {
-        parent::from_item();
-        if ($this->is_new) {
-            $title = \Input::get('title', null);
-            $summary = \Input::get('summary', null);
-            $thumbnail = \Input::get('thumbnail', null);
-            if (!empty($title)) {
-                $this->item->post_title = $title;
-            }
-            if (!empty($summary)) {
-                $this->item->post_summary = $summary;
-            }
-            if (!empty($thumbnail)) {
-                $this->item->{'medias->thumbnail->medil_media_id'} = $thumbnail;
-            }
+        parent::init_item();
+
+        $title = \Input::get('title', null);
+        $summary = \Input::get('summary', null);
+        $thumbnail = \Input::get('thumbnail', null);
+        if (!empty($title)) {
+            $this->item->post_title = $title;
+        }
+        if (!empty($summary)) {
+            $this->item->post_summary = $summary;
+        }
+        if (!empty($thumbnail)) {
+            $this->item->{'medias->thumbnail->medil_media_id'} = $thumbnail;
         }
     }
 
