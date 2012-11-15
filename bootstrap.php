@@ -11,9 +11,8 @@ $configFiles = array(
     'controller/admin/inspector/author',
     'controller/admin/inspector/category',
     'controller/admin/inspector/tag',
-    'model/admin/post',
-    'model/admin/tag',
-    'model/admin/category',
+    'common/post',
+    'common/tag',
 );
 
 $namespace = 'Nos\\BlogNews\Blog';
