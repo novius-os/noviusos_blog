@@ -13,6 +13,7 @@ $configFiles = array(
     'controller/admin/inspector/tag',
     'common/post',
     'common/tag',
+    'model/admin/category',
 );
 
 $namespace = 'Nos\\BlogNews\Blog';
