@@ -9,5 +9,6 @@ class Model_Tag extends \Nos\BlogNews\Model_Tag
     public static function _init()
     {
         parent::_init();
+        static::$_behaviours['Nos\Orm_Behaviour_Urlenhancer']['enhancers'][] = 'noviusos_blog';
     }
 }

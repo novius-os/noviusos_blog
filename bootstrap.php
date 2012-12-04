@@ -21,6 +21,6 @@ $application_name = 'noviusos_blog';
 
 foreach ($configFiles as $configFile) {
     \Event::register_function('config|noviusos_blognews::'.$configFile, function(&$config) use ($namespace, $application_name) {
-        $config = \Config::placeholder_replace($config, array('namespace' => $namespace, 'application_name' => $application_name));
+        $config = \Config::placeholderReplace($config, array('namespace' => $namespace, 'application_name' => $application_name));
     });
 }
