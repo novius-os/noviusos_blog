@@ -9,5 +9,4 @@
  */
 
 $base = \Config::load('noviusos_blognews::controller/admin/application', true);
-$base['preview']['params']['title'] = __('Blog');
 return $base;

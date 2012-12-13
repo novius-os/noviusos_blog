@@ -37,7 +37,6 @@ return array(
             'desc'  => '',
             'urlEnhancer' => 'noviusos_blog/front/main',
             'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
-            'previewUrl' => 'admin/noviusos_blog/application/preview',
             'dialog' => array(
                 'contentUrl' => 'admin/noviusos_blog/application/popup',
                 'width' => 450,
