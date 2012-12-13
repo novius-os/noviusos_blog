@@ -1,6 +1,6 @@
 define([
   'jquery-nos-appdesk'
-], function($nos) {
+], function($) {
     "use strict";
     return function(appDesk) {
         return {
