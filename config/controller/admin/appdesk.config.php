@@ -9,4 +9,13 @@
  */
 
 $base = \Config::load('noviusos_blognews::controller/admin/appdesk', true);
+
+$base['i18n'] = array(
+    'item' => __('post'),
+    'items' => __('posts'),
+    'showNbItems' => __('Showing {{x}} posts out of {{y}}'),
+    'showOneItem' => __('Show 1 post'),
+    'showNoItem' => __('No posts'),
+    'showAll' => __('Show all posts'),
+);
 return $base;

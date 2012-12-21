@@ -21,5 +21,35 @@ $base['actions'] = array(
         'label' => __('Delete this post'),
     ),
 );
+$base['i18n'] = array(
+    // Crud
+    'notification item added' => __('Done! The post has been added.'),
+    'notification item deleted' => __('The post has been deleted.'),
+
+    // General errors
+    'notification item does not exist anymore' => __('This post doesn’t exist any more. It has been deleted.'),
+    'notification item not found' => __('We cannot find this post.'),
+
+    // Blank slate
+    'translate error parent not available in context' => __('We’re afraid this post cannot be added in {{context}} because its <a>parent</a> is not available in this context yet.'),
+    'translate error parent not available in language' => __('We’re afraid this post cannot be added in {{language}} because its <a>parent</a> is not available in this language yet.'),
+
+    // Deletion popup
+    'deleting item title' => __('Deleting the post ‘{{title}}’'),
+    'deleting confirmation' => __('Last chance, there’s no undo. Do you really want to delete this post?'),
+
+    # Delete action's labels
+    'deleting button 1 item' => __('Delete this post'),
+
+    '1 item' => __('1 post'),
+    'N items' => __('{{count}} posts'),
+
+    # Keep only if the model has the behaviour Contextable
+    'deleting with N contexts' => __('This post exists in <strong>{{context_count}} contexts</strong>.'),
+    'deleting with N languages' => __('This post exists in <strong>{{language_count}} languages</strong>.'),
+
+    'deleting following contexts' => __('Delete this post in the following contexts:'),
+    'deleting following languages' => __('Delete this post in the following languages:'),
+);
 
 return $base;
