@@ -39,7 +39,7 @@ $base['i18n'] = array(
     'deleting confirmation' => __('Last chance, there’s no undo. Do you really want to delete this post?'),
 
     # Delete action's labels
-    'deleting button 1 item' => __('Delete this post'),
+    'deleting button 1 item' => __('Yes, delete this post'),
 
     '1 item' => __('1 post'),
     'N items' => __('{{count}} posts'),
