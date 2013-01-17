@@ -23,7 +23,7 @@ $base['actions'] = array(
 );
 $base['i18n'] = array(
     // Crud
-    'notification item added' => __('Done! The post has been added.'),
+    'notification item added' => __('All right, your new post has been added.'),
     'notification item deleted' => __('The post has been deleted.'),
 
     // General errors
