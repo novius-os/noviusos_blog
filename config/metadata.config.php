@@ -37,8 +37,8 @@ return array(
             'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
             'dialog' => array(
                 'contentUrl' => 'admin/noviusos_blog/application/popup',
-                'width' => 450,
-                'height' => 450,
+                'width' => 370,
+                'height' => 400,
                 'ajax' => true,
             ),
         ),
