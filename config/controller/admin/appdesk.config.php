@@ -14,8 +14,9 @@ $base['i18n'] = array(
     'item' => __('post'),
     'items' => __('posts'),
     'showNbItems' => __('Showing {{x}} posts out of {{y}}'),
-    'showOneItem' => __('Show 1 post'),
+    'showOneItem' => __('Showing 1 post'),
     'showNoItem' => __('No posts'),
+    // Note to translator: This is the action that clears the 'Search' field
     'showAll' => __('Show all posts'),
 );
 return $base;
