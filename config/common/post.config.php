@@ -12,10 +12,8 @@
 
 $base = \Config::load('noviusos_blognews::common/post', true);
 
-$base['actions'] = array(
-    'Nos\BlogNews\Blog\Model_Post.add' => array(
-        'label' => __('Add a post'),
-    ),
+$base['actions']['list']['add'] = array(
+    'label' => __('Add a post'),
 );
 $base['i18n'] = array(
     // Crud

@@ -11,9 +11,7 @@
 \Nos\I18n::current_dictionary('noviusos_blog::common');
 
 $base = \Config::load('noviusos_blognews::common/category', true);
-$base['actions'] = array(
-    'Nos\\BlogNews\\Blog\\Model_Category.add' => array(
-        'label' => __('Add a category'),
-    ),
+$base['actions']['add'] = array(
+    'label' => __('Add a category'),
 );
 return $base;
