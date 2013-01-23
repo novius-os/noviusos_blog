@@ -8,5 +8,7 @@
  * @link http://www.novius-os.org
  */
 
+\Nos\I18n::current_dictionary('noviusos_blog::common');
+
 $base = \Config::load('noviusos_blognews::controller/admin/category', true);
 return $base;
