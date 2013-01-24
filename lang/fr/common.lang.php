@@ -31,12 +31,6 @@ return array(
     #: config/metadata.config.php:56
     'Add a post' => 'Ajouter un billet',
 
-    #: config/common/post.config.php:18
-    'Edit this post' => 'Modifier ce billet',
-
-    #: config/common/post.config.php:21
-    'Delete this post' => 'Supprimer ce billet',
-
     #. Crud
     #: config/common/post.config.php:26
     'All right, your new post has been added.' => 'Parfait, nouveau billet ajouté.',
