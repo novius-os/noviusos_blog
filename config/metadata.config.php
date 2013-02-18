@@ -69,8 +69,8 @@ return array(
         ),
     ),
     'icons' => array(
-        16 => '/static/apps/noviusos_blog/img/blog-16.png',
-        32 => '/static/apps/noviusos_blog/img/blog-32.png',
-        64 => '/static/apps/noviusos_blog/img/blog-64.png',
+        16 => 'static/apps/noviusos_blog/img/blog-16.png',
+        32 => 'static/apps/noviusos_blog/img/blog-32.png',
+        64 => 'static/apps/noviusos_blog/img/blog-64.png',
     ),
 );
