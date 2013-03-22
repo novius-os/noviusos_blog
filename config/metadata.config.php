@@ -18,6 +18,7 @@ return array(
     'permission' => array(
 
     ),
+    'requires' => array('noviusos_blognews', 'noviusos_comments'),
     'i18n_file' => 'noviusos_blog::metadata',
     'launchers' => array(
         'noviusos_blog' => array(
