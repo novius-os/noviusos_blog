@@ -39,3 +39,14 @@ foreach ($configFiles as $configFile) {
         ), false);
     });
 }
+
+//Add 'blog_posts' relation on Model_User (related posts where the User is the author)
+\Event::register_function('config|noviusos_user::model/user', function(&$config) {
+    $config['has_many']['blog_posts'] = array(
+        'key_from' => 'user_id',
+        'model_to' => 'Nos\BlogNews\Blog\Model_Post',
+        'key_to'   => 'post_author_id',
+    );
+
+    $config['behaviours']['Nos\Orm_Behaviour_Urlenhancer']['enhancers'][] = 'noviusos_blog';
+});
