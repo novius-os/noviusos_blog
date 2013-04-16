@@ -1,6 +1,6 @@
 <?php
 
-// Generated on 09/04/2013 16:13:10
+// Generated on 16/04/2013 19:15:50
 
 // 20 out of 20 messages are translated (100%).
 // 80 out of 80 words are translated (100%).
@@ -29,7 +29,7 @@ return array(
     'Blog' => 'ブログ',
 
     #: config/common/post.config.php:16
-    #: config/metadata.config.php:56
+    #: config/metadata.config.php:57
     'Add a post' => '新規投稿',
 
     #. Crud
