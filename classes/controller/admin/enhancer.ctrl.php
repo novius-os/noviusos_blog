@@ -10,6 +10,7 @@
 
 namespace Nos\BlogNews\Blog;
 
-class Controller_Admin_Application extends \Nos\BlogNews\Controller_Admin_Application
+
+class Controller_Admin_Enhancer extends \Nos\BlogNews\Controller_Admin_Enhancer
 {
 }

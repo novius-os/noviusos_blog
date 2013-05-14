@@ -8,5 +8,5 @@
  * @link http://www.novius-os.org
  */
 
-$base = \Config::load('noviusos_blognews::controller/admin/application', true);
+$base = \Config::load('noviusos_blognews::controller/admin/enhancer', true);
 return $base;
