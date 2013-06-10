@@ -12,9 +12,8 @@
 
 $base = \Config::load('noviusos_blognews::common/post', true);
 
-$base['actions']['list']['add'] = array(
-    'label' => __('Add a post'),
-);
+$base['actions']['list']['add']['label'] = __('Add a post');
+
 $base['i18n'] = array(
     // Crud
     'notification item added' => __('All right, your new post has been added.'),

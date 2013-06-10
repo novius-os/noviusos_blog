@@ -12,6 +12,7 @@
 
 $configFiles = array(
     'config',
+    'permissions',
     'controller/front',
     'controller/admin/appdesk',
     'controller/admin/application',
