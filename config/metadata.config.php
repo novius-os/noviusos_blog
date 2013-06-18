@@ -32,6 +32,18 @@ return array(
         ),
     ),
     'enhancers' => array(
+        'noviusos_blog_home' => array(
+            'title' => 'Links to blog posts (e.g. for side column)',
+            'desc'  => '',
+            'enhancer' => 'noviusos_blog/front/home',
+            'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
+            'dialog' => array(
+                'contentUrl' => 'admin/noviusos_blog/enhancer/popup',
+                'width' => 370,
+                'height' => 410,
+                'ajax' => true,
+            ),
+        ),
         'noviusos_blog' => array(
             'title' => 'Blog',
             'desc'  => '',
