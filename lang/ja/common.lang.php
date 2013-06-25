@@ -1,6 +1,6 @@
 <?php
 
-// Generated on 16/04/2013 19:15:50
+// Generated on 25/06/2013 11:06:52
 
 // 20 out of 20 messages are translated (100%).
 // 80 out of 80 words are translated (100%).
@@ -28,46 +28,46 @@ return array(
     #: config/config.php:12
     'Blog' => 'ブログ',
 
-    #: config/common/post.config.php:16
-    #: config/metadata.config.php:57
+    #: config/common/post.config.php:15
+    #: config/metadata.config.php:69
     'Add a post' => '新規投稿',
 
     #. Crud
-    #: config/common/post.config.php:20
+    #: config/common/post.config.php:19
     'All right, your new post has been added.' => '新しい投稿が追加されました。',
 
-    #: config/common/post.config.php:21
+    #: config/common/post.config.php:20
     'The post has been deleted.' => '投稿が削除されました。',
 
     #. General errors
-    #: config/common/post.config.php:24
+    #: config/common/post.config.php:23
     'This post doesn’t exist any more. It has been deleted.' => 'この投稿は、もう残っていません。削除されました。',
 
-    #: config/common/post.config.php:25
+    #: config/common/post.config.php:24
     'We cannot find this post.' => 'この投稿は見つかりませんでした。',
 
     #. Deletion popup
-    #: config/common/post.config.php:28
+    #: config/common/post.config.php:27
     'Deleting the post ‘{{title}}’' => '投稿 ‘{{title}}’ を削除します',
 
     #. Delete action's labels
-    #: config/common/post.config.php:31
+    #: config/common/post.config.php:30
     'Yes, delete this post' => 'はい、この投稿を削除します',
 
-    #: config/common/post.config.php:32
+    #: config/common/post.config.php:31
     'Yes, delete these {{count}} posts' => 'はい、これら {{count}} 件の投稿を削除します',
 
-    #: config/common/post.config.php:34
+    #: config/common/post.config.php:33
     '1 post' => '1 件の投稿',
 
-    #: config/common/post.config.php:35
+    #: config/common/post.config.php:34
     '{{count}} posts' => '{{count}} 件の投稿',
 
     #. Keep only if the model has the behaviour Contextable
-    #: config/common/post.config.php:38
+    #: config/common/post.config.php:37
     'This post exists in <strong>{{context_count}} contexts</strong>.' => 'この投稿は<strong>{{context_count}}つのコンテキスト</strong>にあります。',
 
-    #: config/common/post.config.php:39
+    #: config/common/post.config.php:38
     'This post exists in <strong>{{language_count}} languages</strong>.' => 'この投稿は <strong>{{language_count}} つの言語</strong>にあります。',
 
     #: config/common/category.config.php:15
