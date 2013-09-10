@@ -7,12 +7,12 @@
  *             http://www.gnu.org/licenses/agpl-3.0.html
  * @link http://www.novius-os.org
  */
-
 \Module::load('noviusos_blognews');
 
 $configFiles = array(
     'config',
     'permissions',
+    'routes',
     'controller/front',
     'controller/admin/appdesk',
     'controller/admin/application',
@@ -32,7 +32,7 @@ $application_name = 'noviusos_blog';
 $icon = 'blog';
 
 foreach ($configFiles as $configFile) {
-    \Event::register_function('config|noviusos_blog::'.$configFile, function(&$config) use ($namespace, $application_name, $icon) {
+    \Event::register_function('config|noviusos_blog::'.$configFile, function(&$config) use ($configFile, $namespace, $application_name, $icon) {
         $config = \Config::placeholderReplace($config, array(
             'namespace' => $namespace,
             'application_name' => $application_name,

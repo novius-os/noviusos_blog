@@ -47,7 +47,8 @@ return array(
         'noviusos_blog' => array(
             'title' => 'Blog',
             'desc'  => '',
-            'urlEnhancer' => 'noviusos_blog/front/main',
+            'urlEnhancer' => 'noviusos_blog/front',
+            'use_routes' => true,
             'iconUrl' => 'static/apps/noviusos_blog/img/blog-16.png',
             'dialog' => array(
                 'contentUrl' => 'admin/noviusos_blog/enhancer/popup',
