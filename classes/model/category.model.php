@@ -20,6 +20,4 @@ class Model_Category extends \Nos\BlogNews\Model_Category
         parent::_init();
         static::$_behaviours['Nos\Orm_Behaviour_Urlenhancer']['enhancers'][] = 'noviusos_blog';
     }
-
 }
-
