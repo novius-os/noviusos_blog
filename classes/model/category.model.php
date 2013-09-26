@@ -22,3 +22,4 @@ class Model_Category extends \Nos\BlogNews\Model_Category
     }
 
 }
+
