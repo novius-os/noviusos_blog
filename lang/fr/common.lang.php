@@ -13,10 +13,10 @@ return array(
     'posts' => 'billets',
 
     #: config/controller/admin/appdesk.config.php:18
-    'Showing {{x}} posts out of {{y}}' => '{{x}} billets sur {{y}} affichés',
-
-    #: config/controller/admin/appdesk.config.php:19
-    'Showing 1 post' => '1 billet affiché',
+    'Showing 1 post out of {{y}}' => array(
+        '1 billet sur {{y}} affiché',
+        '{{x}} billets sur {{y}} affichés',
+    ),
 
     #: config/controller/admin/appdesk.config.php:20
     'No posts' => 'Pas de billet',
@@ -52,23 +52,29 @@ return array(
 
     #. Delete action's labels
     #: config/common/post.config.php:30
-    'Yes, delete this post' => 'Oui, supprimer ce billet',
-
-    #: config/common/post.config.php:31
-    'Yes, delete these {{count}} posts' => 'Oui, supprimer ces {{count}} billets',
+    'Yes, delete this post' => array(
+        0 => 'Oui, supprimer ce billet',
+        1 => 'Oui, supprimer ces {{count}} billets',
+    ),
 
     #: config/common/post.config.php:33
-    '1 post' => '1 billet',
-
-    #: config/common/post.config.php:34
-    '{{count}} posts' => '{{count}} billets',
+    '1 post' => array(
+        0 => '1 billet',
+        1 => '{{count}} billets',
+    ),
 
     #. Keep only if the model has the behaviour Contextable
     #: config/common/post.config.php:37
-    'This post exists in <strong>{{context_count}} contexts</strong>.' => 'Ce billet existe dans <strong>{{context_count}} contextes</strong>.',
+    'This post exists in <strong>one context</strong>.' => array(
+        0 => 'Ce billet existe dans <strong>un contexte</strong>.',
+        1 => 'Ce billet existe dans <strong>{{context_count}} contextes</strong>.',
+    ),
 
     #: config/common/post.config.php:38
-    'This post exists in <strong>{{language_count}} languages</strong>.' => 'Ce billet existe dans <strong>{{language_count}} langues</strong>.',
+    'This post exists in <strong>one language</strong>.' => array(
+        0 => 'Ce billet existe dans <strong>une langue</strong>.',
+        1 => 'Ce billet existe dans <strong>{{language_count}} langues</strong>.',
+    ),
 
     #: config/common/category.config.php:15
     'Add a category' => 'Ajouter une catégorie',
