@@ -1,9 +1,9 @@
 <?php
 
-// Generated on 19/08/2013 18:12:14
+// Generated on 07/11/2013 15:24:52
 
-// 20 out of 20 messages are translated (100%).
-// 80 out of 80 words are translated (100%).
+// 17 out of 17 messages are translated (100%).
+// 70 out of 70 words are translated (100%).
 
 return array(
     #: config/controller/admin/appdesk.config.php:16
@@ -12,17 +12,24 @@ return array(
     #: config/controller/admin/appdesk.config.php:17
     'posts' => 'billets',
 
-    #: config/controller/admin/appdesk.config.php:18
-    'Showing 1 post out of {{y}}' => array(
-        '1 billet sur {{y}} affiché',
-        '{{x}} billets sur {{y}} affichés',
+    #: config/controller/admin/appdesk.config.php:19
+    #: config/common/post.config.php:36
+    '1 post' => array(
+        0 => '1 billet',
+        1 => '{{count}} billets',
     ),
 
-    #: config/controller/admin/appdesk.config.php:20
+    #: config/controller/admin/appdesk.config.php:23
+    'Showing 1 post out of {{y}}' => array(
+        0 => '1 billet sur {{y}} affiché',
+        1 => '{{x}} billets sur {{y}} affichés',
+    ),
+
+    #: config/controller/admin/appdesk.config.php:26
     'No posts' => 'Pas de billet',
 
     #. Note to translator: This is the action that clears the 'Search' field
-    #: config/controller/admin/appdesk.config.php:22
+    #: config/controller/admin/appdesk.config.php:28
     'Show all posts' => 'Afficher tous les billets',
 
     #: config/config.php:12
@@ -50,27 +57,19 @@ return array(
     #: config/common/post.config.php:27
     'Deleting the post ‘{{title}}’' => 'Supprimer le billet «&nbsp;{{title}}&nbsp;»',
 
-    #. Delete action's labels
-    #: config/common/post.config.php:30
+    #: config/common/post.config.php:31
     'Yes, delete this post' => array(
         0 => 'Oui, supprimer ce billet',
         1 => 'Oui, supprimer ces {{count}} billets',
     ),
 
-    #: config/common/post.config.php:33
-    '1 post' => array(
-        0 => '1 billet',
-        1 => '{{count}} billets',
-    ),
-
-    #. Keep only if the model has the behaviour Contextable
-    #: config/common/post.config.php:37
+    #: config/common/post.config.php:42
     'This post exists in <strong>one context</strong>.' => array(
         0 => 'Ce billet existe dans <strong>un contexte</strong>.',
         1 => 'Ce billet existe dans <strong>{{context_count}} contextes</strong>.',
     ),
 
-    #: config/common/post.config.php:38
+    #: config/common/post.config.php:46
     'This post exists in <strong>one language</strong>.' => array(
         0 => 'Ce billet existe dans <strong>une langue</strong>.',
         1 => 'Ce billet existe dans <strong>{{language_count}} langues</strong>.',
