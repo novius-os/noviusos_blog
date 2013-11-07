@@ -17,9 +17,6 @@ return array(
         0 => '{{y}} 件のうち、{{x}} 件を表示しています',
     ),
 
-    #: config/controller/admin/appdesk.config.php:19
-    'Showing 1 post' => '1 件の投稿を表示しています',
-
     #: config/controller/admin/appdesk.config.php:20
     'No posts' => '投稿はありません',
 
