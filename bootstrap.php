@@ -55,8 +55,11 @@ foreach ($configFiles as $configFile) {
 Event::register_function('config|noviusos_comments::api', function (&$config) {
     $blog_config = \Config::application('noviusos_blog');
     if (isset($blog_config['comments']['use_recaptcha'])) {
-        \Log::deprecated('The key "comments.use_recaptcha" in noviusos_blog config file is deprecated, '.
-            'extend noviusos_comments::api configuration file instead.', 'Chiba.2');
+        \Log::deprecated(
+            'The key "comments.use_recaptcha" in noviusos_blog config file is deprecated,
+                extend noviusos_comments::api configuration file instead.',
+            'Chiba.2'
+        );
 
         \Arr::set($config, 'setups.Nos\BlogNews\Blog\Model_Post', array(
             'use_recaptcha' => $blog_config['comments']['use_recaptcha'],
