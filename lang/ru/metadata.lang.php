@@ -6,6 +6,6 @@
 // 1 out of 1 words are translated (100%).
 
 return array(
-    'Blog' => 'ブログ',
+    'Blog' => 'Блог',
 
 );
