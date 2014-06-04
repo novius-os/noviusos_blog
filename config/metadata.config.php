@@ -19,6 +19,7 @@ return array(
 
     ),
     'requires' => array('noviusos_blognews', 'noviusos_comments'),
+    'extends' => array('noviusos_menu'),
     'i18n_file' => 'noviusos_blog::metadata',
     'launchers' => array(
         'noviusos_blog' => array(
