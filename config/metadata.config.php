@@ -10,7 +10,7 @@
 
 return array(
     'name'    => 'Blog',
-    'version' => '4.2 (Dubrovka)',
+    'version' => '5 (Elche)',
     'provider' => array(
         'name' => 'Novius OS',
     ),
