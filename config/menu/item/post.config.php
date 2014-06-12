@@ -57,7 +57,7 @@ return array(
                         'empty' => __('No blog post selected'),
                         'add' => __('Pick a blog post'),
                         'edit' => __('Pick another blog post'),
-                        'delete' => __('Unselect blog post'),
+                        'delete' => __('Un-select this blog post'),
                     ),
                 ),
             ),

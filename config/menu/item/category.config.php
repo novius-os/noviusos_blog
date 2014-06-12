@@ -57,7 +57,7 @@ return array(
                         'empty' => __('No blog category selected'),
                         'add' => __('Pick a blog category'),
                         'edit' => __('Pick another blog category'),
-                        'delete' => __('Unselect blog category'),
+                        'delete' => __('Un-select this blog category'),
                     ),
                 ),
             ),
