@@ -1,9 +1,9 @@
 <?php
 
-// Generated on 03/12/2013 16:22:23
+// Generated on 30/06/2014 14:54:18
 
-// 17 out of 17 messages are translated (100%).
-// 70 out of 70 words are translated (100%).
+// 27 out of 27 messages are translated (100%).
+// 106 out of 106 words are translated (100%).
 
 return array(
     #: config/controller/admin/appdesk.config.php:16
@@ -32,12 +32,12 @@ return array(
     #: config/controller/admin/appdesk.config.php:28
     'Show all posts' => 'Afficher tous les billets',
 
-    #: config/config.php:12
-    'Blog' => 'Blog',
-
+    #: config/metadata.config.php:70
     #: config/common/post.config.php:15
-    #: config/metadata.config.php:69
     'Add a post' => 'Ajouter un billet',
+
+    #: config/common/category.config.php:15
+    'Add a category' => 'Ajouter une catégorie',
 
     #. Crud
     #: config/common/post.config.php:19
@@ -75,7 +75,37 @@ return array(
         1 => 'Ce billet existe dans <strong>{{language_count}} langues</strong>.',
     ),
 
-    #: config/common/category.config.php:15
-    'Add a category' => 'Ajouter une catégorie',
+    #: config/menu/item/category.config.php:46
+    'Blog category:' => 'Catégorie de blog:',
+
+    #: config/menu/item/category.config.php:57
+    'No blog category selected' => 'Aucune catégorie de blog sélectionnée',
+
+    #: config/menu/item/category.config.php:58
+    'Pick a blog category' => 'Choisir une catégorie de blog',
+
+    #: config/menu/item/category.config.php:59
+    'Pick another blog category' => 'Choisir une autre catégorie de blog',
+
+    #: config/menu/item/category.config.php:60
+    'Un-select this blog category' => 'Dé-sélectionner cette catégorie de blog',
+
+    #: config/menu/item/post.config.php:46
+    'Blog post:' => 'Billet de blog:',
+
+    #: config/menu/item/post.config.php:57
+    'No blog post selected' => 'Aucun billet de blog sélectionné',
+
+    #: config/menu/item/post.config.php:58
+    'Pick a blog post' => 'Sélectionner un billet de blog',
+
+    #: config/menu/item/post.config.php:59
+    'Pick another blog post' => 'Choisir un autre billet de blog',
+
+    #: config/menu/item/post.config.php:60
+    'Un-select this blog post' => 'Dé-sélectionner ce billet de blog',
+
+    #: config/config.php:12
+    'Blog' => 'Blog',
 
 );
