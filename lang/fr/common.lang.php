@@ -1,9 +1,9 @@
 <?php
 
-// Generated on 30/06/2014 14:54:18
+// Generated on 07/07/2014 11:51:57
 
-// 27 out of 27 messages are translated (100%).
-// 106 out of 106 words are translated (100%).
+// 29 out of 29 messages are translated (100%).
+// 115 out of 115 words are translated (100%).
 
 return array(
     #: config/controller/admin/appdesk.config.php:16
@@ -74,6 +74,12 @@ return array(
         0 => 'Ce billet existe dans <strong>une langue</strong>.',
         1 => 'Ce billet existe dans <strong>{{language_count}} langues</strong>.',
     ),
+
+    #: config/menu/item/category.config.php:14
+    'Add a blog category link' => 'Ajouter un lien vers une catégorie du blog',
+
+    #: config/menu/item/category.config.php:15
+    'New blog category link' => 'Nouveau lien vers une catégorie du blog',
 
     #: config/menu/item/category.config.php:46
     'Blog category:' => 'Catégorie de blog:',
