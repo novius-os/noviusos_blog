@@ -11,8 +11,8 @@
 return array(
     'name' => 'Blog category',
     'texts' => array(
-        'add' => 'Add a new blog category link',
-        'new' => 'New blog category link',
+        'add' => __('Add a blog category link'),
+        'new' => __('New blog category link'),
     ),
     'icon' => 'static/apps/noviusos_blog/img/category-16.png',
 

@@ -11,7 +11,7 @@
 return array(
     'name' => 'Blog post',
     'texts' => array(
-        'add' => 'Add a new blog post link',
+        'add' => 'Add a blog post link',
         'new' => 'New blog post link',
     ),
     'icon' => 'static/apps/noviusos_blog/img/blog-16.png',
