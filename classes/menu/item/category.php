@@ -10,7 +10,7 @@
 
 namespace Nos\BlogNews\Blog;
 
-use Nos\BlogNews\Model_Category;
+use Nos\BlogNews\Blog\Model_Category;
 use Nos\Menu\Menu_Item_Driver;
 
 class Menu_Item_Category extends Menu_Item_Driver
